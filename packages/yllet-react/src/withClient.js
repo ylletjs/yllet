@@ -18,8 +18,7 @@ const withClient = (Component) => {
      * @return {object}
      */
     render () {
-      const { client } = this.context;
-      return <Component {...this.props} client={client} {...this.context} />;
+      return <Component {...this.props} {...this.context} />;
     }
   };
 };
