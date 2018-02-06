@@ -151,7 +151,7 @@ import Client from 'yllet';
 import { Provider } from 'yllet-react';
 
 const client = new Client({
-  endpoint: 'https://demo.wp-api.org/wp-json/
+  endpoint: 'https://demo.wp-api.org/wp-json/'
 });
 
 ReactDOM.render(
