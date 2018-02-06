@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 import test from 'ava';
 import React from 'react';
 import { shallow, mount, configure } from 'enzyme';
@@ -12,8 +13,13 @@ const Foo = ({ client }) => (
 
 test('has client prop', t => {
   const client = { test: true };
-  const With = Foo;
-  const wrapper = shallow(<Provider client={client}><With/></Provider>).dive();
+  const Connected = withClient(Foo);
+  const wrapper = mount(
+    <Provider client={client}>
+      <Connected />
+    </Provider>
+  );
 
-  t.is(wrapper.contains(<span>Foo</span>), true);
+  t.is(client, wrapper.prop('client'));
+  t.is(true, wrapper.contains(<span>Foo</span>));
 });
