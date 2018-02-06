@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "babel src -d ./lib",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "test": "ava",
     "lint": "semistandard src test"
   },

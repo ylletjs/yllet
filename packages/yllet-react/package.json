@@ -12,7 +12,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d ./lib",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "lint": "semistandard src test",
     "test": "ava"
   },
