@@ -43,7 +43,7 @@ export default class Provider extends React.Component {
 
     invariant(
       props.client,
-      'Wasabi Client was not passed a client instance. Make ' +
+      'Yllet Client was not passed a client instance. Make ' +
         'sure you pass in your client via the "client" prop.',
     );
   }
