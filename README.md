@@ -38,7 +38,7 @@ client.posts().get().then(res => {
 
 ## Client options
 
-```
+```js
 {
   // Basic auth.
   auth: {
