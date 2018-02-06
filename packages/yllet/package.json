@@ -1,0 +1,39 @@
+{
+  "name": "yllet",
+  "version": "1.0.0",
+  "repository": "frozzare/yllet",
+  "description": "JavaScript client for the WordPress REST API",
+  "keywords": [
+    "wordpress",
+    "api",
+    "client"
+  ],
+  "main": "lib/index.js",
+  "devDependencies": {
+    "moxios": "^0.4.0"
+  },
+  "scripts": {
+    "build": "babel src -d ./lib",
+    "prepublish": "npm run build",
+    "test": "ava",
+    "lint": "semistandard src test"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "qs": "^6.5.1",
+    "to-snake-case": "^1.0.0",
+    "url-join": "^4.0.0"
+  },
+  "license": "MIT",
+  "ava": {
+    "babel": {
+      "presets": [
+        "env"
+      ]
+    },
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ]
+  }
+}

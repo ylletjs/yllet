@@ -1,0 +1,4 @@
+*.log
+node_modules
+packages/*/lib/
+packages/*/node_modules/
