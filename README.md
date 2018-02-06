@@ -1,5 +1,7 @@
 # Yllet
 
+[![Build Status](https://travis-ci.org/frozzare/yllet.svg?branch=master)](https://travis-ci.org/frozzare/yllet)
+
 > Work In Progress!
 
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of [axios](https://github.com/axios/axios).
