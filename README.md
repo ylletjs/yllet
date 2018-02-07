@@ -66,6 +66,8 @@ If you need to pass something special to Axios you can use `axios` object. Both 
 
 You can also set headers using `client.header()` with key/value or object.
 
+The Axios instance is accessable on the client instance, just use `client.axios` and then you can use interceptors or something other.
+
 ## Resources
 
 Yllet client instance provides the following basic request methods:
