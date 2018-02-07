@@ -68,6 +68,18 @@ test('custom resource', async t => {
   t.is('Ava', res.data.title.rendered);
 });
 
+test('embed param', async t => {
+  const client = new Client({
+    endpoint: 'http://wordpress.test/wp-json/'
+  });
+
+  t.is(undefined, client.param('_embed'));
+
+  client.embed();
+
+  t.is(true, client.param('_embed'));
+});
+
 test('global params', async t => {
   const client = new Client({
     endpoint: 'http://wordpress.test/wp-json/'

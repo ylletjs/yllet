@@ -131,8 +131,7 @@ export default class Client {
    * @return {Client}
    */
   embed() {
-    this.params['_embed'] = true;
-    return this;
+    return this.param('_embed', true);
   }
 
   /**
