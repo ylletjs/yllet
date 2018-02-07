@@ -121,7 +121,7 @@ client.posts().get({
 You can also set global params using key/value or object:
 
 ```js
-client.param('source', 'ylley');
+client.param('source', 'yllet');
 ```
 
 All global params can be accessed with `client.params`
