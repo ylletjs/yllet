@@ -105,7 +105,7 @@ client.app().get().then(res => {
 
 ## Params
 
-You can pass a object with the same name as as the existing params. You can write `'per_page'` or `perPage` when the param contains a underscore.
+You can pass a object with the same name as as the existing params. You can write `per_page` or `perPage` when the param contains a underscore.
 
 ```js
 client.posts().get({
