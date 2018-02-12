@@ -183,7 +183,7 @@ class App extends React.Component {
 export default withClient(App);
 ```
 
-Then you can use `this.props.client` the same was as if it was a standalone client.
+Then you can use `this.props.client` the same way as if it was a standalone client.
 
 ## License
 
