@@ -130,4 +130,23 @@ test('axios config', async t => {
   });
 
   t.is('text/plain', client.header('Content-Type'));
-})
+});
+
+test('discover rest api', async t => {
+  moxios.stubRequest('http://wordpress.test?rest_route=/', {
+    status: 200,
+    response: {
+      routes: {
+        '/': {
+          _links: {
+            self: 'http://wordpress.test/wp-json/'
+          }
+        }
+      }
+    }
+  });
+
+  const url = await Client.discover('http://wordpress.test/');
+
+  t.is('http://wordpress.test/wp-json/', url);
+});

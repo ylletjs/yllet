@@ -181,6 +181,23 @@ export default class Client {
   }
 
   /**
+   * Discover the REST API from a URL.
+   *
+   * @param  {string} url
+   *
+   * @return {Promise}
+   */
+  static discover(url) {
+    return axios.get(urljoin(url, '?rest_route=/')).then(res => {
+      if (isObject(res.data) && typeof res.data.routes !== 'undefined') {
+        return res.data.routes['/']._links.self;
+      }
+
+      throw new Error( 'Unable to find the REST API');
+    });
+  }
+
+  /**
    * Delete request.
    *
    * @param  {string} path

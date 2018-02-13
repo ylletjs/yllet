@@ -172,6 +172,18 @@ client.media().file(fs.createReadStream('me.jpg')).create({
 });
 ```
 
+## Discover the REST API from a URL
+
+```js
+import Client from 'yllet';
+
+Client.discover('http://demo.wp-api.org/').then(url => {
+  console.log(url);
+}).catch(err => {
+  console.log('Error: ', err);
+});
+```
+
 ## React bindings
 
 Yllets React package contains a provider component that you can use like this:
