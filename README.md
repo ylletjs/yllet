@@ -126,7 +126,7 @@ client.param('source', 'yllet');
 
 All global params can be accessed with `client.params`
 
-## Embed data.
+## Embed data
 
 WordPress API support embedding of resources and instead of having to provide `_embed=true` as a param on every request we can simpley use `embed()` before any request method.
 
