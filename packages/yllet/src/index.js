@@ -150,6 +150,18 @@ export default class Client {
   }
 
   /**
+   * Set Axios config object.
+   *
+   * @param  {object} config
+   *
+   * @return {object}
+   */
+  config(config) {
+    this._config = Object.assign({}, this._config, config);
+    return this;
+  }
+
+  /**
    * Create request.
    *
    * @param  {string} path

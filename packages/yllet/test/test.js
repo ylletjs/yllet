@@ -115,3 +115,19 @@ test('client headers', async t => {
 
   t.is('true', client.header('test'));
 });
+
+test('axios config', async t => {
+  const client = new Client({
+    endpoint: 'http://wordpress.test/wp-json/'
+  });
+
+  t.is(undefined, client.header('Content-Type'));
+
+  client.config({
+    headers: {
+      'Content-Type': 'text/plain'
+    }
+  });
+
+  t.is('text/plain', client.header('Content-Type'));
+})
