@@ -1,5 +1,6 @@
 import axios from 'axios';
 import defaultOptions from './options';
+import FormData from 'form-data';
 import qs from 'qs';
 import urljoin from 'url-join';
 import { isObject, objectKeysToSnakeCase } from './util';
@@ -26,6 +27,20 @@ export default class Client {
    * @var {Axios}
    */
   axios = null;
+
+  /**
+   * Axios config.
+   *
+   * @var {object}
+   */
+  _config = {};
+
+  /**
+   * Predefined data object.
+   *
+   * @var {null|object}
+   */
+  _data = null;
 
   /**
    * Current options.
@@ -95,6 +110,27 @@ export default class Client {
   }
 
   /**
+   * Create request data.
+   *
+   * @param  {object} data
+   *
+   * @return {object}
+   */
+  _createData(data) {
+    if (!isObject(this._data)) {
+      return data;
+    }
+
+    if (typeof this._data.append === 'function') {
+      Object.keys(data).forEach(key => {
+        this._data.append(key, data[key]);
+      });
+    }
+
+    return this._data;
+  }
+
+  /**
    * Create path.
    *
    * @param  {object} params
@@ -123,16 +159,16 @@ export default class Client {
    * @return {Promise}
    */
   create(path, data, params = {}) {
-    return this.axios.post(this._createPath(path, params), data);
-  }
+    if (isObject(path)) {
+      params = data;
+      data = path;
+      path = '';
+    }
 
-  /**
-   * Enable embed mode.
-   *
-   * @return {Client}
-   */
-  embed() {
-    return this.param('_embed', true);
+    console.log(this._createData(data));
+    console.log(this._config);
+
+    return this.axios.post(this._createPath(path, params), this._createData(data), this._config);
   }
 
   /**
@@ -149,7 +185,42 @@ export default class Client {
       path = '';
     }
 
-    return this.axios.delete(this._createPath(path, params));
+    return this.axios.delete(this._createPath(path, params), this._config);
+  }
+
+  /**
+   * Enable embed mode.
+   *
+   * @return {Client}
+   */
+  embed() {
+    return this.param('_embed', true);
+  }
+
+  /**
+   *
+   * Specify a file or a file buffer to attach to the request with a name (optional).
+   *
+   * @param  {string} file
+   * @param  {string} name
+   *
+   * @return {Client}
+   */
+  file(file, name) {
+    if ((typeof name !== 'string' || !name.length) && typeof file === 'string') {
+      name = file.split('/');
+      name = name[name.length - 1];
+    }
+
+    // Create form data.
+    this._data = new FormData();
+    this._data.append('file', file);
+
+    // Append form data headers.
+    this.header(this._data.getHeaders());
+
+    // Create content disposition header.
+    return this.header('Content-Disposition', 'attachment; filename='+name);
   }
 
   /**
@@ -166,21 +237,28 @@ export default class Client {
       path = '';
     }
 
-    return this.axios.get(this._createPath(path, params));
+    return this.axios.get(this._createPath(path, params), this._config);
   }
 
   /**
    * Set a single header or headers object.
    *
    * @param  {object|string} headers
+   * @param  {string} value
    *
-   * @return {Client}
+   * @return {Client|string}
    */
-  headers(headers, value = '') {
-    if (typeof headers === 'string') {
-      this.options[headers] = value;
+  header(key, value = null) {
+    this._config.headers = this._config.headers || {};
+
+    if (typeof key === 'string' && !value) {
+      return this._config.headers[key];
+    }
+
+    if (typeof key === 'string') {
+      this._config.headers[key] = value;
     } else {
-      this.options.headers = Object.assign({}, this.options.headers, headers);
+      this._config.headers = Object.assign({}, this._config.headers, key);
     }
 
     return this;
@@ -242,6 +320,12 @@ export default class Client {
    * @return {Promise}
    */
   update(path, data, params = {}) {
-    return this.axios.post(this._createPath(path, params), data);
+    if (isObject(path)) {
+      params = data;
+      data = path;
+      path = '';
+    }
+
+    return this.axios.post(this._createPath(path, params), this._createData(data), this._config);
   }
 };

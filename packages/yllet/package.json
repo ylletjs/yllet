@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "form-data": "^2.3.1",
     "qs": "^6.5.1",
     "to-snake-case": "^1.0.0",
     "url-join": "^4.0.0"

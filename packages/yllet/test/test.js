@@ -80,7 +80,7 @@ test('embed param', async t => {
   t.is(true, client.param('_embed'));
 });
 
-test('global params', async t => {
+test('client params', async t => {
   const client = new Client({
     endpoint: 'http://wordpress.test/wp-json/'
   });
@@ -96,4 +96,22 @@ test('global params', async t => {
   });
 
   t.is('true', client.param('test'));
+});
+
+test('client headers', async t => {
+  const client = new Client({
+    endpoint: 'http://wordpress.test/wp-json/'
+  });
+
+  t.is(undefined, client.header('Content-Type'));
+
+  client.header('Content-Type', 'text/plain');
+
+  t.is('text/plain', client.header('Content-Type'));
+
+  client.header({
+    test: 'true'
+  });
+
+  t.is('true', client.header('test'));
 });
