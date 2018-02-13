@@ -177,9 +177,6 @@ export default class Client {
       path = '';
     }
 
-    console.log(this._createData(data));
-    console.log(this._config);
-
     return this.axios.post(this._createPath(path, params), this._createData(data), this._config);
   }
 
