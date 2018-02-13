@@ -1,5 +1,5 @@
 import axios from 'axios';
-import options from './options';
+import defaultOptions from './options';
 import qs from 'qs';
 import urljoin from 'url-join';
 import { isObject, objectKeysToSnakeCase } from './util';
@@ -54,7 +54,7 @@ export default class Client {
    * @param {object} opts
    */
   constructor(opts = {}) {
-    this.options = Object.assign({}, options, this.options, opts);
+    this.options = Object.assign({}, defaultOptions, this.options, opts);
     this.axios = this._createAxiosClient();
 
     // Set up predefined resources methods.
@@ -71,8 +71,9 @@ export default class Client {
    * @return {Axios}
    */
   _createAxiosClient() {
+    const auth = Object.assign({}, defaultOptions.auth, this.options.auth);
     const options = Object.assign({}, this.options.axios, {
-      auth: this.options.auth,
+      auth: auth.username.length || auth.password.length ? auth : null,
       baseURL: this._createBaseUrl(),
       headers: this.options.headers,
     });
