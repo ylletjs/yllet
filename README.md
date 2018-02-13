@@ -142,6 +142,36 @@ client.posts().embed().get({
 });
 ```
 
+## File uploading
+
+When Uploading a file you should use `client.file(file, [name])` to specify a file or a file buffer to attach to the request with a name (optional). 
+
+Browser example:
+
+```js
+const file = document.getElementById('my-file').files[0];
+
+client.media().file(file).create({
+  title: 'Test image'
+}).then(res => {
+  console.log(res.data);
+}).catch(err => {
+  console.log('Error: ', err);
+});
+```
+
+Node example:
+
+```js
+client.media().file(fs.createReadStream('me.jpg')).create({
+  title: 'Test image'
+}).then(res => {
+  console.log(res.data);
+}).catch(err => {
+  console.log('Error: ', err);
+});
+```
+
 ## React bindings
 
 Yllets React package contains a provider component that you can use like this:
