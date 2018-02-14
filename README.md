@@ -227,6 +227,21 @@ export default withClient(App);
 
 Then you can use `this.props.client` the same way as if it was a standalone client.
 
+You can also use `withClientData` to pass the response data or the error from WordPress REST API.
+
+```js
+import React from 'react';
+import { withClientData } from 'yllet-react';
+
+class Post extends React.Component {}
+
+export default withClientData(client => {
+  return client.posts().get(1);
+})(Post);
+```
+
+Then you can use `this.props.data` or `this.props.error`
+
 ## License
 
 MIT © [Fredrik Forsmo](https://github.com/frozzare)
