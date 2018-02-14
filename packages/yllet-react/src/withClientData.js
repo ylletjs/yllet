@@ -28,7 +28,7 @@ const withClientData = (fn) => {
        * Fetch data on mount.
        */
       componentDidMount() {
-        fn(this.context.client).then(res => {
+        fn(this.context.client, this.props).then(res => {
           this.setState({
             data: res.data,
             loading: false
