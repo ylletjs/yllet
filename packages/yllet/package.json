@@ -1,6 +1,6 @@
 {
   "name": "yllet",
-  "version": "0.0.1-1",
+  "version": "0.0.1-2",
   "repository": "frozzare/yllet",
   "description": "JavaScript client for the WordPress REST API",
   "keywords": [
