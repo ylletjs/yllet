@@ -29,9 +29,7 @@ test('withClientData', t => {
   const Connected = withClientData(client => {
     return {
       then: (fn) => {
-        fn({
-          data: true
-        });
+        fn(true);
 
         return {
           catch: () => {}

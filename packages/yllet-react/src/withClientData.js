@@ -29,8 +29,14 @@ const withClientData = (fn) => {
        */
       componentDidMount() {
         fn(this.context.client, this.props).then(res => {
+          let data = res.data;
+
+          if (typeof res.status !== 'number') {
+            data = res;
+          }
+
           this.setState({
-            data: res.data,
+            data: data,
             loading: false
           });
         }).catch(err => {
