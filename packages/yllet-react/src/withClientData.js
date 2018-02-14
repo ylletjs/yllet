@@ -29,9 +29,9 @@ const withClientData = (fn) => {
        */
       componentDidMount() {
         fn(this.context.client, this.props).then(res => {
-          let data = res.data;
+          let data = typeof res === 'object' ? res.data : undefined;
 
-          if (typeof res.status !== 'number') {
+          if (typeof data === 'undefined' && typeof res.status !== 'number') {
             data = res;
           }
 
