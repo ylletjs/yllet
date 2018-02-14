@@ -240,7 +240,7 @@ export default withClientData(client => {
 })(Post);
 ```
 
-Then you can use `this.props.data` or `this.props.error`
+Then you can use `this.props.data` or `this.props.error` and `this.props.loading`
 
 ## License
 

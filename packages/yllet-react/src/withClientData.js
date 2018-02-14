@@ -5,6 +5,17 @@ const withClientData = (fn) => {
   return (Component) => {
     return class withClientData extends React.Component {
       /**
+       * Default state.
+       *
+       * @var {object}
+       */
+      state = {
+        data: {},
+        error: null,
+        loading: true
+      };
+
+      /**
        * withClient context types.
        *
        * @var {object}
@@ -19,11 +30,13 @@ const withClientData = (fn) => {
       componentDidMount() {
         fn(this.context.client).then(res => {
           this.setState({
-            data: res.data
+            data: res.data,
+            loading: false
           });
         }).catch(err => {
           this.setState({
-            error: err
+            error: err,
+            loading: false
           });
         })
       }
