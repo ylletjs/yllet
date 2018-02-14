@@ -3,7 +3,7 @@ import test from 'ava';
 import React from 'react';
 import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Provider, withClient } from '../src';
+import { Provider, withClient, withClientData } from '../src';
 
 configure({ adapter: new Adapter() });
 
@@ -21,5 +21,32 @@ test('has client prop', t => {
   );
 
   t.is(client, wrapper.prop('client'));
+  t.is(true, wrapper.contains(<span>Foo</span>));
+});
+
+test('withClientData', t => {
+  const client = { test: true };
+  const Connected = withClientData(client => {
+    return {
+      then: (fn) => {
+        fn({
+          data: true
+        });
+
+        return {
+          catch: () => {}
+        };
+      }
+    };
+  })(Foo);
+
+  const wrapper = mount(
+    <Provider client={client}>
+      <Connected />
+    </Provider>
+  );
+
+  t.is(client, wrapper.prop('client'));
+  t.is(true, wrapper.find('Foo').prop('data'));
   t.is(true, wrapper.contains(<span>Foo</span>));
 });
