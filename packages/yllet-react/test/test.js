@@ -20,7 +20,7 @@ test('has client prop', t => {
     </Provider>
   );
 
-  t.is(client, wrapper.prop('client'));
+  t.is(client, wrapper.find('Foo').prop('client'));
   t.is(true, wrapper.contains(<span>Foo</span>));
 });
 
@@ -46,7 +46,7 @@ test('withClientData', t => {
     </Provider>
   );
 
-  t.is(client, wrapper.prop('client'));
+  t.is(client, wrapper.find('Foo').prop('client'));
   t.is(true, wrapper.find('Foo').prop('data'));
   t.is(true, wrapper.contains(<span>Foo</span>));
 });
