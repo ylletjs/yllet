@@ -10,6 +10,9 @@
     "client"
   ],
   "main": "lib/index.js",
+  "bugs": {
+    "url": "https://github.com/ylletjs/yllet/issues"
+  },
   "devDependencies": {
     "moxios": "^0.4.0"
   },

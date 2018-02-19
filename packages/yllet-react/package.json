@@ -11,6 +11,9 @@
     "react"
   ],
   "main": "lib/index.js",
+  "bugs": {
+    "url": "https://github.com/ylletjs/yllet/issues"
+  },
   "scripts": {
     "build": "babel src -d ./lib",
     "prepare": "npm run build",
