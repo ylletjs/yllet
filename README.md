@@ -1,7 +1,7 @@
 # Yllet
 
 [![npm](https://img.shields.io/npm/v/yllet.svg)](http://npm.im/yllet)
-[![Build Status](https://travis-ci.org/frozzare/yllet.svg?branch=master)](https://travis-ci.org/frozzare/yllet)
+[![Build Status](https://travis-ci.org/ylletjs/yllet.svg?branch=master)](https://travis-ci.org/ylletjs/yllet)
 
 > Work In Progress!
 
