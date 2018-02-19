@@ -91,13 +91,13 @@ Adding custom request methods is easy (example [WooCommerce REST API](https://wo
 
 ```js
 // Example: http://wordpress.test/wp-json/wc/v2/products
-client.wc = () => client.namespace('wc/v2').resource('products');
+client.products = () => client.namespace('wc/v2').resource('products');
 ```
 
-Then you can just call `client.wc()` like you do with `client.posts()`:
+Then you can just call `client.products()` like you do with `client.posts()`:
 
 ```js
-client.wc().get().then(res => {
+client.products().get().then(res => {
   console.log(res.data);
 }).catch(err => {
   console.log('Error: ' + err.message);
