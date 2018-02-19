@@ -20,7 +20,14 @@ export const isObject = (obj) => {
  */
 export const objectKeysToSnakeCase = (obj) => {
   return Object.keys(obj).reduce((previous, current) => {
-    previous[toSnakeCase(current)] = obj[current];
+    if (isObject(obj[current])) {
+      obj[current] = objectKeysToSnakeCase(obj[current]);
+    } if (obj[current] instanceof Array) {
+      previous[toSnakeCase(current)] = obj[current].map(objectKeysToSnakeCase);
+    } else {
+      previous[toSnakeCase(current)] = obj[current];
+    }
+
     return previous;
   }, {});
-}
+};
