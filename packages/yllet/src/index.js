@@ -1,9 +1,9 @@
 import axios from 'axios';
 import defaultOptions from './options';
 import FormData from 'form-data';
-import qs from 'qs';
 import urljoin from 'url-join';
 import { isObject, objectKeysToSnakeCase } from './util';
+import deepExtend from 'deep-extend';
 
 // Predefined resources.
 const RESOURCES = [
@@ -69,7 +69,7 @@ export default class Client {
    * @param {object} opts
    */
   constructor(opts = {}) {
-    this.options = Object.assign({}, defaultOptions, this.options, opts);
+    this.options = deepExtend(defaultOptions, opts);
     this.axios = this._createAxiosClient();
 
     // Set up predefined resources methods.
@@ -87,7 +87,7 @@ export default class Client {
    */
   _createAxiosClient() {
     const auth = Object.assign({}, defaultOptions.auth, this.options.auth);
-    const options = Object.assign({}, this.options.axios, {
+    const options = deepExtend(this.options.axios, {
       auth: auth.username.length || auth.password.length ? auth : null,
       baseURL: this._createBaseUrl(),
       headers: this.options.headers,
@@ -99,11 +99,9 @@ export default class Client {
   /**
    * Create base url.
    *
-   * @param  {object} params
-   *
    * @return {string}
    */
-  _createBaseUrl(params = {}) {
+  _createBaseUrl() {
     const namespace = this.options.namespace;
     const endpoint = this.options.endpoint.replace(namespace, '');
     return endpoint;
@@ -133,20 +131,15 @@ export default class Client {
   /**
    * Create path.
    *
-   * @param  {object} params
+   * @param  {string} path
    *
    * @return {string}
    */
-  _createPath(path, params = {}) {
+  _createPath(path) {
     path = path ? path : '';
     path = typeof path === 'string' ? path : path.toString();
-    params = Object.assign({}, this.params, params);
-    params = objectKeysToSnakeCase(params);
 
-    let querys = qs.stringify(params);
-    querys = querys.length ? '?' + querys : '';
-
-    return urljoin(this.options.namespace, this.path, path, querys);
+    return urljoin(this.options.namespace, this.path, path);
   }
 
   /**
@@ -157,7 +150,7 @@ export default class Client {
    * @return {object}
    */
   config(config) {
-    this._config = Object.assign({}, this._config, config);
+    this._config = deepExtend(this._config, config);
     return this;
   }
 
@@ -177,7 +170,11 @@ export default class Client {
       path = '';
     }
 
-    return this.axios.post(this._createPath(path, params), this._createData(data), this._config);
+    this.config({
+      params: params
+    });
+
+    return this.axios.post(this._createPath(path), this._createData(data), this._config);
   }
 
   /**
@@ -211,7 +208,11 @@ export default class Client {
       path = '';
     }
 
-    return this.axios.delete(this._createPath(path, params), this._config);
+    this.config({
+      params: params
+    });
+
+    return this.axios.delete(this._createPath(path), this._config);
   }
 
   /**
@@ -263,7 +264,11 @@ export default class Client {
       path = '';
     }
 
-    return this.axios.get(this._createPath(path, params), this._config);
+    this.config({
+      params: params
+    });
+
+    return this.axios.get(this._createPath(path), this._config);
   }
 
   /**
@@ -352,6 +357,10 @@ export default class Client {
       path = '';
     }
 
-    return this.axios.post(this._createPath(path, params), this._createData(data), this._config);
+    this.config({
+      params: params
+    });
+
+    return this.axios.post(this._createPath(path), this._createData(data), this._config);
   }
 };

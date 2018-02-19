@@ -26,14 +26,15 @@ test('get post', async t => {
   t.is('Hello, world', res.data.title.rendered);
 });
 
-test('update post', async t => {
+test('update post with params', async t => {
   const client = new Client({
     endpoint: 'http://wordpress.test/wp-json/'
   });
 
-  moxios.stubRequest('http://wordpress.test/wp-json/wp/v2/posts/2', {
+  moxios.stubRequest('http://wordpress.test/wp-json/wp/v2/posts/2?slug=hello-world-2', {
     status: 200,
     response: Object.assign({}, post, {
+      slug: 'hello-world-2',
       title: {
         rendered: 'Hello, world 2'
       }
@@ -42,9 +43,33 @@ test('update post', async t => {
 
   const res = await client.update('posts/2', {
     title: 'Hello, world 2'
+  }, {
+    slug: 'hello-world-2'
   });
 
   t.is('Hello, world 2', res.data.title.rendered);
+});
+
+test('get post with params', async t => {
+  const client = new Client({
+    endpoint: 'http://wordpress.test/wp-json/'
+  });
+
+  moxios.stubRequest('http://wordpress.test/wp-json/wp/v2/posts/3?slug=hello-world-3', {
+    status: 200,
+    response: Object.assign({}, post, {
+      slug: 'hello-world-3',
+      title: {
+        rendered: 'Hello, world 3'
+      }
+    })
+  });
+
+  const res = await client.get('posts/3', {
+    slug: 'hello-world-3'
+  });
+
+  t.is('Hello, world 3', res.data.title.rendered);
 });
 
 test('custom resource', async t => {
