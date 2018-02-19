@@ -49,7 +49,7 @@ git pull [--rebase] upstream master
 git push origin <topic-branch-name>
 ```
 
-* [Open a Pull Request](https://help.github.com/articles/using-pull-requests/) with a clear title and description against the `master` branch or against the stable branch if it's a bug fix that effects the current version.
+* [Open a Pull Request](https://help.github.com/articles/using-pull-requests/) with a clear title and description against the `master` branch.
 
 **Note:**
 If you are making several changes at once please divide them into multiple pull requests.
