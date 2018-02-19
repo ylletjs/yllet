@@ -87,17 +87,17 @@ Yllet client instance provides the following basic request methods:
 
 Using any request methods sets the path so you don't have to write `client.get('posts/1')` each time instead you can just write `client.posts().get(1)`
 
-Adding custom request methods is easy:
+Adding custom request methods is easy (example [WooCommerce REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/)):
 
 ```js
-// Example: http://wordpress.test/wp-json/app/v1/posts/
-client.app = () => client.namespace('app/v1').resource('posts');
+// Example: http://wordpress.test/wp-json/wc/v2/products
+client.wc = () => client.namespace('wc/v2').resource('products');
 ```
 
-Then you can just call `client.app()` like you do with `client.posts()`:
+Then you can just call `client.wc()` like you do with `client.posts()`:
 
 ```js
-client.app().get().then(res => {
+client.wc().get().then(res => {
   console.log(res.data);
 }).catch(err => {
   console.log('Error: ' + err.message);
