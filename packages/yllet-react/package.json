@@ -3,6 +3,7 @@
   "version": "0.0.1-5",
   "repository": "frozzare/yllet",
   "description": "React bindings for Yllet",
+  "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "keywords": [
     "wordpress",
     "api",
