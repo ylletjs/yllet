@@ -87,7 +87,7 @@ export default class Client {
    */
   _createAxiosClient() {
     const auth = Object.assign({}, defaultOptions.auth, this.options.auth);
-    const options = deepExtend(this.options.axios, {
+    const options = deepExtend({}, this.options.axios, {
       auth: auth.username.length || auth.password.length ? auth : null,
       baseURL: this._createBaseUrl(),
       headers: this.options.headers,
@@ -150,7 +150,7 @@ export default class Client {
    * @return {object}
    */
   config(config) {
-    this._config = deepExtend(this._config, config);
+    this._config = deepExtend({}, this._config, config);
     return this;
   }
 
