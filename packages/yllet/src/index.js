@@ -151,7 +151,11 @@ export default class Client {
    */
   config(config) {
     this._config = deepExtend({}, this._config, config);
-    this._config.params = objectKeysToSnakeCase(this._config.params || {});
+
+    if (isObject(this._config.params)) {
+      this._config.params = objectKeysToSnakeCase(this._config.params);
+    }
+
     return this;
   }
 
