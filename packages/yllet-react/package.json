@@ -1,7 +1,7 @@
 {
   "name": "yllet-react",
   "version": "0.0.1-5",
-  "repository": "frozzare/yllet",
+  "repository": "ylletjs/yllet",
   "description": "React bindings for Yllet",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "keywords": [
