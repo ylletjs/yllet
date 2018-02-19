@@ -94,7 +94,7 @@ Adding custom request methods is easy (example [WooCommerce REST API](https://wo
 client.products = () => client.namespace('wc/v2').resource('products');
 ```
 
-Then you can just call `client.products()` like you do with `client.posts()`:
+Then you can just call `client.products()` like you do with `client.posts()`
 
 ```js
 client.products().get().then(res => {
