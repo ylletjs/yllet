@@ -1,5 +1,7 @@
 # Yllet
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ylletjs/yllet.svg)](https://greenkeeper.io/)
+
 [![npm](https://img.shields.io/npm/v/yllet.svg)](http://npm.im/yllet)
 [![Build Status](https://travis-ci.org/ylletjs/yllet.svg?branch=master)](https://travis-ci.org/ylletjs/yllet)
 
