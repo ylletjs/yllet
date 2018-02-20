@@ -215,13 +215,7 @@ In your application component you can use the `withClient` component enhancer to
 import React from 'react';
 import { withClient } from 'yllet-react';
 
-class App extends React.Component {
-  render() {
-    return (
-      <p>Hello, world</p>
-    );
-  }
-}
+class App extends React.Component {}
 
 export default withClient(App);
 ```
