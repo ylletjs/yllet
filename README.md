@@ -230,7 +230,7 @@ import { withClientData } from 'yllet-react';
 
 class Post extends React.Component {}
 
-export default withClientData(client => {
+export default withClientData((client, props) => {
   return client.posts().get(1);
 })(Post);
 ```
