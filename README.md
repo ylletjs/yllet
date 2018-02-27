@@ -237,6 +237,10 @@ export default withClientData((client, props) => {
 
 Then you can use `this.props.data` or `this.props.error` and `this.props.loading`
 
+## Contributing
+
+We'd love to have your helping hand on yllet! See [CONTRIBUTING.md](https://github.com/ylletjs/yllet/blob/master/CONTRIBUTING.md) for more information.
+
 ## License
 
 MIT © [Fredrik Forsmo](https://github.com/frozzare)
