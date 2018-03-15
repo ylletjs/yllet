@@ -3,8 +3,6 @@
 [![npm](https://img.shields.io/npm/v/yllet.svg)](http://npm.im/yllet)
 [![Build Status](https://travis-ci.org/ylletjs/yllet.svg?branch=master)](https://travis-ci.org/ylletjs/yllet)
 
-> Work In Progress!
-
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of [axios](https://github.com/axios/axios).
 
 ## Installation
