@@ -22,18 +22,18 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "invariant": "^2.2.2",
-    "prop-types": "^15.6.0",
-    "qs": "^6.5.1",
-    "react": "^16.2.0",
+    "invariant": "^2.2.4",
+    "prop-types": "^15.6.2",
+    "qs": "^6.5.2",
+    "react": "^16.4.2",
     "url-join": "^4.0.0"
   },
   "devDependencies": {
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
     "jsdom": "11.6.2",
     "jsdom-global": "3.0.2",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.4.2"
   },
   "license": "MIT",
   "ava": {
