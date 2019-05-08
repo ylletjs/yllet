@@ -21,19 +21,19 @@
     "test": "ava"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.18.0",
     "invariant": "^2.2.4",
-    "prop-types": "^15.6.2",
-    "qs": "^6.5.2",
-    "react": "^16.4.2",
+    "prop-types": "^15.7.2",
+    "qs": "^6.7.0",
+    "react": "^16.8.6",
     "url-join": "^4.0.0"
   },
   "devDependencies": {
-    "enzyme": "^3.4.4",
-    "enzyme-adapter-react-16": "^1.2.0",
-    "jsdom": "11.6.2",
-    "jsdom-global": "3.0.2",
-    "react-dom": "^16.4.2"
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "jsdom": "^15.0.0",
+    "jsdom-global": "^3.0.2",
+    "react-dom": "^16.8.6"
   },
   "license": "MIT",
   "ava": {
