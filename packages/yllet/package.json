@@ -23,9 +23,9 @@
     "lint": "semistandard src test"
   },
   "dependencies": {
-    "axios": "^0.17.1",
-    "deep-extend": "^0.5.1",
-    "form-data": "^2.3.2",
+    "axios": "^0.18.0",
+    "deep-extend": "^0.6.0",
+    "form-data": "^2.3.3",
     "to-snake-case": "^1.0.0",
     "url-join": "^4.0.0"
   },
