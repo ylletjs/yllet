@@ -1,14 +1,14 @@
 {
-  "name": "yllet-react",
+  "name": "yllet-vue",
   "version": "1.0.2",
   "repository": "ylletjs/yllet",
-  "description": "React bindings for Yllet",
+  "description": "Vue bindings for Yllet",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "keywords": [
     "wordpress",
     "api",
     "client",
-    "react"
+    "vue"
   ],
   "main": "lib/index.js",
   "bugs": {
@@ -21,24 +21,14 @@
     "test": "ava"
   },
   "dependencies": {
-    "invariant": "^2.2.4",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
     "yllet": "^1.0.2"
   },
-  "devDependencies": {
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
-    "jsdom": "^15.0.0",
-    "jsdom-global": "^3.0.2",
-    "react-dom": "^16.8.6"
-  },
+  "devDependencies": {},
   "license": "MIT",
   "ava": {
     "babel": {
       "presets": [
-        "env",
-        "react"
+        "env"
       ]
     },
     "require": [
