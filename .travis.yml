@@ -8,6 +8,4 @@ cache:
   - node_modules
 install:
   - npm install
-before_script:
-  - npm install -g lerna
 script: npm run test
