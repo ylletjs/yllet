@@ -1,25 +1,36 @@
 {
+  "name": "ylletRoot",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
-    "ava": "^0.25.0",
-    "babel-cli": "^6.26.0",
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
     "babel-eslint": "^10.0.3",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "lerna": "^3.18.3",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "jest-haste-map": "^24.9.0",
+    "jest-resolve": "^24.9.0",
+    "jest-styled-components": "^6.3.3",
+    "lerna": "^3.18.4",
+    "react-test-renderer": "^16.11.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.26.3",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "semistandard": "^14.2.0"
   },
   "scripts": {
+    "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "lerna run build",
+    "start": "lerna run start",
     "lint": "lerna run lint",
-    "test": "lerna run test",
+    "test": "jest --no-cache",
     "postinstall": "lerna bootstrap"
   },
   "semistandard": {
