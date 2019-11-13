@@ -1,0 +1,38 @@
+{
+  "name": "@yllet/transport-fetch",
+  "version": "1.0.2",
+  "repository": "ylletjs/yllet",
+  "description": "Simple fetch http client transport",
+  "author": "Andrew McLagan <andrew.mclagan@gmail.com>",
+  "keywords": [
+    "wordpress",
+    "fetch",
+    "api",
+    "client"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es"
+  ],
+  "bugs": {
+    "url": "https://github.com/ylletjs/yllet/issues"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "npm run clean && npm run build",
+    "test": "NODE_ENV=test jest --no-cache",
+    "lint": "semistandard src test"
+  },
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "query-string": "5"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "jest-fetch-mock": "^2.1.2"
+  }
+}

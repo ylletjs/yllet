@@ -1,17 +1,12 @@
-import 'jsdom-global/register';
-import test from 'ava';
 import React from 'react';
-import { shallow, mount, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { Provider, withClient, withClientData } from '../src';
-
-configure({ adapter: new Adapter() });
+import { mount } from 'enzyme';
+import { Provider, withClient, withClientData } from '../';
 
 const Foo = ({ client }) => (
   <span>Foo</span>
 );
 
-test('has client prop', t => {
+test('has client prop', () => {
   const client = { test: true };
   const Connected = withClient(Foo);
   const wrapper = mount(
@@ -20,11 +15,11 @@ test('has client prop', t => {
     </Provider>
   );
 
-  t.is(client, wrapper.find('Foo').prop('client'));
-  t.is(true, wrapper.contains(<span>Foo</span>));
+  expect(wrapper.find('Foo').prop('client')).toBe(client);
+  expect(wrapper.contains(<span>Foo</span>)).toBe(true);
 });
 
-test('withClientData', t => {
+test('withClientData', () => {
   const client = { test: true };
   const Connected = withClientData(client => {
     return {
@@ -44,7 +39,7 @@ test('withClientData', t => {
     </Provider>
   );
 
-  t.is(client, wrapper.find('Foo').prop('client'));
-  t.is(true, wrapper.find('Foo').prop('data'));
-  t.is(true, wrapper.contains(<span>Foo</span>));
+  expect(wrapper.find('Foo').prop('client')).toBe(client);
+  expect(wrapper.find('Foo').prop('data')).toBe(true);
+  expect(wrapper.contains(<span>Foo</span>)).toBe(true);
 });

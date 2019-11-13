@@ -1,4 +1,3 @@
-import axios from 'axios';
 import defaultOptions from './options';
 import FormData from 'form-data';
 import urljoin from 'url-join';
@@ -22,14 +21,14 @@ const RESOURCES = [
 
 export default class Client {
   /**
-   * Axios client.
+   * Transport layer.
    *
-   * @var {Axios}
+   * @var {Transport}
    */
-  axios = null;
+  transport = null;
 
   /**
-   * Axios config.
+   * Transport config.
    *
    * @var {object}
    */
@@ -69,8 +68,10 @@ export default class Client {
    * @param {object} opts
    */
   constructor(opts = {}) {
+    this.transport = opts.transport;
+    delete opts.transport;
+
     this.options = deepExtend(defaultOptions, opts);
-    this.axios = this._createAxiosClient();
 
     // Set up predefined resources methods.
     RESOURCES.forEach(method => {
@@ -78,22 +79,6 @@ export default class Client {
         return this.resource(method);
       };
     });
-  }
-
-  /**
-   * Create axios client.
-   *
-   * @return {Axios}
-   */
-  _createAxiosClient() {
-    const auth = Object.assign({}, defaultOptions.auth, this.options.auth);
-    const options = deepExtend({}, this.options.axios, {
-      auth: auth.username.length || auth.password.length ? auth : null,
-      baseURL: this._createBaseUrl(),
-      headers: this.options.headers,
-    });
-
-    return axios.create(options);
   }
 
   /**
@@ -115,14 +100,14 @@ export default class Client {
    * @return {object}
    */
   _createData(data) {
-    if (!isObject(this._data)) {
-      return data;
-    }
+    data = objectKeysToSnakeCase(data);
 
-    if (typeof this._data.append === 'function') {
-      Object.keys(data).forEach(key => {
-        this._data.append(key, data[key]);
+    if (this._data instanceof FormData) {
+      Object.keys(parsed).forEach(key => {
+        this._data.append(key, parsed[key]);
       });
+    } else {
+      this._data = data;
     }
 
     return this._data;
@@ -139,11 +124,11 @@ export default class Client {
     path = path ? path : '';
     path = typeof path === 'string' ? path : path.toString();
 
-    return urljoin(this.options.namespace, this.path, path);
+    return urljoin(this._createBaseUrl(), this.options.namespace, this.path, path);
   }
 
   /**
-   * Set Axios config object.
+   * Set Transport config object.
    *
    * @param  {object} config
    *
@@ -151,11 +136,6 @@ export default class Client {
    */
   config(config) {
     this._config = deepExtend({}, this._config, config);
-
-    if (isObject(this._config.params)) {
-      this._config.params = objectKeysToSnakeCase(this._config.params);
-    }
-
     return this;
   }
 
@@ -164,22 +144,16 @@ export default class Client {
    *
    * @param  {string} path
    * @param  {object} data
-   * @param  {object} params
    *
    * @return {Promise}
    */
-  create(path, data, params = {}) {
+  create(path, data) {
     if (isObject(path)) {
-      params = data;
       data = path;
       path = '';
     }
 
-    this.config({
-      params: params
-    });
-
-    return this.axios.post(this._createPath(path), this._createData(data), this._config);
+    return this.transport.post(this._createPath(path), this._createData(data), this._config);
   }
 
   /**
@@ -189,13 +163,12 @@ export default class Client {
    *
    * @return {Promise}
    */
-  static discover(url) {
-    return axios.get(urljoin(url, '?rest_route=/')).then(res => {
-      if (isObject(res.data) && typeof res.data.routes !== 'undefined') {
-        return res.data.routes['/']._links.self;
+  discover(url) {
+    return this.transport.get(url, { rest_route: '/' }).then(response => {
+      if (isObject(response.routes)) {
+        return response.routes['/']._links.self;
       }
-
-      throw new Error( 'Unable to find the REST API');
+      throw new Error('Unable to find the REST API');
     });
   }
 
@@ -203,21 +176,11 @@ export default class Client {
    * Delete request.
    *
    * @param  {string} path
-   * @param  {object} params
    *
    * @return {Promise}
    */
-  delete(path, params = {}) {
-    if (isObject(path)) {
-      params = path;
-      path = '';
-    }
-
-    this.config({
-      params: params
-    });
-
-    return this.axios.delete(this._createPath(path), this._config);
+  delete(path) {
+    return this.transport.delete(this._createPath(path), {}, this._config);
   }
 
   /**

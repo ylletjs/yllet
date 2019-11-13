@@ -1,5 +1,5 @@
 {
-  "name": "yllet-react",
+  "name": "@yllet/react",
   "version": "1.0.2",
   "repository": "ylletjs/yllet",
   "description": "React bindings for Yllet",
@@ -11,14 +11,21 @@
     "react"
   ],
   "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es"
+  ],
   "bugs": {
     "url": "https://github.com/ylletjs/yllet/issues"
   },
   "scripts": {
-    "build": "babel src -d ./lib",
-    "prepare": "npm run build",
+    "clean": "rimraf lib",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "npm run clean && npm run build",
     "lint": "semistandard src test",
-    "test": "ava"
+    "test": "NODE_ENV=test jest --no-cache"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -31,21 +38,7 @@
   "devDependencies": {
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
-    "jsdom": "^15.0.0",
-    "jsdom-global": "^3.0.2",
     "react-dom": "^16.8.6"
   },
-  "license": "MIT",
-  "ava": {
-    "babel": {
-      "presets": [
-        "env",
-        "react"
-      ]
-    },
-    "require": [
-      "babel-register",
-      "babel-polyfill"
-    ]
-  }
+  "license": "MIT"
 }

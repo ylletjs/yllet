@@ -1,5 +1,5 @@
 {
-  "name": "yllet",
+  "name": "@yllet/core",
   "version": "1.0.2",
   "repository": "ylletjs/yllet",
   "description": "JavaScript client for the WordPress REST API",
@@ -10,35 +10,31 @@
     "client"
   ],
   "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es"
+  ],
   "bugs": {
     "url": "https://github.com/ylletjs/yllet/issues"
   },
-  "devDependencies": {
-    "moxios": "^0.4.0"
-  },
   "scripts": {
-    "build": "babel src -d ./lib",
-    "prepare": "npm run build",
-    "test": "ava",
+    "clean": "rimraf lib",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "npm run clean && npm run build",
+    "test": "NODE_ENV=test jest --no-cache",
     "lint": "semistandard src test"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "base-64": "^0.1.0",
     "deep-extend": "^0.6.0",
     "form-data": "^2.3.3",
     "to-snake-case": "^1.0.0",
     "url-join": "^4.0.0"
   },
   "license": "MIT",
-  "ava": {
-    "babel": {
-      "presets": [
-        "env"
-      ]
-    },
-    "require": [
-      "babel-register",
-      "babel-polyfill"
-    ]
+  "devDependencies": {
+    "jest-fetch-mock": "^2.1.2"
   }
 }
