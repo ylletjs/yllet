@@ -23,7 +23,7 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepare": "yarn clean && yarn build",
-    "preversion": "yarn prepare && yarn test",
+    "preversion": "yarn prepare",
     "test": "NODE_ENV=test jest --no-cache",
     "lint": "semistandard src test"
   },
