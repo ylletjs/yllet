@@ -1,5 +1,5 @@
 {
-  "name": "ylletRoot",
+  "name": "yllet",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -36,6 +36,5 @@
   },
   "semistandard": {
     "parser": "babel-eslint"
-  },
-  "version": "2.0.0-alpha.1"
+  }
 }
