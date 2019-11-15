@@ -1,6 +1,6 @@
 {
   "name": "@yllet/transport-fetch",
-  "version": "0.0.0",
+  "version": "2.0.0-alpha.1",
   "repository": "ylletjs/yllet",
   "description": "Simple fetch http client transport",
   "author": "Andrew McLagan <andrew.mclagan@gmail.com>",
@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
-    "querystringify": "^2.1.1",
-    "form-data": "^3.0.0"
+    "form-data": "^3.0.0",
+    "querystringify": "^2.1.1"
   },
   "license": "MIT",
   "devDependencies": {
