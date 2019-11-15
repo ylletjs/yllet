@@ -11,8 +11,8 @@
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
-    "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
+    "codecov": "^3.6.1",
     "jest": "^24.9.0",
     "jest-haste-map": "^24.9.0",
     "jest-resolve": "^24.9.0",
@@ -29,12 +29,8 @@
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "lerna run build",
     "start": "lerna run start",
-    "lint": "lerna run lint",
     "test": "jest --no-cache",
     "test:coverage": "jest --coverage",
     "postinstall": "lerna bootstrap"
-  },
-  "semistandard": {
-    "parser": "babel-eslint"
   }
 }

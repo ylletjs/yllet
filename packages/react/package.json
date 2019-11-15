@@ -25,7 +25,6 @@
     "start": "rollup -c -w",
     "prepare": "yarn clean && yarn build",
     "preversion": "yarn prepare",
-    "lint": "semistandard src test",
     "test": "jest"
   },
   "dependencies": {

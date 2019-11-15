@@ -24,8 +24,7 @@
     "start": "rollup -c -w",
     "prepare": "yarn clean && yarn build",
     "preversion": "yarn prepare",
-    "test": "jest",
-    "lint": "semistandard src test"
+    "test": "jest"
   },
   "dependencies": {
     "deep-extend": "^0.6.0",

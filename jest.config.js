@@ -4,7 +4,6 @@ module.exports = {
   projects: ["<rootDir>/packages/*/jest.config.js"],
   testPathIgnorePatterns: ["<rootDir>/packages/(?:.+?)/lib/"],
   coveragePathIgnorePatterns: ["<rootDir>/packages/(?:.+?)/lib/"],
-  coverageReporters: ["html", "text"],
   coverageThreshold: {
     global: {
       branches: 95,

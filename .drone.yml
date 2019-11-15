@@ -36,10 +36,11 @@ steps:
     depends_on:
       - install-dependancies
 
-  - name: noop
+  - name: coverage
     image: node:alpine
     commands:
-      - echo "success"
+      - yarn test:coverage
+      - ./node_modules/.bin/codecov
     depends_on:
       - node-10
       - node-11
