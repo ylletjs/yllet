@@ -1,7 +1,9 @@
 # Yllet
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)]
 [![npm](https://img.shields.io/npm/v/yllet.svg)](http://npm.im/yllet)
-[![Build Status](https://travis-ci.org/ylletjs/yllet.svg?branch=master)](https://travis-ci.org/ylletjs/yllet)
+[![Build Status](https://cloud.drone.io/api/badges/beam-australia/yllet/status.svg?ref=refs/heads/transports)](https://cloud.drone.io/beam-australia/yllet)
+[![Coverage Status](https://img.shields.io/codecov/c/github/mui-org/material-ui/master.svg)](https://codecov.io/gh/mui-org/material-ui/branch/master)
 
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of [axios](https://github.com/axios/axios).
 

@@ -1,0 +1,31 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: node-10
+    image: node:10-alpine
+    commands:
+      - yarn install
+      - yarn test
+
+  - name: node-11
+    image: node:11-alpine
+    commands:
+      - yarn install
+      - yarn test
+
+  - name: node-12
+    image: node:12-alpine
+    commands:
+      - yarn install
+      - yarn test
+
+  - name: node-13
+    image: node:12-alpine
+    commands:
+      - yarn install
+      - yarn test
+    depends_on:
+      - node-10
+      - node-11
+      - node-12
