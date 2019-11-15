@@ -29,7 +29,6 @@
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "lerna run build",
     "start": "lerna run start",
-    "version": "lerna run version",
     "lint": "lerna run lint",
     "test": "jest --no-cache",
     "postinstall": "lerna bootstrap"
