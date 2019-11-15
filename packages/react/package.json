@@ -23,7 +23,8 @@
     "clean": "rimraf lib",
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "prepare": "npm run clean && npm run build",
+    "prepare": "yarn clean && yarn build",
+    "preversion": "yarn prepare && yarn test",
     "lint": "semistandard src test",
     "test": "NODE_ENV=test jest --no-cache"
   },
