@@ -1,0 +1,36 @@
+{
+  "name": "@yllet/transport-ky",
+  "version": "2.0.0-alpha.1",
+  "repository": "ylletjs/yllet",
+  "description": "yllet ky transport layer",
+  "author": "Andrew McLagan <andrew.mclagan@gmail.com>",
+  "keywords": [
+    "wordpress",
+    "fetch",
+    "api",
+    "client"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es"
+  ],
+  "bugs": {
+    "url": "https://github.com/ylletjs/yllet/issues"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "yarn clean && yarn build",
+    "preversion": "yarn prepare",
+    "test": "NODE_ENV=test jest --no-cache",
+    "lint": "semistandard src test"
+  },
+  "dependencies": {},
+  "license": "MIT",
+  "devDependencies": {
+    "jest-fetch-mock": "^2.1.2"
+  }
+}
