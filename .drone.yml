@@ -36,12 +36,6 @@ steps:
     depends_on:
       - install-dependancies
 
-  - name: install-dependancies
-    image: node:alpine
-    commands:
-      - yarn install
-      - yarn test  
-
   - name: coverage-build
     image: node:alpine
     commands:
