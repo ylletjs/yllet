@@ -1,22 +1,29 @@
-import defaultOptions from './options';
-import FormData from 'form-data';
-import urljoin from 'url-join';
-import { isObject, objectKeysToSnakeCase } from './util';
-import deepExtend from 'deep-extend';
+import FormData from "form-data";
+import urljoin from "url-join";
+import merge from "deep-extend";
+import { isObject, objectKeysToSnakeCase } from "./util";
 
-// Predefined resources.
+// HTTP methods map.
+const METHODS = {
+  get: "get",
+  create: "post",
+  update: "patch",
+  delete: "delete"
+};
+
+// API resources.
 const RESOURCES = [
-  'categories',
-  'comments',
-  'media',
-  'statuses',
-  'pages',
-  'posts',
-  'settings',
-  'tags',
-  'taxonomies',
-  'types',
-  'users',
+  "categories",
+  "comments",
+  "media",
+  "statuses",
+  "pages",
+  "posts",
+  "settings",
+  "tags",
+  "taxonomies",
+  "types",
+  "users"
 ];
 
 export default class Client {
@@ -28,32 +35,31 @@ export default class Client {
   transport = null;
 
   /**
-   * Transport config.
+   * Client options.
    *
    * @var {object}
    */
-  _config = {};
-
-  /**
-   * Predefined data object.
-   *
-   * @var {null|object}
-   */
-  _data = null;
-
-  /**
-   * Current options.
-   *
-   * @var {object}
-   */
-  options = {};
+  options = {
+    auth: {
+      username: "",
+      password: ""
+    },
+    endpoint: "",
+    namespace: "wp/v2",
+    config: {
+      referrer: "yllet",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  };
 
   /**
    * Request path.
    *
    * @var {string}
    */
-  path = '';
+  path = "";
 
   /**
    * Request params.
@@ -63,97 +69,92 @@ export default class Client {
   params = {};
 
   /**
+   * File attachment.
+   *
+   * @var {FormData}
+   */
+  formData = undefined;
+
+  /**
+   * Request config.
+   *
+   * @var {object}
+   */
+  config = {};
+
+  /**
    * Client constructor.
    *
-   * @param {object} opts
+   * @param {object} options
    */
-  constructor(opts = {}) {
-    this.transport = opts.transport;
-    delete opts.transport;
+  constructor(options = {}) {
+    if (!options.transport) {
+      throw new TypeError("Transport is required option, none was set.");
+    } else {
+      this.transport = options.transport;
+      delete options.transport;
+    }
 
-    this.options = deepExtend(defaultOptions, opts);
+    this.options = merge(this.options, options);
 
-    // Set up predefined resources methods.
-    RESOURCES.forEach(method => {
-      this[method] = () => {
-        return this.resource(method);
+    // Init HTTP methods
+    Object.entries(METHODS).forEach(([method, verb]) => {
+      this[method] = (path, params) => {
+        return this.request(verb, path, params);
+      };
+    });
+
+    // Init predefined resources methods.
+    RESOURCES.forEach(name => {
+      this[name] = () => {
+        return this.resource(name);
       };
     });
   }
 
   /**
-   * Create base url.
+   * Returns full request url.
+   *
+   * @param  {string} path
    *
    * @return {string}
    */
-  _createBaseUrl() {
-    const namespace = this.options.namespace;
-    const endpoint = this.options.endpoint.replace(namespace, '');
-    return endpoint;
+  _getUrl(path) {
+    const safePath = path ? path : "";
+    const { endpoint, namespace } = this.options;
+    const safeEndpoint = endpoint.replace(namespace, "");
+    return urljoin(safeEndpoint, namespace, this.path, String(safePath));
   }
 
   /**
-   * Create request data.
+   * Returns request params.
    *
-   * @param  {object} data
+   * @param  {object} params
    *
    * @return {object}
    */
-  _createData(data) {
-    data = objectKeysToSnakeCase(data);
+  _getParams(params) {
+    let merged;
+    params = isObject(params) ? objectKeysToSnakeCase(params) : {};
+    merged = { ...this.params, ...params };
 
-    if (this._data instanceof FormData) {
-      Object.keys(parsed).forEach(key => {
-        this._data.append(key, parsed[key]);
+    if (this.formData instanceof FormData) {
+      Object.keys(merged).forEach(key => {
+        this.formData.append(key, merged[key]);
       });
-    } else {
-      this._data = data;
+      merged = this.formData;
     }
 
-    return this._data;
+    return merged;
   }
 
   /**
-   * Create path.
-   *
-   * @param  {string} path
-   *
-   * @return {string}
-   */
-  _createPath(path) {
-    path = path ? path : '';
-    path = typeof path === 'string' ? path : path.toString();
-
-    return urljoin(this._createBaseUrl(), this.options.namespace, this.path, path);
-  }
-
-  /**
-   * Set Transport config object.
-   *
-   * @param  {object} config
+   * Returns request config.
    *
    * @return {object}
    */
-  config(config) {
-    this._config = deepExtend({}, this._config, config);
-    return this;
-  }
-
-  /**
-   * Create request.
-   *
-   * @param  {string} path
-   * @param  {object} data
-   *
-   * @return {Promise}
-   */
-  create(path, data) {
-    if (isObject(path)) {
-      data = path;
-      path = '';
-    }
-
-    return this.transport.post(this._createPath(path), this._createData(data), this._config);
+  _getConfig() {
+    return merge(this.options.config, this.config);
   }
 
   /**
@@ -164,23 +165,12 @@ export default class Client {
    * @return {Promise}
    */
   discover(url) {
-    return this.transport.get(url, { rest_route: '/' }).then(response => {
+    return this.transport.get(url, { rest_route: "/" }).then(response => {
       if (isObject(response.routes)) {
-        return response.routes['/']._links.self;
+        return response.routes["/"]._links.self;
       }
-      throw new Error('Unable to find the REST API');
+      throw new Error("Unable to find the REST API");
     });
-  }
-
-  /**
-   * Delete request.
-   *
-   * @param  {string} path
-   *
-   * @return {Promise}
-   */
-  delete(path) {
-    return this.transport.delete(this._createPath(path), {}, this._config);
   }
 
   /**
@@ -189,7 +179,7 @@ export default class Client {
    * @return {Client}
    */
   embed() {
-    return this.param('_embed', true);
+    return this.param("_embed", true);
   }
 
   /**
@@ -201,42 +191,18 @@ export default class Client {
    *
    * @return {Client}
    */
-  file(file, name) {
-    if ((typeof name !== 'string' || !name.length) && typeof file === 'string') {
-      name = file.split('/');
-      name = name[name.length - 1];
+  file(file, name = "") {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      this.header(formData.getHeaders());
+      this.header("Content-Disposition", "attachment; filename=" + name);
+
+      this.formData = formData;
     }
 
-    // Create form data.
-    this._data = new FormData();
-    this._data.append('file', file);
-
-    // Append form data headers.
-    this.header(this._data.getHeaders());
-
-    // Create content disposition header.
-    return this.header('Content-Disposition', 'attachment; filename='+name);
-  }
-
-  /**
-   * Get request.
-   *
-   * @param  {string} path
-   * @param  {object} params
-   *
-   * @return {Promise}
-   */
-  get(path, params = {}) {
-    if (isObject(path)) {
-      params = path;
-      path = '';
-    }
-
-    this.config({
-      params: params
-    });
-
-    return this.axios.get(this._createPath(path), this._config);
+    return this;
   }
 
   /**
@@ -248,17 +214,19 @@ export default class Client {
    * @return {Client|string}
    */
   header(key, value = null) {
-    this._config.headers = this._config.headers || {};
+    let { headers = {} } = this.config;
 
-    if (typeof key === 'string' && !value) {
-      return this._config.headers[key];
+    if (typeof key === "string" && !value) {
+      return headers[key];
     }
 
-    if (typeof key === 'string') {
-      this._config.headers[key] = value;
+    if (typeof key === "string") {
+      headers[key] = value;
     } else {
-      this._config.headers = Object.assign({}, this._config.headers, key);
+      headers = { ...headers, ...key };
     }
+
+    this.config = { ...this.config, headers: { ...headers } }; // immutable
 
     return this;
   }
@@ -288,7 +256,7 @@ export default class Client {
   }
 
   /**
-   * Get or set global params.
+   * Set/Get global param.
    *
    * @param  {string|object} key
    * @param  {object} value
@@ -296,39 +264,36 @@ export default class Client {
    * @return {Client|object}
    */
   param(key, value = null) {
-    if (typeof key === 'string' && !value) {
+    if (typeof key === "string" && !value) {
       return this.params[key];
     }
 
-    if (typeof key === 'string') {
+    if (typeof key === "string") {
       this.params[key] = value;
     } else {
-      this.params = Object.assign({}, this.params, key);
+      this.params = { ...this.params, ...key };
     }
 
     return this;
   }
 
   /**
-   * Update request.
+   * Send API request
    *
    * @param  {string} path
-   * @param  {object} data
    * @param  {object} params
    *
    * @return {Promise}
    */
-  update(path, data, params = {}) {
+  request(verb, path, params) {
     if (isObject(path)) {
-      params = data;
-      data = path;
-      path = '';
+      params = path;
+      path = "";
     }
-
-    this.config({
-      params: params
-    });
-
-    return this.axios.post(this._createPath(path), this._createData(data), this._config);
+    return this.transport[verb](
+      this._getUrl(path),
+      this._getParams(params),
+      this._getConfig()
+    );
   }
-};
+}
