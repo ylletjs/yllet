@@ -1,6 +1,6 @@
 {
   "name": "@yllet/transport-fetch",
-  "version": "1.0.2",
+  "version": "0.0.0",
   "repository": "ylletjs/yllet",
   "description": "Simple fetch http client transport",
   "author": "Andrew McLagan <andrew.mclagan@gmail.com>",
