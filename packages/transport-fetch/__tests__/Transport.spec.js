@@ -1,5 +1,6 @@
-import FetchTransport from "../src";
 import base64 from "base-64";
+import FormData from "form-data";
+import FetchTransport from "../src";
 import HTTPError from "../src/HTTPError";
 
 // setup
@@ -69,9 +70,11 @@ describe("basic auth", () => {
       password: "bar"
     }
   };
+
   const expected = new Headers({
     Authorization: "Basic " + base64.encode("foo:bar")
   });
+
   verbs.forEach(verb => {
     test(`${verb} can use basic auth`, () => {
       resetMocks();
@@ -86,6 +89,7 @@ describe("merge config", () => {
     foo: "bar",
     bar: "foo"
   };
+
   verbs.forEach(verb => {
     const expected = {
       ...config,
@@ -93,6 +97,7 @@ describe("merge config", () => {
       body: JSON.stringify({}),
       headers: new Headers()
     };
+
     test(`${verb} passes custom config`, () => {
       resetMocks();
       if (verb === "GET") {
@@ -106,6 +111,7 @@ describe("merge config", () => {
 
 describe("with data", () => {
   const data = { foo: "bar" };
+
   verbs.forEach(verb => {
     test(`${verb} sends data`, () => {
       resetMocks();
@@ -115,6 +121,30 @@ describe("with data", () => {
         expect(fetch.mock.calls[0][1].body).toBe(undefined);
       } else {
         expect(fetch.mock.calls[0][1].body).toEqual(JSON.stringify(data));
+      }
+    });
+  });
+});
+
+describe("with form data", () => {
+  const formData = new FormData();
+  formData.append("foo", "bar");
+  verbs.forEach(verb => {
+    test(`${verb} sends form data`, () => {
+      resetMocks();
+      if (verb === "GET") {
+        try {
+          transport.fetch(verb, "https://wp.com/wp-json", formData);
+        } catch (error) {
+          expect(error instanceof TypeError).toBe(true);
+          expect(error.message).toBe("Unable to encode FormData for GET requests");
+        }
+      } else {
+        /**
+         * @todo Loose assertion, needs work.
+         */
+        transport.fetch(verb, "https://wp.com/wp-json", formData);
+        expect(typeof fetch.mock.calls[0][1].body).toBe('function');
       }
     });
   });

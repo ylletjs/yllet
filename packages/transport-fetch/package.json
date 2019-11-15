@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
-    "query-string": "5"
+    "querystringify": "^2.1.1",
+    "form-data": "^3.0.0"
   },
   "license": "MIT",
   "devDependencies": {
