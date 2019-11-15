@@ -31,6 +31,7 @@
     "start": "lerna run start",
     "lint": "lerna run lint",
     "test": "jest --no-cache",
+    "test:coverage": "jest --coverage",
     "postinstall": "lerna bootstrap"
   },
   "semistandard": {
