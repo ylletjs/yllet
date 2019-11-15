@@ -25,7 +25,13 @@ steps:
     commands:
       - yarn install
       - yarn test
+
+  - name: noop
+    image: node:alpine
+    commands:
+      - echo "success"
     depends_on:
       - node-10
       - node-11
-      - node-12
+      - node-12      
+      - node-13     

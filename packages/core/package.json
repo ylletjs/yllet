@@ -24,7 +24,7 @@
     "start": "rollup -c -w",
     "prepare": "yarn clean && yarn build",
     "preversion": "yarn prepare",
-    "test": "NODE_ENV=test jest --no-cache",
+    "test": "jest",
     "lint": "semistandard src test"
   },
   "dependencies": {
