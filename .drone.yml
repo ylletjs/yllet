@@ -40,6 +40,8 @@ steps:
     image: node:alpine
     commands:
       - yarn test:coverage
+    depends_on:
+      - install-dependancies      
 
   - name: coverage-report
     image: plugins/codecov
@@ -47,6 +49,7 @@ steps:
       token:
         from_secret: CODECOV_TOKEN
     depends_on:
+      - install-dependancies
       - node-10
       - node-11
       - node-12
