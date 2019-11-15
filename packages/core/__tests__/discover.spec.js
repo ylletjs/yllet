@@ -1,5 +1,5 @@
 import Client from "../src";
-import MockTransport from "./mocks/MockTransport";
+import MockTransport from "../__mocks__/MockTransport"
 
 describe("Client.discover", () => {
   test("it requests discovery route", () => {

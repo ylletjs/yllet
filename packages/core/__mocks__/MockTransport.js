@@ -1,6 +1,10 @@
 export default class MockTransport {
   constructor(responses = {}) {
     this.responses = responses;
+    this.resetMocks();
+  }
+
+  resetMocks() {
     ["post", "get", "put", "patch", "delete"].forEach(verb => {
       this[verb] = jest.fn((url, data, config) => this.request(verb));
     });
