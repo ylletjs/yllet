@@ -2,29 +2,39 @@ kind: pipeline
 name: default
 
 steps:
-  - name: node-10
-    image: node:10-alpine
+  - name: install-dependancies
+    image: node:alpine
     commands:
       - yarn install
       - yarn test
+
+  - name: node-10
+    image: node:10-alpine
+    commands:
+      - yarn test
+    depends_on:
+      - install-dependancies
 
   - name: node-11
     image: node:11-alpine
     commands:
-      - yarn install
       - yarn test
+    depends_on:
+      - install-dependancies
 
   - name: node-12
     image: node:12-alpine
     commands:
-      - yarn install
       - yarn test
+    depends_on:
+      - install-dependancies
 
   - name: node-13
     image: node:12-alpine
     commands:
-      - yarn install
       - yarn test
+    depends_on:
+      - install-dependancies
 
   - name: noop
     image: node:alpine
@@ -33,5 +43,5 @@ steps:
     depends_on:
       - node-10
       - node-11
-      - node-12      
-      - node-13     
+      - node-12
+      - node-13
