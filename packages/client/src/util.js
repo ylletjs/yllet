@@ -7,7 +7,7 @@ import toSnakeCase from 'to-snake-case';
  *
  * @return {bool}
  */
-export const isObject = (obj) => {
+export const isObject = obj => {
   return Object.prototype.toString.call(obj) === '[object Object]';
 };
 
@@ -18,11 +18,12 @@ export const isObject = (obj) => {
  *
  * @return {object}
  */
-export const objectKeysToSnakeCase = (obj) => {
+export const objectKeysToSnakeCase = obj => {
   return Object.keys(obj).reduce((previous, current) => {
     if (isObject(obj[current])) {
       obj[current] = objectKeysToSnakeCase(obj[current]);
-    } if (obj[current] instanceof Array) {
+    }
+    if (obj[current] instanceof Array) {
       previous[toSnakeCase(current)] = obj[current].map(objectKeysToSnakeCase);
     } else {
       previous[toSnakeCase(current)] = obj[current];

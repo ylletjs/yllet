@@ -2,7 +2,7 @@ import { isObject, objectKeysToSnakeCase } from '../src/util';
 
 // describe
 
-describe("utils.isObject", () => {
+describe('utils.isObject', () => {
   test('it can test for objects', () => {
     const data = [
       [true, {}],
@@ -11,56 +11,56 @@ describe("utils.isObject", () => {
       [false, []],
       [false, ''],
       [false, 1.2],
-      [false, new Error]
+      [false, new Error()],
     ].forEach(d => {
       expect(d[0]).toBe(isObject(d[1]));
     });
   });
 });
 
-describe("utils.objectKeysToSnakeCase", () => {
+describe('utils.objectKeysToSnakeCase', () => {
   test('it can snake case object keys', () => {
     const data = [
       [
         {
-          test_data: 1
+          test_data: 1,
         },
         {
-          testData: 1
-        }
+          testData: 1,
+        },
       ],
       [
         {
           test: {
-            test_data: 1
-          }
+            test_data: 1,
+          },
         },
         {
           test: {
-            testData: 1
-          }
-        }
+            testData: 1,
+          },
+        },
       ],
       [
         {
           abc: [
             {
               abc: {
-                abc_data: 1
-              }
-            }
-          ]
+                abc_data: 1,
+              },
+            },
+          ],
         },
         {
           abc: [
             {
               abc: {
-                abcData: 1
-              }
-            }
-          ]
-        }
-      ]
+                abcData: 1,
+              },
+            },
+          ],
+        },
+      ],
     ].forEach(d => {
       const obj = objectKeysToSnakeCase(d[1]);
       expect(d[0]).toEqual(obj);

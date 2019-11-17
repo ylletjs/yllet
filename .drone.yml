@@ -6,7 +6,6 @@ steps:
     image: node:alpine
     commands:
       - yarn install
-      - yarn test
 
   - name: node-10
     image: node:10-alpine
@@ -41,7 +40,7 @@ steps:
     commands:
       - yarn test:coverage
     depends_on:
-      - install-dependancies      
+      - install-dependancies
 
   - name: coverage-report
     image: plugins/codecov

@@ -5,7 +5,7 @@ export default class MockTransport {
   }
 
   resetMocks() {
-    ["post", "get", "put", "patch", "delete"].forEach(verb => {
+    ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
       this[verb] = jest.fn((url, data, config) => this.request(verb));
     });
   }

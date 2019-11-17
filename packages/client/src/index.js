@@ -1,29 +1,29 @@
-import FormData from "form-data";
-import urljoin from "url-join";
-import merge from "deep-extend";
-import { isObject, objectKeysToSnakeCase } from "./util";
+import FormData from 'form-data';
+import urljoin from 'url-join';
+import merge from 'deep-extend';
+import { isObject, objectKeysToSnakeCase } from './util';
 
 // HTTP methods map.
 const METHODS = {
-  get: "get",
-  create: "post",
-  update: "patch",
-  delete: "delete"
+  get: 'get',
+  create: 'post',
+  update: 'patch',
+  delete: 'delete',
 };
 
 // API resources.
 const RESOURCES = [
-  "categories",
-  "comments",
-  "media",
-  "statuses",
-  "pages",
-  "posts",
-  "settings",
-  "tags",
-  "taxonomies",
-  "types",
-  "users"
+  'categories',
+  'comments',
+  'media',
+  'statuses',
+  'pages',
+  'posts',
+  'settings',
+  'tags',
+  'taxonomies',
+  'types',
+  'users',
 ];
 
 export default class Client {
@@ -41,17 +41,17 @@ export default class Client {
    */
   options = {
     auth: {
-      username: "",
-      password: ""
+      username: '',
+      password: '',
     },
-    endpoint: "",
-    namespace: "wp/v2",
+    endpoint: '',
+    namespace: 'wp/v2',
     config: {
-      referrer: "yllet",
+      referrer: 'yllet',
       headers: {
-        "Content-Type": "application/json"
-      }
-    }
+        'Content-Type': 'application/json',
+      },
+    },
   };
 
   /**
@@ -59,7 +59,7 @@ export default class Client {
    *
    * @var {string}
    */
-  path = "";
+  path = '';
 
   /**
    * Request params.
@@ -89,7 +89,7 @@ export default class Client {
    */
   constructor(options = {}) {
     if (!options.transport) {
-      throw new TypeError("Transport is required option, none was set.");
+      throw new TypeError('Transport is required option, none was set.');
     } else {
       this.transport = options.transport;
       delete options.transport;
@@ -120,9 +120,9 @@ export default class Client {
    * @return {string}
    */
   _getUrl(path) {
-    const safePath = path ? path : "";
+    const safePath = path ? path : '';
     const { endpoint, namespace } = this.options;
-    const safeEndpoint = endpoint.replace(namespace, "");
+    const safeEndpoint = endpoint.replace(namespace, '');
     return urljoin(safeEndpoint, namespace, this.path, String(safePath));
   }
 
@@ -165,11 +165,11 @@ export default class Client {
    * @return {Promise}
    */
   discover(url) {
-    return this.transport.get(url, { rest_route: "/" }).then(response => {
+    return this.transport.get(url, { rest_route: '/' }).then(response => {
       if (isObject(response.routes)) {
-        return response.routes["/"]._links.self;
+        return response.routes['/']._links.self;
       }
-      throw new Error("Unable to find the REST API");
+      throw new Error('Unable to find the REST API');
     });
   }
 
@@ -179,7 +179,7 @@ export default class Client {
    * @return {Client}
    */
   embed() {
-    return this.param("_embed", true);
+    return this.param('_embed', true);
   }
 
   /**
@@ -191,13 +191,13 @@ export default class Client {
    *
    * @return {Client}
    */
-  file(file, name = "") {
+  file(file, name = '') {
     if (file) {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append('file', file);
 
       this.header(formData.getHeaders());
-      this.header("Content-Disposition", "attachment; filename=" + name);
+      this.header('Content-Disposition', 'attachment; filename=' + name);
 
       this.formData = formData;
     }
@@ -216,11 +216,11 @@ export default class Client {
   header(key, value = null) {
     let { headers = {} } = this.config;
 
-    if (typeof key === "string" && !value) {
+    if (typeof key === 'string' && !value) {
       return headers[key];
     }
 
-    if (typeof key === "string") {
+    if (typeof key === 'string') {
       headers[key] = value;
     } else {
       headers = { ...headers, ...key };
@@ -264,11 +264,11 @@ export default class Client {
    * @return {Client|object}
    */
   param(key, value = null) {
-    if (typeof key === "string" && !value) {
+    if (typeof key === 'string' && !value) {
       return this.params[key];
     }
 
-    if (typeof key === "string") {
+    if (typeof key === 'string') {
       this.params[key] = value;
     } else {
       this.params = { ...this.params, ...key };
@@ -288,12 +288,8 @@ export default class Client {
   request(verb, path, params) {
     if (isObject(path)) {
       params = path;
-      path = "";
+      path = '';
     }
-    return this.transport[verb](
-      this._getUrl(path),
-      this._getParams(params),
-      this._getConfig()
-    );
+    return this.transport[verb](this._getUrl(path), this._getParams(params), this._getConfig());
   }
 }
