@@ -1,7 +1,6 @@
 import AxiosClient from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import FormData from 'form-data';
-import HTTPError from '../src/HTTPError';
 import AxiosTransport from '../src';
 
 // setup
@@ -17,6 +16,11 @@ beforeEach(() => {
 });
 
 // describe
+
+test('it has axios instance by default', () => {
+  const shouldHaveAxios = new AxiosTransport();
+  expect(shouldHaveAxios.axios).not.toBe(undefined);
+});
 
 describe('request calls', () => {
   verbs.forEach(verb => {

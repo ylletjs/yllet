@@ -24,8 +24,7 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepare": "yarn clean && yarn build",
-    "preversion": "yarn prepare",
-    "test": "jest"
+    "preversion": "yarn prepare"
   },
   "dependencies": {
     "base-64": "^0.1.0",

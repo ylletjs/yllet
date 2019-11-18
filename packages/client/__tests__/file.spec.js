@@ -9,11 +9,6 @@ const transport = new MockTransport();
 const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
 
-const params = {
-  title: 'Hello World',
-  content: 'Welcome to the Wordpress API',
-};
-
 // describe
 
 describe('Client.file', () => {
@@ -21,11 +16,11 @@ describe('Client.file', () => {
     transport.resetMocks();
   });
 
-  // test("it can attach file from argument", () => {
-  //   const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
-  //   client.file(file, "foo.txt");
-  //   expect(client.formData instanceof FormData).toBe(true);
-  // });
+  test('it can attach file from argument', () => {
+    const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
+    client.file(file, 'foo.txt');
+    expect(client.formData instanceof FormData).toBe(true);
+  });
 
   test('it adds correct headers to request', () => {
     const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
@@ -38,9 +33,9 @@ describe('Client.file', () => {
     ).toBe(true);
   });
 
-  // test("it has fluent interface", () => {
-  //   const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
-  //   const returnValue = client.file(file, "foo.txt");
-  //   expect(returnValue).toBe(client);
-  // });
+  test('it has fluent interface', () => {
+    const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
+    const returnValue = client.file(file, 'foo.txt');
+    expect(returnValue).toBe(client);
+  });
 });

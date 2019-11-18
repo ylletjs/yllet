@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const withClientData = (fn) => {
-  return (Component) => {
+const withClientData = fn => {
+  return Component => {
     return class withClientData extends React.Component {
       /**
        * Default state.
@@ -12,7 +12,7 @@ const withClientData = (fn) => {
       state = {
         data: {},
         error: null,
-        loading: true
+        loading: true,
       };
 
       /**
@@ -21,30 +21,20 @@ const withClientData = (fn) => {
        * @var {object}
        */
       static contextTypes = {
-        client: PropTypes.object.isRequired
+        client: PropTypes.object.isRequired,
       };
 
       /**
        * Fetch data on mount.
        */
       componentDidMount() {
-        fn(this.context.client, this.props).then(res => {
-          let data = typeof res === 'object' ? res.data : undefined;
-
-          if (typeof data === 'undefined' && typeof res.status !== 'number') {
-            data = res;
-          }
-
-          this.setState({
-            data: data,
-            loading: false
+        return fn(this.context.client, this.props)
+          .then(data => {
+            this.setState({ data, loading: false });
+          })
+          .catch(error => {
+            this.setState({ error, loading: false });
           });
-        }).catch(err => {
-          this.setState({
-            error: err,
-            loading: false
-          });
-        })
       }
 
       /**
@@ -52,7 +42,7 @@ const withClientData = (fn) => {
        *
        * @return {object}
        */
-      render () {
+      render() {
         return <Component {...this.props} {...this.context} {...this.state} />;
       }
     };

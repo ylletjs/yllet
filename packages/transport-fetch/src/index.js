@@ -36,13 +36,10 @@ export default class FetchTransport {
       );
     }
 
-    return fetch(url, request).then(this._parseResponse);
-  }
-
-  _parseResponse(response) {
-    if (!response.ok) {
-      throw new HTTPError(response);
-    }
-    return response.json();
+    return fetch(url, request)
+      .then(response => response.json())
+      .catch(error => {
+        throw new HTTPError(error);
+      });
   }
 }

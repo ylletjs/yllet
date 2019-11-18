@@ -164,13 +164,13 @@ describe('returns json', () => {
 describe('http exceptions', () => {
   verbs.forEach(verb => {
     test(`${verb} throws http exceptions`, () => {
-      fetch.resetMocks();
       const response = new Response(null, {
         status: 422,
         statusText: 'Invalid input data',
       });
-      fetch.mockReject(new HTTPError(response));
-      transport.request(verb, 'https://wp.com/wp-json').catch(error => {
+      fetch.resetMocks();
+      fetch.mockRejectOnce(response);
+      return transport.request(verb, 'https://wp.com/wp-json').catch(error => {
         expect(error instanceof HTTPError).toBe(true);
         expect(error.response).toEqual(response);
       });

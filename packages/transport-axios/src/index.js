@@ -1,5 +1,4 @@
 import AxiosClient from 'axios';
-import HTTPError from './HTTPError';
 import FormData from 'form-data';
 
 export default class Transport {

@@ -192,15 +192,13 @@ export default class Client {
    * @return {Client}
    */
   file(file, name = '') {
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
+    const formData = new FormData();
+    formData.append('file', file);
 
-      this.header(formData.getHeaders());
-      this.header('Content-Disposition', 'attachment; filename=' + name);
+    this.header(formData.getHeaders());
+    this.header('Content-Disposition', 'attachment; filename=' + name);
 
-      this.formData = formData;
-    }
+    this.formData = formData;
 
     return this;
   }

@@ -1,9 +1,18 @@
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 
+// setup
+
+const transport = new MockTransport();
+const endpoint = 'http://wordpress.test/wp-json';
+const client = new Client({ transport, endpoint });
+
+// describe
+
 describe('Client', () => {
-  const transport = new MockTransport();
-  let client = new Client({ transport });
+  beforeEach(() => {
+    transport.resetMocks();
+  });
 
   test('it sets transport property', () => {
     expect(client.transport).toBe(transport);
@@ -19,7 +28,8 @@ describe('Client', () => {
   });
 
   test('it has default options', () => {
-    expect(client.options).toEqual({
+    const ylletClient = new Client({ transport });
+    expect(ylletClient.options).toEqual({
       auth: {
         username: '',
         password: '',
@@ -36,7 +46,7 @@ describe('Client', () => {
   });
 
   test('it merges options', () => {
-    client = new Client({
+    const ylletClient = new Client({
       transport,
       endpoint: 'https://wordpress.test/wp-json',
       config: {
@@ -44,7 +54,7 @@ describe('Client', () => {
         foo: 'bar',
       },
     });
-    expect(client.options).toEqual({
+    expect(ylletClient.options).toEqual({
       auth: {
         username: '',
         password: '',
@@ -69,16 +79,21 @@ describe('Client', () => {
   });
 
   test('it has API Resource methods', () => {
-    expect(typeof client.categories).toBe('function');
-    expect(typeof client.comments).toBe('function');
-    expect(typeof client.media).toBe('function');
-    expect(typeof client.statuses).toBe('function');
-    expect(typeof client.pages).toBe('function');
-    expect(typeof client.posts).toBe('function');
-    expect(typeof client.settings).toBe('function');
-    expect(typeof client.tags).toBe('function');
-    expect(typeof client.taxonomies).toBe('function');
-    expect(typeof client.types).toBe('function');
-    expect(typeof client.users).toBe('function');
+    [
+      'categories',
+      'comments',
+      'media',
+      'statuses',
+      'pages',
+      'posts',
+      'settings',
+      'tags',
+      'taxonomies',
+      'types',
+      'users',
+    ].forEach(method => {
+      client[method]();
+      expect(client.path).toBe(method);
+    });
   });
 });
