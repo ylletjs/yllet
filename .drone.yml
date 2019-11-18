@@ -41,6 +41,10 @@ steps:
       - yarn test:coverage
     depends_on:
       - install-dependancies
+      - node-10
+      - node-11
+      - node-12
+      - node-13
 
   - name: coverage-report
     image: plugins/codecov
@@ -48,9 +52,4 @@ steps:
       token:
         from_secret: CODECOV_TOKEN
     depends_on:
-      - install-dependancies
-      - node-10
-      - node-11
-      - node-12
-      - node-13
       - coverage-build
