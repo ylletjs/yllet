@@ -9,17 +9,16 @@ const transport = new FetchTransport();
 
 const verbs = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
-function resetMocks() {
+beforeEach(() => {
   fetch.resetMocks();
   fetch.mockResponseOnce(JSON.stringify({ data: { mock: 'response' } }));
-}
+});
 
 // describe
 
 describe('request calls', () => {
   verbs.forEach(verb => {
     test(`${verb} calls fetch once`, () => {
-      resetMocks();
       transport.request(verb, 'https://wp.com/wp-json');
       expect(fetch.mock.calls.length).toEqual(1);
     });
@@ -29,7 +28,6 @@ describe('request calls', () => {
 describe('verbs', () => {
   verbs.forEach(verb => {
     test(`${verb} sends correct http verb`, () => {
-      resetMocks();
       transport.request(verb, 'https://wp.com/wp-json');
       expect(fetch.mock.calls[0][1].method).toEqual(verb);
     });
@@ -39,7 +37,6 @@ describe('verbs', () => {
 describe('url', () => {
   verbs.forEach(verb => {
     test(`${verb} calls correct url`, () => {
-      resetMocks();
       transport.request(verb, 'https://wp.com/wp-json');
       expect(fetch.mock.calls[0][0]).toEqual('https://wp.com/wp-json');
     });
@@ -54,7 +51,6 @@ describe('headers', () => {
   };
   verbs.forEach(verb => {
     test(`${verb} sends correct headers`, () => {
-      resetMocks();
       transport.request(verb, 'https://wp.com/wp-json', {}, config);
       expect(fetch.mock.calls[0][1].headers).toEqual(new Headers(config.headers));
     });
@@ -75,7 +71,6 @@ describe('basic auth', () => {
 
   verbs.forEach(verb => {
     test(`${verb} can use basic auth`, () => {
-      resetMocks();
       transport.request(verb, 'https://wp.com/wp-json', {}, config);
       expect(fetch.mock.calls[0][1].headers).toEqual(expected);
     });
@@ -97,7 +92,6 @@ describe('merge config', () => {
     };
 
     test(`${verb} passes custom config`, () => {
-      resetMocks();
       if (['GET', 'DELETE'].includes(verb)) {
         expected.body = undefined;
       }
@@ -112,7 +106,6 @@ describe('with data', () => {
 
   verbs.forEach(verb => {
     test(`${verb} sends data`, () => {
-      resetMocks();
       transport.request(verb, 'https://wp.com/wp-json', data);
       if (['GET', 'DELETE'].includes(verb)) {
         expect(fetch.mock.calls[0][0]).toBe('https://wp.com/wp-json?foo=bar');
@@ -129,7 +122,6 @@ describe('with form data', () => {
   formData.append('foo', 'bar');
   verbs.forEach(verb => {
     test(`${verb} sends form data`, () => {
-      resetMocks();
       if (['GET', 'DELETE'].includes(verb)) {
         try {
           transport.request(verb, 'https://wp.com/wp-json', formData);
@@ -148,7 +140,6 @@ describe('with form data', () => {
 describe('without data', () => {
   verbs.forEach(verb => {
     test(`${verb} sends data`, () => {
-      resetMocks();
       transport.request(verb, 'https://wp.com/wp-json');
       if (['GET', 'DELETE'].includes(verb)) {
         expect(fetch.mock.calls[0][0]).toBe('https://wp.com/wp-json');
@@ -163,7 +154,6 @@ describe('without data', () => {
 describe('returns json', () => {
   verbs.forEach(verb => {
     test(`${verb} returns data`, () => {
-      resetMocks();
       transport.request(verb, 'https://wp.com/wp-json').then(response => {
         expect(response.data).toEqual({ mock: 'response' });
       });
@@ -174,7 +164,6 @@ describe('returns json', () => {
 describe('http exceptions', () => {
   verbs.forEach(verb => {
     test(`${verb} throws http exceptions`, () => {
-      resetMocks();
       fetch.resetMocks();
       const response = new Response(null, {
         status: 422,
