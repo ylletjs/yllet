@@ -2,45 +2,55 @@ kind: pipeline
 name: default
 
 steps:
-  - name: install-dependancies
+  - name: install
     image: node:alpine
     commands:
       - yarn install
+
+  - name: build
+    image: node:alpine
+    commands:
+      - yarn build
 
   - name: node-10
     image: node:10-alpine
     commands:
       - yarn test
     depends_on:
-      - install-dependancies
+      - install
+      - build
 
   - name: node-11
     image: node:11-alpine
     commands:
       - yarn test
     depends_on:
-      - install-dependancies
+      - install
+      - build
 
   - name: node-12
     image: node:12-alpine
     commands:
       - yarn test
     depends_on:
-      - install-dependancies
+      - install
+      - build
 
   - name: node-13
     image: node:12-alpine
     commands:
       - yarn test
     depends_on:
-      - install-dependancies
+      - install
+      - build
 
   - name: browsers
     image: node:alpine
     commands:
       - yarn test:browsers
     depends_on:
-      - install-dependancies
+      - install
+      - build
 
   - name: coverage-build
     image: node:alpine
