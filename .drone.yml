@@ -43,7 +43,7 @@ steps:
       - build
 
   - name: browsers
-    image: node:alpine
+    image: node:latest
     commands:
       - yarn test:browsers
     depends_on:
