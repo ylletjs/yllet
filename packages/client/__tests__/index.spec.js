@@ -32,16 +32,16 @@ describe('Client', () => {
     expect(ylletClient.options).toEqual({
       auth: {
         username: '',
-        password: '',
+        password: ''
       },
       endpoint: '',
       namespace: 'wp/v2',
       config: {
         referrer: 'yllet',
         headers: {
-          'Content-Type': 'application/json',
-        },
-      },
+          'Content-Type': 'application/json'
+        }
+      }
     });
   });
 
@@ -51,13 +51,13 @@ describe('Client', () => {
       endpoint: 'https://wordpress.test/wp-json',
       config: {
         referrer: 'WordMess',
-        foo: 'bar',
-      },
+        foo: 'bar'
+      }
     });
     expect(ylletClient.options).toEqual({
       auth: {
         username: '',
-        password: '',
+        password: ''
       },
       endpoint: 'https://wordpress.test/wp-json',
       namespace: 'wp/v2',
@@ -65,9 +65,9 @@ describe('Client', () => {
         referrer: 'WordMess',
         foo: 'bar',
         headers: {
-          'Content-Type': 'application/json',
-        },
-      },
+          'Content-Type': 'application/json'
+        }
+      }
     });
   });
 
@@ -90,7 +90,7 @@ describe('Client', () => {
       'tags',
       'taxonomies',
       'types',
-      'users',
+      'users'
     ].forEach(method => {
       client[method]();
       expect(client.path).toBe(method);
