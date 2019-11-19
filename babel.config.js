@@ -3,7 +3,7 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        modules: process.env.BABEL_ENV === 'esm' ? false : 'cjs'
+        modules: ['esm', 'umd'].includes(process.env.BABEL_ENV) ? false : 'cjs'
       }
     ],
     '@babel/preset-react'
