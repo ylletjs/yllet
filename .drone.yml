@@ -35,6 +35,13 @@ steps:
     depends_on:
       - install-dependancies
 
+  - name: browsers
+    image: node:alpine
+    commands:
+      - yarn test:browsers
+    depends_on:
+      - install-dependancies
+
   - name: coverage-build
     image: node:alpine
     commands:

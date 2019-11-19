@@ -3,7 +3,7 @@ const path = require('path');
 
 const webpackConfig = {
   mode: 'development',
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -33,18 +33,24 @@ const webpackConfig = {
 module.exports = config => {
   config.set({
     basePath: '',
-    files: ['__browser__/index.js'],
+    files: [{ pattern: '__browser__/index.js', watched: false }],
     frameworks: ['mocha'],
     reporters: ['dots'],
-    plugins: ['karma-mocha', 'karma-webpack', 'karma-browserstack-launcher'],
+    plugins: [
+      'karma-mocha',
+      'karma-webpack',
+      'karma-sourcemap-loader',
+      'karma-browserstack-launcher'
+    ],
     preprocessors: {
-      '__browser__/index.js': ['webpack']
+      '__browser__/index.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
     webpackMiddleware: {
       noInfo: true // webpack-dev-middleware configuration
     },
-    port: 9876,
+    browserDisconnectTimeout: 10000,
+    browserDisconnectTolerance: 3,
     colors: true,
     logLevel: config.LOG_DEBUG,
     browserStack: {
@@ -52,15 +58,15 @@ module.exports = config => {
       accessKey: 'VMfuPzDqR6ko92bVC6jZ'
     },
     customLaunchers: {
-      bs_firefox_mac: {
+      bs_it_win: {
         base: 'BrowserStack',
-        browser: 'firefox',
-        browser_version: '43.0',
-        os: 'OS X',
-        os_version: 'Mountain Lion'
+        os: 'Windows',
+        os_version: '10',
+        browser: 'IE',
+        browser_version: '11.0'
       }
     },
-    browsers: ['bs_firefox_mac'],
+    browsers: ['bs_it_win'],
     singleRun: true,
     autoWatch: false,
     client: {

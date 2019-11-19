@@ -1,3 +1,3 @@
-const integrationContext = require.context('./integration', true, /\.spec\.js$/);
+const context = require.context('./integration', true, /\.spec\.js$/);
 
-integrationContext.keys().forEach(integrationContext);
+context.keys().forEach(context);
