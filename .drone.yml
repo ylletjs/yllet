@@ -11,13 +11,14 @@ steps:
     image: node:alpine
     commands:
       - yarn build
+    depends_on:
+      - install
 
   - name: node-10
     image: node:10-alpine
     commands:
       - yarn test
     depends_on:
-      - install
       - build
 
   - name: node-11
@@ -25,7 +26,6 @@ steps:
     commands:
       - yarn test
     depends_on:
-      - install
       - build
 
   - name: node-12
@@ -33,7 +33,6 @@ steps:
     commands:
       - yarn test
     depends_on:
-      - install
       - build
 
   - name: node-13
@@ -41,7 +40,6 @@ steps:
     commands:
       - yarn test
     depends_on:
-      - install
       - build
 
   - name: browsers
@@ -49,7 +47,6 @@ steps:
     commands:
       - yarn test:browsers
     depends_on:
-      - install
       - build
 
   - name: coverage-build
@@ -57,8 +54,6 @@ steps:
     commands:
       - yarn test:coverage
     depends_on:
-      - install
-      - build
       - node-10
       - node-11
       - node-12
