@@ -57,11 +57,13 @@ steps:
     commands:
       - yarn test:coverage
     depends_on:
-      - install-dependancies
+      - install
+      - build
       - node-10
       - node-11
       - node-12
       - node-13
+      - browsers
 
   - name: coverage-report
     image: plugins/codecov
