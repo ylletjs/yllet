@@ -43,7 +43,7 @@ steps:
       - build
 
   - name: browsers
-    image: node:latest
+    image: node:13-buster
     commands:
       - yarn test:browsers
     depends_on:
