@@ -7,7 +7,8 @@ const plugins = [
   resolve(),
   babel({
     exclude: /node_modules/,
-    rootMode: 'upward'
+    rootMode: 'upward',
+    runtimeHelpers: true
   }),
   commonjs(),
   json()

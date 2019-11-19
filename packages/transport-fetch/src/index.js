@@ -13,7 +13,7 @@ export default class FetchTransport {
   request(verb, url, data, config = {}) {
     const request = {
       ...config,
-      method: verb.toUpperCase(),
+      method: verb.toUpperCase()
     };
 
     if (data) {
@@ -29,7 +29,7 @@ export default class FetchTransport {
 
     request.headers = new Headers(config.headers);
 
-    if (config?.auth?.username && config?.auth?.password) {
+    if (config && config.auth && config.auth.username && config.auth.password) {
       request.headers.set(
         'Authorization',
         'Basic ' + base64.encode(`${config.auth.username}:${config.auth.password}`)

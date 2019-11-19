@@ -8,7 +8,7 @@ const METHODS = {
   get: 'get',
   create: 'post',
   update: 'patch',
-  delete: 'delete',
+  delete: 'delete'
 };
 
 // API resources.
@@ -23,7 +23,7 @@ const RESOURCES = [
   'tags',
   'taxonomies',
   'types',
-  'users',
+  'users'
 ];
 
 export default class Client {
@@ -42,16 +42,16 @@ export default class Client {
   options = {
     auth: {
       username: '',
-      password: '',
+      password: ''
     },
     endpoint: '',
     namespace: 'wp/v2',
     config: {
       referrer: 'yllet',
       headers: {
-        'Content-Type': 'application/json',
-      },
-    },
+        'Content-Type': 'application/json'
+      }
+    }
   };
 
   /**
@@ -98,9 +98,9 @@ export default class Client {
     this.options = merge(this.options, options);
 
     // Init HTTP methods
-    Object.entries(METHODS).forEach(([method, verb]) => {
+    Object.keys(METHODS).forEach(method => {
       this[method] = (path, params) => {
-        return this.request(verb, path, params);
+        return this.request(METHODS[method], path, params);
       };
     });
 
