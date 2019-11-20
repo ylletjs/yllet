@@ -42,19 +42,8 @@ steps:
     depends_on:
       - build
 
-  - name: browsers-cjs
+  - name: browsers
     image: node:13-buster
-    environment:
-      BABEL_ENV: cjs
-    commands:
-      - yarn test:browsers
-    depends_on:
-      - build
-
-  - name: browsers-esm
-    image: node:13-buster
-    environment:
-      BABEL_ENV: esm
     commands:
       - yarn test:browsers
     depends_on:
@@ -69,8 +58,7 @@ steps:
       - node-11
       - node-12
       - node-13
-      - browsers-cjs
-      - browsers-esm
+      - browsers
 
   - name: coverage-report
     image: plugins/codecov

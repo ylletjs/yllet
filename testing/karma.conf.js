@@ -1,8 +1,6 @@
 const webpackConfig = require('./webpack.config.js');
 const customLaunchers = require('./karma.browsers.js');
 
-const build = process.env.BABEL_ENV ? process.env.BABEL_ENV : 'cjs';
-
 module.exports = config => {
   config.set({
     basePath: '',
@@ -19,7 +17,7 @@ module.exports = config => {
     preprocessors: {
       'karma.tests.js': ['webpack', 'sourcemap']
     },
-    webpack: webpackConfig(build),
+    webpack: webpackConfig('cjs'),
     webpackMiddleware: {
       noInfo: true // webpack-dev-middleware configuration
     },
