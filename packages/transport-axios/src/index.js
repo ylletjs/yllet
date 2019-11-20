@@ -8,7 +8,7 @@ export default class Transport {
     this.axios = typeof axios === 'undefined' ? AxiosClient : axios;
 
     ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
-      this[verb] = (url, data, config) => this.fetch(verb, url, data, config);
+      this[verb] = (url, data, config) => this.request(verb, url, data, config);
     });
   }
 
@@ -19,11 +19,13 @@ export default class Transport {
       method: verb.toUpperCase()
     };
 
-    if (['PUT', 'PATCH', 'POST'].includes(verb.toUpperCase())) {
+    if ('PUT PATCH POST'.indexOf(verb.toUpperCase()) > -1) {
       request.data = data;
     } else {
       if (data instanceof FormData) {
-        throw new TypeError('Unable to encode FormData for GET, DELETE requests');
+        throw new TypeError(
+          'Unable to encode FormData for GET, DELETE requests'
+        );
       }
       request.params = data;
     }

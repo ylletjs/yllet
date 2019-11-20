@@ -1,3 +1,5 @@
 module.exports = {
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"]
+  name: 'react',
+  displayName: 'react',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 };

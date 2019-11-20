@@ -1,3 +1,5 @@
 module.exports = {
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"]
+  name: 'transport-fetch',
+  displayName: 'transport-fetch',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 };

@@ -1,3 +1,4 @@
+import expect from 'expect';
 import base64 from 'base-64';
 import FormData from 'isomorphic-form-data';
 import FetchTransport from '../src';
@@ -18,7 +19,7 @@ beforeEach(() => {
 
 describe('request calls', () => {
   verbs.forEach(verb => {
-    test(`${verb} calls fetch once`, () => {
+    it(`${verb} calls fetch once`, () => {
       transport.request(verb, 'https://wp.com/wp-json');
       expect(fetch.mock.calls.length).toEqual(1);
     });
@@ -27,7 +28,7 @@ describe('request calls', () => {
 
 describe('verbs', () => {
   verbs.forEach(verb => {
-    test(`${verb} sends correct http verb`, () => {
+    it(`${verb} sends correct http verb`, () => {
       transport.request(verb, 'https://wp.com/wp-json');
       expect(fetch.mock.calls[0][1].method).toEqual(verb);
     });
@@ -36,7 +37,7 @@ describe('verbs', () => {
 
 describe('url', () => {
   verbs.forEach(verb => {
-    test(`${verb} calls correct url`, () => {
+    it(`${verb} calls correct url`, () => {
       transport.request(verb, 'https://wp.com/wp-json');
       expect(fetch.mock.calls[0][0]).toEqual('https://wp.com/wp-json');
     });
@@ -50,9 +51,11 @@ describe('headers', () => {
     }
   };
   verbs.forEach(verb => {
-    test(`${verb} sends correct headers`, () => {
+    it(`${verb} sends correct headers`, () => {
       transport.request(verb, 'https://wp.com/wp-json', {}, config);
-      expect(fetch.mock.calls[0][1].headers).toEqual(new Headers(config.headers));
+      expect(fetch.mock.calls[0][1].headers).toEqual(
+        new Headers(config.headers)
+      );
     });
   });
 });
@@ -70,7 +73,7 @@ describe('basic auth', () => {
   });
 
   verbs.forEach(verb => {
-    test(`${verb} can use basic auth`, () => {
+    it(`${verb} can use basic auth`, () => {
       transport.request(verb, 'https://wp.com/wp-json', {}, config);
       expect(fetch.mock.calls[0][1].headers).toEqual(expected);
     });
@@ -91,7 +94,7 @@ describe('merge config', () => {
       headers: new Headers()
     };
 
-    test(`${verb} passes custom config`, () => {
+    it(`${verb} passes custom config`, () => {
       if (['GET', 'DELETE'].includes(verb)) {
         expected.body = undefined;
       }
@@ -105,7 +108,7 @@ describe('with data', () => {
   const data = { foo: 'bar' };
 
   verbs.forEach(verb => {
-    test(`${verb} sends data`, () => {
+    it(`${verb} sends data`, () => {
       transport.request(verb, 'https://wp.com/wp-json', data);
       if (['GET', 'DELETE'].includes(verb)) {
         expect(fetch.mock.calls[0][0]).toBe('https://wp.com/wp-json?foo=bar');
@@ -121,13 +124,15 @@ describe('with form data', () => {
   const formData = new FormData();
   formData.append('foo', 'bar');
   verbs.forEach(verb => {
-    test(`${verb} sends form data`, () => {
+    it(`${verb} sends form data`, () => {
       if (['GET', 'DELETE'].includes(verb)) {
         try {
           transport.request(verb, 'https://wp.com/wp-json', formData);
         } catch (error) {
           expect(error instanceof TypeError).toBe(true);
-          expect(error.message).toBe('Unable to encode FormData for GET, DELETE requests');
+          expect(error.message).toBe(
+            'Unable to encode FormData for GET, DELETE requests'
+          );
         }
       } else {
         transport.request(verb, 'https://wp.com/wp-json', formData);
@@ -139,7 +144,7 @@ describe('with form data', () => {
 
 describe('without data', () => {
   verbs.forEach(verb => {
-    test(`${verb} sends data`, () => {
+    it(`${verb} sends data`, () => {
       transport.request(verb, 'https://wp.com/wp-json');
       if (['GET', 'DELETE'].includes(verb)) {
         expect(fetch.mock.calls[0][0]).toBe('https://wp.com/wp-json');
@@ -153,7 +158,7 @@ describe('without data', () => {
 
 describe('returns json', () => {
   verbs.forEach(verb => {
-    test(`${verb} returns data`, () => {
+    it(`${verb} returns data`, () => {
       transport.request(verb, 'https://wp.com/wp-json').then(response => {
         expect(response.data).toEqual({ mock: 'response' });
       });
@@ -163,7 +168,7 @@ describe('returns json', () => {
 
 describe('http exceptions', () => {
   verbs.forEach(verb => {
-    test(`${verb} throws http exceptions`, () => {
+    it(`${verb} throws http exceptions`, () => {
       const response = new Response(null, {
         status: 422,
         statusText: 'Invalid input data'

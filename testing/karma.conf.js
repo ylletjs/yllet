@@ -28,8 +28,8 @@ module.exports = config => {
     colors: true,
     logLevel: config.LOG_INFO,
     browserStack: {
-      username: 'andrewmclagan3',
-      accessKey: 'QQwStTbLhzYxHy8zPjiF'
+      username: 'andrewmclagan4',
+      accessKey: 'pacABfsVozdxaFq57Pv9'
     },
     customLaunchers,
     browsers: Object.keys(customLaunchers),

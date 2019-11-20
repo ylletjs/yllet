@@ -1,28 +1,29 @@
+import expect from 'expect';
 import HTTPError from '../src/HTTPError';
 
 describe('HTTPError', () => {
-  test('it has error message', () => {
+  it('has error message', () => {
     const response = {
       status: 422,
-      statusText: 'Invalid input data',
+      statusText: 'Invalid input data'
     };
     const error = new HTTPError(response);
     expect(error.message).toBe('Invalid input data');
   });
 
-  test('it has correct name', () => {
+  it('has correct name', () => {
     const response = {
       status: 422,
-      statusText: 'Invalid input data',
+      statusText: 'Invalid input data'
     };
     const error = new HTTPError(response);
     expect(error.name).toBe('HTTPError');
   });
 
-  test('it assigns response as property', () => {
+  it('assigns response as property', () => {
     const response = {
       status: 422,
-      statusText: 'Invalid input data',
+      statusText: 'Invalid input data'
     };
     const error = new HTTPError(response);
     expect(error.response).toEqual(response);

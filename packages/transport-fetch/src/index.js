@@ -17,11 +17,13 @@ export default class FetchTransport {
     };
 
     if (data) {
-      if (['PUT', 'PATCH', 'POST'].includes(verb.toUpperCase())) {
+      if ('PUT PATCH POST'.indexOf(verb.toUpperCase()) > -1) {
         request.body = data instanceof FormData ? data : JSON.stringify(data);
       } else {
         if (data instanceof FormData) {
-          throw new TypeError('Unable to encode FormData for GET, DELETE requests');
+          throw new TypeError(
+            'Unable to encode FormData for GET, DELETE requests'
+          );
         }
         url = `${url}?${queryString.stringify(data)}`;
       }
@@ -32,7 +34,8 @@ export default class FetchTransport {
     if (config && config.auth && config.auth.username && config.auth.password) {
       request.headers.set(
         'Authorization',
-        'Basic ' + base64.encode(`${config.auth.username}:${config.auth.password}`)
+        'Basic ' +
+          base64.encode(`${config.auth.username}:${config.auth.password}`)
       );
     }
 
