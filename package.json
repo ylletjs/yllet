@@ -44,6 +44,7 @@
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "lerna run build",
     "start": "lerna run start",
+    "test": "yarn build && yarn test:coverage && yarn test:browsers",
     "test:unit": "jest --config testing/jest.config.js",
     "test:coverage": "yarn test:unit --coverage",
     "test:browsers": "NODE_ENV=test karma start testing/karma.conf.js",

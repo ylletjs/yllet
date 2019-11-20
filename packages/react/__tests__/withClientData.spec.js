@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Provider, withClientData } from '../';
+import { Provider, withClientData } from '../src';
 
 const Foo = () => <span>Foo</span>;
 

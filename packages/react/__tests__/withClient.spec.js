@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Provider, withClient } from '../';
+import { Provider, withClient } from '../src';
 
 const Foo = ({ client }) => <span>Foo</span>;
 
