@@ -12,6 +12,6 @@ context.keys().forEach(context);
 // context = require.context('../packages/transport-fetch/__tests__', true, /\.spec\.js$/);
 // context.keys().forEach(context);
 
-// Integration
-context = require.context('./__tests__', true, /\.spec\.js$/);
-context.keys().forEach(context);
+// // Integration
+// context = require.context('./__tests__', true, /\.spec\.js$/);
+// context.keys().forEach(context);
