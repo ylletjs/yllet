@@ -1,9 +1,9 @@
 # Yllet
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)]
-[![npm](https://img.shields.io/npm/v/yllet.svg)](http://npm.im/yllet)
-[![Build Status](https://cloud.drone.io/api/badges/beam-australia/yllet/status.svg?ref=refs/heads/transports)](https://cloud.drone.io/beam-australia/yllet)
-[![Coverage Status](https://img.shields.io/codecov/c/github/mui-org/material-ui/master.svg)](https://codecov.io/gh/mui-org/material-ui/branch/master)
+[![Build Status](https://cloud.drone.io/api/badges/ylletjs/yllet/status.svg)](https://cloud.drone.io/ylletjs/yllet)
+[![Coverage Status](https://img.shields.io/codecov/c/github/ylletjs/yllet/master.svg)](https://codecov.io/gh/ylletjs/yllet/branch/master)
+![npm (scoped)](https://img.shields.io/npm/v/@yllet/client)
+![npm bundle size (scoped version)](https://img.shields.io/bundlephobia/minzip/@yllet/client)
 
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of [axios](https://github.com/axios/axios).
 
@@ -32,11 +32,15 @@ const client = new Client({
   endpoint: 'https://demo.wp-api.org/wp-json/'
 });
 
-client.posts().get().then(res => {
-  console.log(res.data);
-}).catch(err => {
-  console.log('Error: ' + err.message);
-});
+client
+  .posts()
+  .get()
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log('Error: ' + err.message);
+  });
 ```
 
 ## Client options
@@ -73,17 +77,17 @@ The Axios instance is accessable on the client instance, just use `client.axios`
 
 Yllet client instance provides the following basic request methods:
 
-* `client.categories()`
-* `client.comments()`
-* `client.media()`
-* `client.statuses()`
-* `client.posts()`
-* `client.pages()`
-* `client.settings()`
-* `client.tags()`
-* `client.taxonomies()`
-* `client.types()`
-* `client.users()`
+- `client.categories()`
+- `client.comments()`
+- `client.media()`
+- `client.statuses()`
+- `client.posts()`
+- `client.pages()`
+- `client.settings()`
+- `client.tags()`
+- `client.taxonomies()`
+- `client.types()`
+- `client.users()`
 
 Using any request methods sets the path so you don't have to write `client.get('posts/1')` each time instead you can just write `client.posts().get(1)`
 
@@ -97,11 +101,15 @@ client.products = () => client.namespace('wc/v2').resource('products');
 Then you can just call `client.products()` like you do with `client.posts()`
 
 ```js
-client.products().get().then(res => {
-  console.log(res.data);
-}).catch(err => {
-  console.log('Error: ' + err.message);
-});
+client
+  .products()
+  .get()
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log('Error: ' + err.message);
+  });
 ```
 
 ## Params
@@ -109,14 +117,18 @@ client.products().get().then(res => {
 You can pass a object with the same name as as the existing params. You can write `per_page` or `perPage` when the param contains a underscore.
 
 ```js
-client.posts().get({
-  slug: 'hello-world',
-  perPage: 1 // or per_page
-}).then(res => {
-  console.log(res.data);
-}).catch(err => {
-  console.log('Error: ' + err.message);
-});
+client
+  .posts()
+  .get({
+    slug: 'hello-world',
+    perPage: 1 // or per_page
+  })
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log('Error: ' + err.message);
+  });
 ```
 
 You can also set global params using key/value or object:
@@ -134,43 +146,58 @@ WordPress API support embedding of resources and instead of having to provide `_
 More about WordPress API embedding can you read [here](https://developer.wordpress.org/rest-api/using-the-rest-api/linking-and-embedding/#embedding).
 
 ```js
-client.posts().embed().get({
-  slug: 'hello-world'
-}).then(res => {
-  console.log(res.data);
-}).catch(err => {
-  console.log('Error: ' + err.message);
-});
+client
+  .posts()
+  .embed()
+  .get({
+    slug: 'hello-world'
+  })
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log('Error: ' + err.message);
+  });
 ```
 
 ## File uploading
 
-When Uploading a file you should use `client.file(file, [name])` to specify a file or a file buffer to attach to the request with a name (optional). 
+When Uploading a file you should use `client.file(file, [name])` to specify a file or a file buffer to attach to the request with a name (optional).
 
 Browser example:
 
 ```js
 const file = document.getElementById('my-file').files[0];
 
-client.media().file(file).create({
-  title: 'Test image'
-}).then(res => {
-  console.log(res.data);
-}).catch(err => {
-  console.log('Error: ', err);
-});
+client
+  .media()
+  .file(file)
+  .create({
+    title: 'Test image'
+  })
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log('Error: ', err);
+  });
 ```
 
 Node example:
 
 ```js
-client.media().file(fs.createReadStream('me.jpg')).create({
-  title: 'Test image'
-}).then(res => {
-  console.log(res.data);
-}).catch(err => {
-  console.log('Error: ', err);
-});
+client
+  .media()
+  .file(fs.createReadStream('me.jpg'))
+  .create({
+    title: 'Test image'
+  })
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log('Error: ', err);
+  });
 ```
 
 ## Discover the REST API from a URL
@@ -178,11 +205,13 @@ client.media().file(fs.createReadStream('me.jpg')).create({
 ```js
 import Client from 'yllet';
 
-Client.discover('http://demo.wp-api.org/').then(url => {
-  console.log(url);
-}).catch(err => {
-  console.log('Error: ', err);
-});
+Client.discover('http://demo.wp-api.org/')
+  .then(url => {
+    console.log(url);
+  })
+  .catch(err => {
+    console.log('Error: ', err);
+  });
 ```
 
 ## React bindings
@@ -226,7 +255,7 @@ You can also use `withClientData` to pass the response data or the error from Wo
 
 ```js
 import React from 'react';
-import { withClientData } from 'yllet-react';
+import { withClientData } from 'yllet-react';
 
 class Post extends React.Component {}
 

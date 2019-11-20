@@ -1,5 +1,6 @@
 {
   "name": "@yllet/transport-axios",
+  "private": false,
   "version": "2.0.0-alpha.1",
   "repository": "ylletjs/yllet",
   "description": "yllet axios transport layer",
@@ -11,8 +12,8 @@
     "api",
     "client"
   ],
-  "main": "lib/index.js",
-  "module": "esm/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
   "files": [
     "README.md",
     "lib/"

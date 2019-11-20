@@ -1,5 +1,6 @@
 {
   "name": "@yllet/transport-fetch",
+  "private": false,
   "version": "2.0.0-alpha.1",
   "repository": "ylletjs/yllet",
   "description": "Simple fetch http client transport",
@@ -10,8 +11,8 @@
     "api",
     "client"
   ],
-  "main": "lib/index.js",
-  "module": "esm/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
   "files": [
     "README.md",
     "lib/"
