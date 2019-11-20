@@ -69,7 +69,8 @@ steps:
       - node-11
       - node-12
       - node-13
-      - browsers
+      - browsers-cjs
+      - browsers-esm
 
   - name: coverage-report
     image: plugins/codecov
