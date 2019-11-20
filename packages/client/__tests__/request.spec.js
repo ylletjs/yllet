@@ -1,5 +1,6 @@
+import expect from 'expect';
 import Client from '../src';
-import FormData from 'form-data';
+import FormData from 'isomorphic-form-data';
 import MockTransport from '../__mocks__/MockTransport';
 
 // setup
@@ -10,7 +11,7 @@ const client = new Client({ transport, endpoint });
 
 const params = {
   title: 'Hello World',
-  content: 'Welcome to the Wordpress API',
+  content: 'Welcome to the Wordpress API'
 };
 
 // describe
@@ -20,18 +21,18 @@ describe('Client.request', () => {
     transport.resetMocks();
   });
 
-  test('it accepts path as 2nd param', () => {
+  it('accepts path as 2nd param', () => {
     client.request('post', 'products');
     expect(transport.post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2/products`);
   });
 
-  test('it accepts params as 2nd param', () => {
+  it('accepts params as 2nd param', () => {
     client.request('post', params);
     expect(transport.post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
     expect(transport.post.mock.calls[0][1]).toEqual(params);
   });
 
-  test('it handles invalid paths', () => {
+  it('handles invalid paths', () => {
     client.request('post', undefined);
     expect(transport.post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
     client.request('post', 123);
@@ -44,26 +45,26 @@ describe('Client.request', () => {
     expect(transport.post.mock.calls[4][0]).toBe(`${endpoint}/wp/v2/products/variations/123`);
   });
 
-  test('it merges global params', () => {
+  it('merges global params', () => {
     client.params = { a: '1', b: '2' };
     client.request('post', params);
     expect(transport.post.mock.calls[0][1]).toEqual({
       ...client.params,
-      ...params,
+      ...params
     });
   });
 
-  test('it converts request params to snake case', () => {
+  it('converts request params to snake case', () => {
     client.params = { weLikeCamels: '1', andClimbingHills: '2' };
     client.request('post', { andGentleWavesLikeThis: '3' });
     expect(transport.post.mock.calls[0][1]).toEqual({
       weLikeCamels: '1',
       andClimbingHills: '2',
-      and_gentle_waves_like_this: '3',
+      and_gentle_waves_like_this: '3'
     });
   });
 
-  test('it can send a file', () => {
+  it('can send a file', () => {
     const formData = new FormData();
     client.formData = formData;
     client.params = { a: '1', b: '2' };
@@ -76,13 +77,13 @@ describe('Client.request', () => {
      **/
   });
 
-  test('it merges global request config', () => {
+  it('merges global request config', () => {
     client.options.config = { a: '1', b: '2' };
     client.config = { a: '2', foo: 'bar' };
     client.request('post');
     expect(transport.post.mock.calls[0][2]).toEqual({
       ...client.options.config,
-      ...client.config,
+      ...client.config
     });
   });
 });

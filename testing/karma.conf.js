@@ -1,7 +1,7 @@
-const webpackConfig = require('webpack.config.js');
-const customLaunchers = require('karma.browsers.js');
+const webpackConfig = require('./webpack.config.js');
+const customLaunchers = require('./karma.browsers.js');
 
-const build = 'umd';
+const build = process.env.BABEL_ENV ? process.env.BABEL_ENV : 'cjs';
 
 module.exports = config => {
   config.set({
@@ -15,9 +15,9 @@ module.exports = config => {
       'karma-sourcemap-loader',
       'karma-browserstack-launcher'
     ],
-    files: [{ pattern: 'testing/karma.tests.js', watched: false }],
+    files: [{ pattern: 'karma.tests.js', watched: false }],
     preprocessors: {
-      'testing/karma.tests.js': ['webpack', 'sourcemap']
+      'karma.tests.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig(build),
     webpackMiddleware: {
@@ -28,8 +28,8 @@ module.exports = config => {
     colors: true,
     logLevel: config.LOG_INFO,
     browserStack: {
-      username: 'andrew2460',
-      accessKey: 'VMfuPzDqR6ko92bVC6jZ'
+      username: 'andrewmclagan3',
+      accessKey: 'QQwStTbLhzYxHy8zPjiF'
     },
     customLaunchers,
     browsers: Object.keys(customLaunchers),

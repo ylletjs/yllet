@@ -1,6 +1,6 @@
 import base64 from 'base-64';
 import queryString from 'querystringify';
-import FormData from 'form-data';
+import FormData from 'isomorphic-form-data';
 import HTTPError from './HTTPError';
 
 export default class FetchTransport {

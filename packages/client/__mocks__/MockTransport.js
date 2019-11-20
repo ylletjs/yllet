@@ -1,3 +1,5 @@
+import 'core-js/features/promise';
+import mock from 'jest-mock';
 export default class MockTransport {
   constructor(responses = {}) {
     this.responses = responses;
@@ -6,7 +8,7 @@ export default class MockTransport {
 
   resetMocks() {
     ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
-      this[verb] = jest.fn((url, data, config) => this.request(verb));
+      this[verb] = mock.fn((url, data, config) => this.request(verb));
     });
   }
 

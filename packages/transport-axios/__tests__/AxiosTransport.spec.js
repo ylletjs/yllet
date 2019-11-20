@@ -1,6 +1,6 @@
 import AxiosClient from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import FormData from 'form-data';
+import FormData from 'isomorphic-form-data';
 import AxiosTransport from '../src';
 
 // setup
@@ -58,8 +58,8 @@ describe('url', () => {
 describe('headers', () => {
   const config = {
     headers: {
-      'X-Foo': 'bar',
-    },
+      'X-Foo': 'bar'
+    }
   };
   verbs.forEach(verb => {
     test(`${verb.toUpperCase()} sends correct headers`, () => {
@@ -75,8 +75,8 @@ describe('basic auth', () => {
   const config = {
     auth: {
       username: 'foo',
-      password: 'bar',
-    },
+      password: 'bar'
+    }
   };
 
   verbs.forEach(verb => {
@@ -92,7 +92,7 @@ describe('basic auth', () => {
 describe('merge config', () => {
   const config = {
     timeout: 1337,
-    maxContentLength: 1337,
+    maxContentLength: 1337
   };
 
   verbs.forEach(verb => {
@@ -182,7 +182,7 @@ describe('returns json', () => {
 describe('http exceptions', () => {
   const response = {
     status: 422,
-    statusText: 'Invalid input data',
+    statusText: 'Invalid input data'
   };
 
   verbs.forEach(verb => {

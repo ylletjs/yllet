@@ -1,3 +1,4 @@
+import expect from 'expect';
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 
@@ -14,12 +15,12 @@ describe('Client.namespace', () => {
     transport.resetMocks();
   });
 
-  test('it sets the current namespace', () => {
+  it('sets the current namespace', () => {
     client.namespace('wc/v1');
     expect(client.options.namespace).toBe('wc/v1');
   });
 
-  test('it has fluent interface', () => {
+  it('has fluent interface', () => {
     const returnValue = client.namespace('wc/v1');
     expect(returnValue).toBe(client);
   });

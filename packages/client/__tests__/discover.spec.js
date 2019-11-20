@@ -1,8 +1,9 @@
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
+import expect from 'expect';
 
 describe('Client.discover', () => {
-  test('it requests discovery route', () => {
+  it('requests discovery route', () => {
     const transport = new MockTransport();
     const client = new Client({ transport });
     client.discover('http://demo.wp-api.org');
@@ -10,17 +11,17 @@ describe('Client.discover', () => {
     expect(client.transport.get.mock.calls[0][1]).toEqual({ rest_route: '/' });
   });
 
-  test('it returns api route', () => {
+  it('returns api route', () => {
     const transport = new MockTransport({
       get: {
         routes: {
           '/': {
             _links: {
-              self: 'http://demo.wp-api.org/wp-json/',
-            },
-          },
-        },
-      },
+              self: 'http://demo.wp-api.org/wp-json/'
+            }
+          }
+        }
+      }
     });
     const client = new Client({ transport });
     client
@@ -28,9 +29,9 @@ describe('Client.discover', () => {
       .then(response => expect(response).toBe('http://demo.wp-api.org/wp-json/'));
   });
 
-  test('it throws Error', () => {
+  it('throws Error', () => {
     const transport = new MockTransport({
-      get: {},
+      get: {}
     });
     const client = new Client({ transport });
     client.discover('http://demo.wp-api.org').catch(error => {

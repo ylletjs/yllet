@@ -1,3 +1,4 @@
+import expect from 'expect';
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 
@@ -5,24 +6,25 @@ import MockTransport from '../__mocks__/MockTransport';
 
 const data = {
   title: 'Hello world',
-  content: 'Welcome to Wordpress',
+  content: 'Welcome to Wordpress'
 };
 
 const METHODS = {
   get: 'get',
   create: 'post',
   update: 'patch',
-  delete: 'delete',
+  delete: 'delete'
 };
 
 // describe
 
 describe('Client.METHODS', () => {
-  Object.entries(METHODS).forEach(([method, verb]) => {
-    test(`"${method}" calls correct HTTP verb on transport`, () => {
+  Object.keys(METHODS).forEach(method => {
+    const verb = METHODS[method];
+    it(`"${method}" calls correct HTTP verb on transport`, () => {
       const client = new Client({
         endpoint: 'http://wordpress.test/wp-json/',
-        transport: new MockTransport(),
+        transport: new MockTransport()
       });
       client[method]('products', { foo: 'bar' });
       expect(client.transport[verb].mock.calls.length).toBe(1);

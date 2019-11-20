@@ -1,3 +1,4 @@
+import expect from 'expect';
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 
@@ -9,21 +10,21 @@ const client = new Client({ transport, endpoint });
 
 const params = {
   title: 'Hello World',
-  content: 'Welcome to the Wordpress API',
+  content: 'Welcome to the Wordpress API'
 };
 
 // describe
 
 describe('Client.embed', () => {
-  test('it can enable embed mode', () => {
+  it('can enable embed mode', () => {
     client.embed().request('post', params);
     expect(transport.post.mock.calls[0][1]).toEqual({
       _embed: true,
-      ...params,
+      ...params
     });
   });
 
-  test('it has fluent interface', () => {
+  it('has fluent interface', () => {
     const returnValue = client.embed();
     expect(returnValue).toBe(client);
   });

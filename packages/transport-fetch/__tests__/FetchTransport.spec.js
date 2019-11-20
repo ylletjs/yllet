@@ -1,5 +1,5 @@
 import base64 from 'base-64';
-import FormData from 'form-data';
+import FormData from 'isomorphic-form-data';
 import FetchTransport from '../src';
 import HTTPError from '../src/HTTPError';
 
@@ -46,8 +46,8 @@ describe('url', () => {
 describe('headers', () => {
   const config = {
     headers: {
-      'X-Foo': 'bar',
-    },
+      'X-Foo': 'bar'
+    }
   };
   verbs.forEach(verb => {
     test(`${verb} sends correct headers`, () => {
@@ -61,12 +61,12 @@ describe('basic auth', () => {
   const config = {
     auth: {
       username: 'foo',
-      password: 'bar',
-    },
+      password: 'bar'
+    }
   };
 
   const expected = new Headers({
-    Authorization: 'Basic ' + base64.encode('foo:bar'),
+    Authorization: 'Basic ' + base64.encode('foo:bar')
   });
 
   verbs.forEach(verb => {
@@ -80,7 +80,7 @@ describe('basic auth', () => {
 describe('merge config', () => {
   const config = {
     foo: 'bar',
-    bar: 'foo',
+    bar: 'foo'
   };
 
   verbs.forEach(verb => {
@@ -88,7 +88,7 @@ describe('merge config', () => {
       ...config,
       method: verb,
       body: JSON.stringify({}),
-      headers: new Headers(),
+      headers: new Headers()
     };
 
     test(`${verb} passes custom config`, () => {
@@ -166,7 +166,7 @@ describe('http exceptions', () => {
     test(`${verb} throws http exceptions`, () => {
       const response = new Response(null, {
         status: 422,
-        statusText: 'Invalid input data',
+        statusText: 'Invalid input data'
       });
       fetch.resetMocks();
       fetch.mockRejectOnce(response);

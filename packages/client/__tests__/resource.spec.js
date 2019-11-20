@@ -1,3 +1,4 @@
+import expect from 'expect';
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 
@@ -14,12 +15,12 @@ describe('Client.resource', () => {
     transport.resetMocks();
   });
 
-  test('it sets the current path', () => {
+  it('sets the current path', () => {
     client.resource('products');
     expect(client.path).toBe('products');
   });
 
-  test('it has fluent interface', () => {
+  it('has fluent interface', () => {
     const returnValue = client.resource('products');
     expect(returnValue).toBe(client);
   });

@@ -1,4 +1,4 @@
-import FormData from 'form-data';
+import FormData from 'isomorphic-form-data';
 import urljoin from 'url-join';
 import merge from 'deep-extend';
 import { isObject, objectKeysToSnakeCase } from './util';
@@ -195,7 +195,7 @@ export default class Client {
     const formData = new FormData();
     formData.append('file', file);
 
-    this.header(formData.getHeaders());
+    this.header('Content-Type', 'multipart/form-data');
     this.header('Content-Disposition', 'attachment; filename=' + name);
 
     this.formData = formData;

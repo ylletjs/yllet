@@ -1,6 +1,7 @@
+import expect from 'expect';
 import fs from 'fs';
 import Client from '../src';
-import FormData from 'form-data';
+import FormData from 'isomorphic-form-data';
 import MockTransport from '../__mocks__/MockTransport';
 
 // setup
@@ -9,33 +10,44 @@ const transport = new MockTransport();
 const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
 
-// describe
+const isFsAvailable = typeof fs.createReadStream === 'function';
 
-describe('Client.file', () => {
-  beforeEach(() => {
-    transport.resetMocks();
-  });
+const isRunningInBrowser = Boolean(process.env.BROWSER_ENV);
 
-  test('it can attach file from argument', () => {
-    const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
-    client.file(file, 'foo.txt');
-    expect(client.formData instanceof FormData).toBe(true);
-  });
+// test suite
 
-  test('it adds correct headers to request', () => {
-    const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
-    client.file(file, 'foo.txt');
-    expect(client.config.headers['content-type'].includes('multipart/form-data; boundary=')).toBe(
-      true
-    );
-    expect(
-      client.config.headers['Content-Disposition'].includes('attachment; filename=foo.txt')
-    ).toBe(true);
-  });
+function runTests(file) {
+  describe('Client.file', () => {
+    beforeEach(() => {
+      transport.resetMocks();
+    });
 
-  test('it has fluent interface', () => {
-    const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
-    const returnValue = client.file(file, 'foo.txt');
-    expect(returnValue).toBe(client);
+    it('can attach file from argument', () => {
+      client.file(file, 'foo.txt');
+      expect(client.formData instanceof FormData).toBe(true);
+    });
+
+    it('adds correct headers to request', () => {
+      client.file(file, 'foo.txt');
+      expect(client.config.headers['Content-Type']).toBe('multipart/form-data');
+      expect(client.config.headers['Content-Disposition']).toMatch(/attachment; filename=foo.txt/);
+    });
+
+    it('has fluent interface', () => {
+      const returnValue = client.file(file, 'foo.txt');
+      expect(returnValue).toBe(client);
+    });
   });
-});
+}
+
+// run tests
+
+if (isFsAvailable) {
+  const file = fs.createReadStream(`${__dirname}/mocks/foo.txt`);
+  runTests(file);
+}
+
+if (isRunningInBrowser) {
+  var file = new Blob(['foo'], { type: 'text/plain' });
+  runTests(file);
+}

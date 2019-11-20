@@ -7,7 +7,8 @@ module.exports = build => ({
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('test')
+        NODE_ENV: JSON.stringify('test'),
+        BROWSER_ENV: JSON.stringify(true)
       }
     })
   ],

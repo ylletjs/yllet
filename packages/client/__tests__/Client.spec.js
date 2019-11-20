@@ -1,5 +1,6 @@
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
+import expect from 'expect';
 
 // setup
 
@@ -14,11 +15,11 @@ describe('Client', () => {
     transport.resetMocks();
   });
 
-  test('it sets transport property', () => {
+  it('sets transport property', () => {
     expect(client.transport).toBe(transport);
   });
 
-  test('it throws error when missing transport', () => {
+  it('throws error when missing transport', () => {
     try {
       new Client({ transport: undefined });
     } catch (error) {
@@ -27,7 +28,7 @@ describe('Client', () => {
     }
   });
 
-  test('it has default options', () => {
+  it('has default options', () => {
     const ylletClient = new Client({ transport });
     expect(ylletClient.options).toEqual({
       auth: {
@@ -45,7 +46,7 @@ describe('Client', () => {
     });
   });
 
-  test('it merges options', () => {
+  it('merges options', () => {
     const ylletClient = new Client({
       transport,
       endpoint: 'https://wordpress.test/wp-json',
@@ -71,14 +72,14 @@ describe('Client', () => {
     });
   });
 
-  test('it has HTTP methods', () => {
+  it('has HTTP methods', () => {
     expect(typeof client.get).toBe('function');
     expect(typeof client.create).toBe('function');
     expect(typeof client.update).toBe('function');
     expect(typeof client.delete).toBe('function');
   });
 
-  test('it has API Resource methods', () => {
+  it('has API Resource methods', () => {
     [
       'categories',
       'comments',

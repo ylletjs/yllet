@@ -17,33 +17,44 @@ steps:
   - name: node-10
     image: node:10-alpine
     commands:
-      - yarn test
+      - yarn test:unit
     depends_on:
       - build
 
   - name: node-11
     image: node:11-alpine
     commands:
-      - yarn test
+      - yarn test:unit
     depends_on:
       - build
 
   - name: node-12
     image: node:12-alpine
     commands:
-      - yarn test
+      - yarn test:unit
     depends_on:
       - build
 
   - name: node-13
     image: node:12-alpine
     commands:
-      - yarn test
+      - yarn test:unit
     depends_on:
       - build
 
-  - name: browsers
+  - name: browsers-cjs
     image: node:13-buster
+    environment:
+      BABEL_ENV: cjs
+    commands:
+      - yarn test:browsers
+    depends_on:
+      - build
+
+  - name: browsers-esm
+    image: node:13-buster
+    environment:
+      BABEL_ENV: esm
     commands:
       - yarn test:browsers
     depends_on:

@@ -1,3 +1,4 @@
+import expect from 'expect';
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 
@@ -14,27 +15,27 @@ describe('Client.resource', () => {
     transport.resetMocks();
   });
 
-  test('it can return a param', () => {
+  it('can return a param', () => {
     client.params.foo = 'bar';
     expect(client.param('foo')).toBe('bar');
   });
 
-  test('it can set a param', () => {
+  it('can set a param', () => {
     client.param('test', 'foo');
     expect(client.params.test).toBe('foo');
   });
 
-  test('it can set a param object', () => {
+  it('can set a param object', () => {
     client.param({ a: '1', b: '2' });
     expect(client.params).toEqual({
       foo: 'bar',
       test: 'foo',
       a: '1',
-      b: '2',
+      b: '2'
     });
   });
 
-  test('it has fluent interface', () => {
+  it('has fluent interface', () => {
     const returnValue = client.param({ a: '1', b: '2' });
     expect(returnValue).toBe(client);
   });

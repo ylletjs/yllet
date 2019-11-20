@@ -1,5 +1,5 @@
 import AxiosClient from 'axios';
-import FormData from 'form-data';
+import FormData from 'isomorphic-form-data';
 
 export default class Transport {
   axios = undefined;
@@ -16,7 +16,7 @@ export default class Transport {
     const request = {
       ...config,
       url,
-      method: verb.toUpperCase(),
+      method: verb.toUpperCase()
     };
 
     if (['PUT', 'PATCH', 'POST'].includes(verb.toUpperCase())) {
