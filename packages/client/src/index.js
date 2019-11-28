@@ -23,7 +23,8 @@ const RESOURCES = [
   'tags',
   'taxonomies',
   'types',
-  'users'
+  'users',
+  'search'
 ];
 
 export default class Client {
@@ -288,6 +289,10 @@ export default class Client {
       params = path;
       path = '';
     }
-    return this.transport[verb](this._getUrl(path), this._getParams(params), this._getConfig());
+    return this.transport[verb](
+      this._getUrl(path),
+      this._getParams(params),
+      this._getConfig()
+    );
   }
 }
