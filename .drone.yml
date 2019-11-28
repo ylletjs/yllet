@@ -44,7 +44,7 @@ steps:
 
   - name: browsers
     image: node:13-buster
-    settings:
+    environment:
       BROWSERSTACK_ACCESS_KEY:
         from_secret: BROWSERSTACK_ACCESS_KEY
       BROWSERSTACK_USERNAME:
@@ -67,7 +67,7 @@ steps:
 
   - name: coverage-report
     image: plugins/codecov
-    settings:
+    environment:
       token:
         from_secret: CODECOV_TOKEN
     depends_on:
