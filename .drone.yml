@@ -42,6 +42,13 @@ steps:
     depends_on:
       - build
 
+  - name: integration
+    image: node:alpine
+    commands:
+      - yarn test:integration
+    depends_on:
+      - build
+
   - name: browsers
     image: node:13-buster
     environment:
@@ -63,6 +70,7 @@ steps:
       - node-11
       - node-12
       - node-13
+      - integration
       - browsers
 
   - name: coverage-report
