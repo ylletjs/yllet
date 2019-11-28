@@ -270,6 +270,12 @@ Then you can use `this.props.data` or `this.props.error` and `this.props.loading
 
 We'd love to have your helping hand on yllet! See [CONTRIBUTING.md](https://github.com/ylletjs/yllet/blob/master/CONTRIBUTING.md) for more information.
 
+## Thanks
+
+Cross-browser testing provided by [BrowserStack](https://browserstack.com/)
+
+<a href="http://browserstack.com"><img width="150" src="https://user-images.githubusercontent.com/14610/69789853-a4d4ef00-11c1-11ea-96a3-98f9e8c550bc.png" alt="BrowserStack"></a>
+
 ## License
 
 MIT © [Fredrik Forsmo](https://github.com/frozzare)
