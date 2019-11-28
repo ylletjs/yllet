@@ -67,7 +67,7 @@ steps:
 
   - name: coverage-report
     image: plugins/codecov
-    environment:
+    settings:
       token:
         from_secret: CODECOV_TOKEN
     depends_on:
