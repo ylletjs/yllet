@@ -28,12 +28,9 @@
     "preversion": "yarn build"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "invariant": "^2.2.4",
     "prop-types": "^15.7.2",
-    "qs": "^6.7.0",
-    "react": "^16.8.6",
-    "url-join": "^4.0.0"
+    "react": "^16.8.6"
   },
   "devDependencies": {
     "enzyme": "^3.9.0",
