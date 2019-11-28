@@ -44,6 +44,11 @@ steps:
 
   - name: browsers
     image: node:13-buster
+    settings:
+      BROWSERSTACK_ACCESS_KEY:
+        from_secret: BROWSERSTACK_ACCESS_KEY
+      BROWSERSTACK_USERNAME:
+        from_secret: BROWSERSTACK_USERNAME
     commands:
       - yarn test:browsers
     depends_on:
