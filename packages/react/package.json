@@ -37,5 +37,6 @@
     "enzyme-adapter-react-16": "^1.12.1",
     "react-dom": "^16.8.6"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "2691c36e2a123448296048f8996cf5358c62bcac"
 }
