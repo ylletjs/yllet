@@ -7,7 +7,6 @@ let context;
  *
  * - We do not test react as its DOM API is already heavily tested.
  * - Integration tests entire functionality within a browser on a live API
- * - https://wordpress.org/wp-json/wp/v2
  */
 
 // Client
@@ -23,5 +22,5 @@ context.keys().forEach(context);
 // context.keys().forEach(context);
 
 // Integration
-context = require.context('./integration/__tests__', true, /\.spec\.js$/);
-context.keys().forEach(context);
+// context = require.context('./integration/__tests__', true, /\.spec\.js$/);
+// context.keys().forEach(context);
