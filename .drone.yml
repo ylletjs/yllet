@@ -36,7 +36,7 @@ steps:
       - build
 
   - name: node-13
-    image: node:12-alpine
+    image: node:13-alpine
     commands:
       - yarn test:unit
     depends_on:
