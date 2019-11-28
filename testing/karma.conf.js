@@ -26,8 +26,7 @@ module.exports = config => {
     colors: true,
     logLevel: config.LOG_INFO,
     browserStack: {
-      username: 'andrewmclagan4',
-      accessKey: 'pacABfsVozdxaFq57Pv9'
+      project: 'Yllet'
     },
     customLaunchers,
     browsers: Object.keys(customLaunchers),
