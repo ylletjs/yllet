@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'react',
-  displayName: 'react',
+  name: '@yllet/react',
+  displayName: '@yllet/react',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 };

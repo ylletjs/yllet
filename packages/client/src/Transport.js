@@ -25,26 +25,27 @@ export default class Transport {
             'Unable to encode FormData for GET, DELETE requests'
           );
         }
-        url = `${url}?${queryString.stringify(data, {
+
+        const qs = queryString.stringify(data, {
           arrayFormat: 'bracket'
-        })}`;
+        });
+
+        if (qs.length) {
+          url = `${url}?${qs}`;
+        }
       }
     }
 
     request.headers = new Headers(config.headers);
 
-    if (config && config.auth && config.auth.username && config.auth.password) {
-      request.headers.set(
-        'Authorization',
-        'Basic ' +
-          base64.encode(`${config.auth.username}:${config.auth.password}`)
-      );
-    }
+    return fetch(url, request).then(response => {
+      return response.json().then(data => {
+        if (!response.ok) {
+          throw new HTTPError(data);
+        }
 
-    return fetch(url, request)
-      .then(response => response.json())
-      .catch(error => {
-        throw new HTTPError(error);
+        return data;
       });
+    });
   }
 }

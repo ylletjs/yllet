@@ -1,4 +1,3 @@
-import 'core-js/stable/object/assign';
 import 'core-js/features/promise';
 import mock from 'jest-mock';
 export default class MockTransport {

@@ -1,1 +1,2 @@
-global.fetch = require('jest-fetch-mock');
+import 'isomorphic-fetch';
+import 'core-js/stable/object/assign';

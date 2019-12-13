@@ -36,7 +36,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "jest-fetch-mock": "^2.1.2"
+    "fetch-mock": "^8.0.1"
   },
   "gitHead": "2691c36e2a123448296048f8996cf5358c62bcac"
 }

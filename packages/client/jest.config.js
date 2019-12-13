@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'client',
-  displayName: 'client',
+  name: '@yllet/client',
+  displayName: '@yllet/client',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 };

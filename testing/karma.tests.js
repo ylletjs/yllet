@@ -1,5 +1,3 @@
-import 'isomorphic-fetch';
-
 let context;
 
 /**

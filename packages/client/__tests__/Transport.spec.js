@@ -1,18 +1,17 @@
 import expect from 'expect';
-import base64 from 'base-64';
 import FormData from 'isomorphic-form-data';
+import fetchMock from 'fetch-mock';
 import Transport from '../src/Transport';
 import HTTPError from '../src/HTTPError';
 
 // setup
 
 const transport = new Transport();
-
+const endpoint = 'https://wp.com/wp-json';
 const verbs = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
 beforeEach(() => {
-  fetch.resetMocks();
-  fetch.mockResponseOnce(JSON.stringify({ data: { mock: 'response' } }));
+  fetchMock.reset();
 });
 
 // describe
@@ -20,8 +19,9 @@ beforeEach(() => {
 describe('request calls', () => {
   verbs.forEach(verb => {
     it(`${verb} calls fetch once`, () => {
-      transport.request(verb, 'https://wp.com/wp-json');
-      expect(fetch.mock.calls.length).toEqual(1);
+      fetchMock.once(endpoint, {});
+      transport.request(verb, endpoint).catch(error => console.log(error));
+      expect(fetchMock.calls().length).toEqual(1);
     });
   });
 });
@@ -29,8 +29,15 @@ describe('request calls', () => {
 describe('verbs', () => {
   verbs.forEach(verb => {
     it(`${verb} sends correct http verb`, () => {
-      transport.request(verb, 'https://wp.com/wp-json');
-      expect(fetch.mock.calls[0][1].method).toEqual(verb);
+      fetchMock.once(
+        endpoint,
+        {},
+        {
+          method: verb
+        }
+      );
+      transport.request(verb, endpoint);
+      expect(fetchMock.calls()[0][1].method).toEqual(verb);
     });
   });
 });
@@ -38,8 +45,9 @@ describe('verbs', () => {
 describe('url', () => {
   verbs.forEach(verb => {
     it(`${verb} calls correct url`, () => {
-      transport.request(verb, 'https://wp.com/wp-json');
-      expect(fetch.mock.calls[0][0]).toEqual('https://wp.com/wp-json');
+      fetchMock.once(endpoint, {});
+      transport.request(verb, endpoint);
+      expect(fetchMock.calls()[0][0]).toEqual(endpoint);
     });
   });
 });
@@ -50,32 +58,14 @@ describe('headers', () => {
       'X-Foo': 'bar'
     }
   };
+
   verbs.forEach(verb => {
     it(`${verb} sends correct headers`, () => {
-      transport.request(verb, 'https://wp.com/wp-json', {}, config);
-      expect(fetch.mock.calls[0][1].headers).toEqual(
+      fetchMock.once(endpoint, {});
+      transport.request(verb, endpoint, {}, config);
+      expect(fetchMock.calls()[0][1].headers).toEqual(
         new Headers(config.headers)
       );
-    });
-  });
-});
-
-describe('basic auth', () => {
-  const config = {
-    auth: {
-      username: 'foo',
-      password: 'bar'
-    }
-  };
-
-  const expected = new Headers({
-    Authorization: 'Basic ' + base64.encode('foo:bar')
-  });
-
-  verbs.forEach(verb => {
-    it(`${verb} can use basic auth`, () => {
-      transport.request(verb, 'https://wp.com/wp-json', {}, config);
-      expect(fetch.mock.calls[0][1].headers).toEqual(expected);
     });
   });
 });
@@ -90,16 +80,17 @@ describe('merge config', () => {
     const expected = {
       ...config,
       method: verb,
-      body: JSON.stringify({}),
       headers: new Headers()
     };
 
+    if (['POST', 'PATCH', 'PUT'].includes(verb)) {
+      expected.body = '{}';
+    }
+
     it(`${verb} passes custom config`, () => {
-      if (['GET', 'DELETE'].includes(verb)) {
-        expected.body = undefined;
-      }
-      transport.request(verb, 'https://wp.com/wp-json', {}, config);
-      expect(fetch.mock.calls[0][1]).toEqual(expected);
+      fetchMock.once(endpoint, {});
+      transport.request(verb, endpoint, {}, config);
+      expect(fetchMock.calls()[0][1]).toEqual(expected);
     });
   });
 });
@@ -109,14 +100,17 @@ describe('with data', () => {
 
   verbs.forEach(verb => {
     it(`${verb} sends data`, () => {
-      transport.request(verb, 'https://wp.com/wp-json', data);
       if (['GET', 'DELETE'].includes(verb)) {
-        expect(fetch.mock.calls[0][0]).toBe(
-          'https://wp.com/wp-json?foo=bar&posts[]=21&posts[]=33&posts[]=150'
+        fetchMock.once('*', {});
+        transport.request(verb, endpoint, data);
+        expect(fetchMock.calls()[0][0]).toBe(
+          endpoint + '?foo=bar&posts[]=21&posts[]=33&posts[]=150'
         );
-        expect(fetch.mock.calls[0][1].body).toBe(undefined);
+        expect(fetchMock.calls()[0][1].body).toBe(undefined);
       } else {
-        expect(fetch.mock.calls[0][1].body).toEqual(JSON.stringify(data));
+        fetchMock.once('*', {});
+        transport.request(verb, endpoint, data);
+        expect(fetchMock.calls()[0][1].body).toEqual(JSON.stringify(data));
       }
     });
   });
@@ -125,11 +119,13 @@ describe('with data', () => {
 describe('with form data', () => {
   const formData = new FormData();
   formData.append('foo', 'bar');
+
   verbs.forEach(verb => {
     it(`${verb} sends form data`, () => {
       if (['GET', 'DELETE'].includes(verb)) {
         try {
-          transport.request(verb, 'https://wp.com/wp-json', formData);
+          fetchMock.once(endpoint, {});
+          transport.request(verb, endpoint, formData);
         } catch (error) {
           expect(error instanceof TypeError).toBe(true);
           expect(error.message).toBe(
@@ -137,8 +133,9 @@ describe('with form data', () => {
           );
         }
       } else {
-        transport.request(verb, 'https://wp.com/wp-json', formData);
-        expect(fetch.mock.calls[0][1].body instanceof FormData).toBe(true);
+        fetchMock.once(endpoint, {});
+        transport.request(verb, endpoint, formData);
+        expect(fetchMock.calls()[0][1].body instanceof FormData).toBe(true);
       }
     });
   });
@@ -147,12 +144,13 @@ describe('with form data', () => {
 describe('without data', () => {
   verbs.forEach(verb => {
     it(`${verb} sends data`, () => {
-      transport.request(verb, 'https://wp.com/wp-json');
+      fetchMock.once(endpoint, {});
+      transport.request(verb, endpoint);
       if (['GET', 'DELETE'].includes(verb)) {
-        expect(fetch.mock.calls[0][0]).toBe('https://wp.com/wp-json');
-        expect(fetch.mock.calls[0][1].body).toBe(undefined);
+        expect(fetchMock.calls()[0][0]).toBe(endpoint);
+        expect(fetchMock.calls()[0][1].body).toBe(undefined);
       } else {
-        expect(fetch.mock.calls[0][1].body).toBe(undefined);
+        expect(fetchMock.calls()[0][1].body).toBe(undefined);
       }
     });
   });
@@ -161,7 +159,8 @@ describe('without data', () => {
 describe('returns json', () => {
   verbs.forEach(verb => {
     it(`${verb} returns data`, () => {
-      transport.request(verb, 'https://wp.com/wp-json').then(response => {
+      fetchMock.once(endpoint, { data: { mock: 'response' } });
+      transport.request(verb, endpoint).then(response => {
         expect(response.data).toEqual({ mock: 'response' });
       });
     });
@@ -169,17 +168,17 @@ describe('returns json', () => {
 });
 
 describe('http exceptions', () => {
+  const response = {
+    status: 503,
+    body: { foo: 'bar' }
+  };
+
   verbs.forEach(verb => {
     it(`${verb} throws http exceptions`, () => {
-      const response = new Response(null, {
-        status: 422,
-        statusText: 'Invalid input data'
-      });
-      fetch.resetMocks();
-      fetch.mockRejectOnce(response);
-      return transport.request(verb, 'https://wp.com/wp-json').catch(error => {
+      fetchMock.once('*', response);
+      return transport.request(verb, endpoint).catch(error => {
         expect(error instanceof HTTPError).toBe(true);
-        expect(error.response).toEqual(response);
+        expect(error.response).toEqual({ foo: 'bar' });
       });
     });
   });
