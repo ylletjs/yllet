@@ -30,7 +30,9 @@ function runTests(file) {
     it('adds correct headers to request', () => {
       client.file(file, 'foo.txt');
       expect(client.config.headers['Content-Type']).toBe('multipart/form-data');
-      expect(client.config.headers['Content-Disposition']).toMatch(/attachment; filename=foo.txt/);
+      expect(client.config.headers['Content-Disposition']).toMatch(
+        /attachment; filename=foo.txt/
+      );
     });
 
     it('has fluent interface', () => {

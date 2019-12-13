@@ -118,7 +118,7 @@ export default class Client {
    * @return {string}
    */
   _getUrl(path) {
-    const safePath = path ? path : '';
+    const safePath = path || '';
     const { endpoint, namespace } = this.options;
     const safeEndpoint = endpoint.replace(namespace, '');
     return urljoin(safeEndpoint, namespace, this.path, String(safePath));

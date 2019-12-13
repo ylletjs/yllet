@@ -14,6 +14,7 @@
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
     "@babel/runtime": "^7.7.6",
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "codecov": "^3.6.1",
@@ -32,8 +33,10 @@
     "lerna": "^3.19.0",
     "mocha": "^6.2.2",
     "prettier": "^1.19.1",
+    "prettier-semi-cli": "^1.0.0",
     "pretty-quick": "^2.0.1",
     "rimraf": "^3.0.0",
+    "semistandard": "^14.2.0",
     "webpack": "^4.41.2"
   },
   "scripts": {
@@ -44,12 +47,20 @@
     "test:unit": "jest --config testing/jest.config.js packages/**",
     "test:coverage": "yarn test:unit --coverage",
     "test:browsers": "NODE_ENV=test karma start testing/karma.conf.js",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "lint": "semistandard",
+    "format": "prettier-semi --single-quote --write 'packages/*/**.js' --ignore 'packages/*/__tests__/**.js'"
   },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
   },
-  "version": "2.0.0-alpha.1"
+  "version": "2.0.0-alpha.1",
+  "semistandard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "packages/*/__tests__/**.js"
+    ]
+  }
 }

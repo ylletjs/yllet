@@ -9,7 +9,7 @@ export default class Provider extends React.Component {
    * @var {object}
    */
   static childContextTypes = {
-    client: PropTypes.object.isRequired,
+    client: PropTypes.object.isRequired
   };
 
   /**
@@ -18,7 +18,7 @@ export default class Provider extends React.Component {
    * @var {object}
    */
   static propTypes = {
-    client: PropTypes.object.isRequired,
+    client: PropTypes.object.isRequired
   };
 
   /**
@@ -44,7 +44,7 @@ export default class Provider extends React.Component {
     invariant(
       props.client,
       'Yllet Client was not passed a client instance. Make ' +
-        'sure you pass in your client via the "client" prop.',
+        'sure you pass in your client via the "client" prop.'
     );
   }
 
@@ -56,4 +56,4 @@ export default class Provider extends React.Component {
   render() {
     return React.Children.only(this.props.children);
   }
-};
+}

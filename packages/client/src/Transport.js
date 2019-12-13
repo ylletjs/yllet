@@ -1,4 +1,3 @@
-import base64 from 'base-64';
 import queryString from 'query-string';
 import FormData from 'isomorphic-form-data';
 import HTTPError from './HTTPError';

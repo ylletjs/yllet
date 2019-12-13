@@ -36,13 +36,18 @@ test('it can handle returned data', () => {
     .componentDidMount()
     .then(() => {
       expect(wrapper.find('Foo').prop('client')).toBe(client);
-      expect(wrapper.find('Foo').prop('data')).toEqual({ foo: 'bar', bar: 'foo' });
+      expect(wrapper.find('Foo').prop('data')).toEqual({
+        foo: 'bar',
+        bar: 'foo'
+      });
       expect(wrapper.find('Foo').prop('error')).toBe(null);
     });
 });
 
 test('it can handle rejected data', () => {
-  const client = new Promise((resolve, reject) => reject({ foo: 'bar', bar: 'foo' }));
+  const client = new Promise((resolve, reject) =>
+    reject({ foo: 'bar', bar: 'foo' })
+  );
 
   const Connected = withClientData(client => {
     return client;
@@ -55,7 +60,10 @@ test('it can handle rejected data', () => {
     .componentDidMount()
     .then(() => {
       expect(wrapper.find('Foo').prop('client')).toBe(client);
-      expect(wrapper.find('Foo').prop('error')).toEqual({ foo: 'bar', bar: 'foo' });
+      expect(wrapper.find('Foo').prop('error')).toEqual({
+        foo: 'bar',
+        bar: 'foo'
+      });
       expect(wrapper.find('Foo').prop('data')).toEqual({});
     });
 });

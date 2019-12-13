@@ -12,7 +12,7 @@ const withClientData = fn => {
       state = {
         data: {},
         error: null,
-        loading: true,
+        loading: true
       };
 
       /**
@@ -21,7 +21,7 @@ const withClientData = fn => {
        * @var {object}
        */
       static contextTypes = {
-        client: PropTypes.object.isRequired,
+        client: PropTypes.object.isRequired
       };
 
       /**
