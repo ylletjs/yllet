@@ -5,7 +5,7 @@ import { isObject, objectKeysToSnakeCase } from '../src/util';
 
 describe('utils.isObject', () => {
   it('can test for objects', () => {
-    const data = [
+    [
       [true, {}],
       [false, 1],
       [false, false],
@@ -21,7 +21,7 @@ describe('utils.isObject', () => {
 
 describe('utils.objectKeysToSnakeCase', () => {
   it('can snake case object keys', () => {
-    const data = [
+    [
       [
         {
           test_data: 1

@@ -2,6 +2,7 @@ import FormData from 'isomorphic-form-data';
 import urljoin from 'url-join';
 import merge from 'deep-extend';
 import { isObject, objectKeysToSnakeCase } from './util';
+import Transport from './Transport';
 
 // HTTP methods map.
 const METHODS = {
@@ -89,12 +90,8 @@ export default class Client {
    * @param {object} options
    */
   constructor(options = {}) {
-    if (!options.transport) {
-      throw new TypeError('Transport is required option, none was set.');
-    } else {
-      this.transport = options.transport;
-      delete options.transport;
-    }
+    this.transport = options.transport ? options.transport : new Transport();
+    delete options.transport;
 
     this.options = merge(this.options, options);
 

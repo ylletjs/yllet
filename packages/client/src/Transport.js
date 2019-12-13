@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import FormData from 'isomorphic-form-data';
 import HTTPError from './HTTPError';
 
-export default class FetchTransport {
+export default class Transport {
   constructor() {
     ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
       this[verb] = (url, data, config) => this.request(verb, url, data, config);

@@ -1,12 +1,12 @@
 import expect from 'expect';
 import base64 from 'base-64';
 import FormData from 'isomorphic-form-data';
-import FetchTransport from '../src';
+import Transport from '../src/Transport';
 import HTTPError from '../src/HTTPError';
 
 // setup
 
-const transport = new FetchTransport();
+const transport = new Transport();
 
 const verbs = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 

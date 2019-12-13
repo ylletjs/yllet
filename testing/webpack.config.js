@@ -26,15 +26,13 @@ module.exports = build => ({
   },
   resolve: {
     alias: {
-      '@yllet/client': path.resolve(__dirname, `node_modules/@yllet/client/lib/${build}`),
-      '@yllet/react': path.resolve(__dirname, `node_modules/@yllet/react/lib/${build}`),
-      '@yllet/transport-axios': path.resolve(
+      '@yllet/client': path.resolve(
         __dirname,
-        `node_modules/@yllet/transport-axios/lib/${build}`
+        `node_modules/@yllet/client/lib/${build}`
       ),
-      '@yllet/transport-fetch': path.resolve(
+      '@yllet/react': path.resolve(
         __dirname,
-        `node_modules/@yllet/transport-fetch/lib/${build}`
+        `node_modules/@yllet/react/lib/${build}`
       )
     }
   }
