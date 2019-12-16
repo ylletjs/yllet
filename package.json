@@ -37,7 +37,7 @@
     "pretty-quick": "^2.0.1",
     "rimraf": "^3.0.0",
     "semistandard": "^14.2.0",
-    "webpack": "^4.41.2"
+    "webpack": "^4.41.3"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
