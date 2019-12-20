@@ -1,6 +1,6 @@
 import FormData from 'isomorphic-form-data';
 import urljoin from 'url-join';
-import merge from 'deep-extend';
+import merge from 'deepmerge';
 import { isObject, objectKeysToSnakeCase } from './util';
 import Transport from './Transport';
 

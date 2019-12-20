@@ -27,7 +27,7 @@
     "preversion": "yarn build"
   },
   "dependencies": {
-    "deep-extend": "^0.6.0",
+    "deepmerge": "^4.2.2",
     "isomorphic-form-data": "^2.0.0",
     "query-string": "5.1.1",
     "to-snake-case": "^1.0.0",
