@@ -18,13 +18,11 @@ To install the package with React bindings:
 npm install --save @yllet/react
 ```
 
-Note: You need the `isomorphic-fetch` package imported for the client to function properly: `import 'isomorphic-fetch'`
 ## Usage
 
 Fetch all posts:
 
 ```js
-import 'isomorphic-fetch';
 import Client from '@yllet/client';
 
 const client = new Client({
