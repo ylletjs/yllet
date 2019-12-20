@@ -30,11 +30,25 @@ const RESOURCES = [
 
 export default class Client {
   /**
-   * Transport layer.
+   * Request config.
    *
-   * @var {Transport}
+   * @var {object}
    */
-  transport = null;
+  config = {};
+
+  /**
+   * File attachment.
+   *
+   * @var {FormData}
+   */
+  formData = undefined;
+
+  /**
+   * Initial endpoint.
+   *
+   * @var {string}
+   */
+  initialEndpoint = '';
 
   /**
    * Client options.
@@ -47,15 +61,9 @@ export default class Client {
       'Content-Type': 'application/json'
     },
     namespace: 'wp/v2',
-    nonce: ''
+    nonce: '',
+    resource: ''
   };
-
-  /**
-   * Request path.
-   *
-   * @var {string}
-   */
-  path = '';
 
   /**
    * Request params.
@@ -65,18 +73,11 @@ export default class Client {
   params = {};
 
   /**
-   * File attachment.
+   * Transport layer.
    *
-   * @var {FormData}
+   * @var {Transport}
    */
-  formData = undefined;
-
-  /**
-   * Request config.
-   *
-   * @var {object}
-   */
-  config = {};
+  transport = null;
 
   /**
    * Client constructor.
@@ -88,6 +89,7 @@ export default class Client {
     delete options.transport;
 
     this.options = this._getOptions(options);
+    this.initialEndpoint = this.options.endpoint;
 
     // Add nonce if any.
     if (this.options.nonce) {
@@ -147,9 +149,9 @@ export default class Client {
    */
   _getUrl(path) {
     const safePath = path || '';
-    const { endpoint, namespace } = this.options;
+    const { endpoint, namespace, resource } = this.options;
     const safeEndpoint = endpoint.replace(namespace, '');
-    return urljoin(safeEndpoint, namespace, this.path, String(safePath));
+    return urljoin(safeEndpoint, namespace, resource, String(safePath));
   }
 
   /**
@@ -206,6 +208,18 @@ export default class Client {
    */
   embed() {
     return this.param('_embed', true);
+  }
+
+  /**
+   * Sets the endpoint.
+   *
+   * @param  {string} endpoint
+   *
+   * @return {Client}
+   */
+  endpoint(endpoint) {
+    this.options.endpoint = endpoint;
+    return this;
   }
 
   /**
@@ -268,14 +282,14 @@ export default class Client {
   }
 
   /**
-   * Sets the resource request path.
+   * Sets the resource path.
    *
-   * @param  {string} path
+   * @param  {string} resource
    *
    * @return {Client}
    */
-  resource(path) {
-    this.path = path;
+  resource(resource) {
+    this.options.resource = resource;
     return this;
   }
 
@@ -314,10 +328,19 @@ export default class Client {
       params = path;
       path = '';
     }
-    return this.transport[verb](
+
+    const response = this.transport[verb](
       this._getUrl(path),
       this._getParams(params),
       this._getConfig()
     );
+
+    this.options = merge(this.options, {
+      endpoint: this.initialEndpoint,
+      namespace: 'wp/v2',
+      resource: ''
+    });
+
+    return response;
   }
 }

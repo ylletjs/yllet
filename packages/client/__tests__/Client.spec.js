@@ -38,7 +38,8 @@ describe('Client', () => {
         headers: {
           'Content-Type': 'application/json'
         }
-      }
+      },
+      resource: ''
     });
   });
 
@@ -63,7 +64,8 @@ describe('Client', () => {
           'Content-Type': 'application/json',
           'X-Test': 'Test'
         }
-      }
+      },
+      resource: ''
     });
   });
 
@@ -90,7 +92,7 @@ describe('Client', () => {
       'search'
     ].forEach(method => {
       client[method]();
-      expect(client.path).toBe(method);
+      expect(client.options.resource).toBe(method);
     });
   });
 });
