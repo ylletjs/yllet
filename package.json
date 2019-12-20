@@ -56,7 +56,6 @@
       "pre-commit": "pretty-quick --staged"
     }
   },
-  "version": "2.0.0-alpha.1",
   "semistandard": {
     "parser": "babel-eslint",
     "ignore": [
