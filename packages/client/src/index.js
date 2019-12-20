@@ -46,7 +46,6 @@ export default class Client {
     namespace: 'wp/v2',
     nonce: '',
     config: {
-      referrer: 'yllet',
       headers: {
         'Content-Type': 'application/json'
       }

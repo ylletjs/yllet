@@ -35,7 +35,6 @@ describe('Client', () => {
       namespace: 'wp/v2',
       nonce: '',
       config: {
-        referrer: 'yllet',
         headers: {
           'Content-Type': 'application/json'
         }
@@ -48,7 +47,6 @@ describe('Client', () => {
       transport,
       endpoint: 'https://wordpress.test/wp-json',
       config: {
-        referrer: 'WordMess',
         foo: 'bar'
       }
     });
@@ -57,7 +55,6 @@ describe('Client', () => {
       namespace: 'wp/v2',
       nonce: '',
       config: {
-        referrer: 'WordMess',
         foo: 'bar',
         headers: {
           'Content-Type': 'application/json'
