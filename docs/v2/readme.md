@@ -332,6 +332,42 @@ export default withClientData((client, props) => {
 
 Then you can use `this.props.data` or `this.props.error` and `this.props.loading`
 
+## React hooks
+
+In version 2 we also add a hook to create a client
+
+```js
+import React, { useEffect, useState } from 'react';
+import { useClient } from '@yllet/react';
+
+function App() {
+  const endpoint = 'https://demo.wp-api.org/wp-json/';
+  const client = useClient({ endpoint });
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await client.posts().get();
+      setPosts(response);
+    };
+    fetchPosts();
+  }, [client]);
+
+  return (
+    <div>
+      <h1>Posts</h1>
+      <ul>
+        {posts.map((p, pi) => (
+          <li key={pi}>{p.title.rendered}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
 ## Custom transport
 
 To add a custom transport to the client you just pass a transport class. Yllet don't offer any other transports than fetch right now, but it's kind of easy to build one.
