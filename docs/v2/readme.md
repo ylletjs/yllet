@@ -1,6 +1,6 @@
 # Yllet docs v2
 
-> Work in progress
+> Work in progress. Docs for 2.0.0-alpha.5
 
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it.
 
@@ -73,25 +73,40 @@ Yllet client instance provides the following basic request methods:
 - `client.statuses()`
 - `client.posts()`
 - `client.pages()`
+- `client.search()`
 - `client.settings()`
 - `client.tags()`
 - `client.taxonomies()`
 - `client.types()`
 - `client.users()`
-- `client.search()`
 
 Using any request methods sets the path so you don't have to write `client.get('posts/1')` each time instead you can just write `client.posts().get(1)`
 
 Adding custom request methods is easy (example [WooCommerce REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/)):
 
 ```js
-// Example: http://wordpress.test/wp-json/wc/v2/products
-client.products = () => client.namespace('wc/v2').resource('products');
-```
+// Modify endpoint, namespace and resource without changing the default client options.
+client
+  .endpoint('https://wp.com/wp-json')
+  .namespace('wc/v2')
+  .resource('products')
+  .get()
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log('Error: ' + err.message);
+  });
 
-Then you can just call `client.products()` like you do with `client.posts()`
+// To store the client with new namespace, resource and endpoint.
+// Simply add `false` as a second argument to endpoint, namespace or resource.
+client.products = () =>
+  client
+    .endpoint('https://wp.com/wp-json', false)
+    .namespace('wc/v2')
+    .resource('products');
 
-```js
+// Then you can just call `client.products()` like you do with `client.posts()`
 client
   .products()
   .get()
