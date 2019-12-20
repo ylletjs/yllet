@@ -44,6 +44,7 @@ export default class Client {
   options = {
     endpoint: '',
     namespace: 'wp/v2',
+    nonce: '',
     config: {
       referrer: 'yllet',
       headers: {
