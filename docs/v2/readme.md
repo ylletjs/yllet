@@ -288,7 +288,7 @@ To add a custom transport to the client you just pass a transport class. Yllet d
 Examples of axios transport
 
 ```js
-import Client from '@yllet/core';
+import Client from '@yllet/client';
 import AxiosClient from 'axios';
 import FormData from 'isomorphic-form-data';
 
