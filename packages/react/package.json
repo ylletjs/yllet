@@ -28,14 +28,15 @@
     "preversion": "yarn build"
   },
   "dependencies": {
+    "@yllet/client": "^2.0.0-alpha.5",
     "invariant": "^2.2.4",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6"
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
-    "react-dom": "^16.8.6"
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "license": "MIT",
   "gitHead": "2691c36e2a123448296048f8996cf5358c62bcac"
