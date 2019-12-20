@@ -7,9 +7,8 @@ const Context = createContext({ client: null });
  * Use client creates a new client.
  *
  * @param {object} options
- * @param {object} transport
  */
-export default function useClient(options, transport) {
+export default function useClient(options) {
   const context = useContext(Context);
 
   if (context.client) {
@@ -17,6 +16,6 @@ export default function useClient(options, transport) {
   }
 
   return useMemo(() => {
-    return new Client(options, transport);
+    return new Client(options);
   }, []);
 }
