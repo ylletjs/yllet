@@ -43,13 +43,11 @@ export default class Client {
    */
   options = {
     endpoint: '',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     namespace: 'wp/v2',
-    nonce: '',
-    config: {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
+    nonce: ''
   };
 
   /**
@@ -89,8 +87,9 @@ export default class Client {
     this.transport = options.transport ? options.transport : new Transport();
     delete options.transport;
 
-    this.options = merge(this.options, options);
+    this.options = this._getOptions(options);
 
+    // Add nonce if any.
     if (this.options.nonce) {
       this.header('X-WP-Nonce', this.options.nonce);
     }
@@ -108,6 +107,35 @@ export default class Client {
         return this.resource(name);
       };
     });
+  }
+
+  /**
+   * Returns real options object.
+   *
+   * @param {object} options
+   *
+   * @return {object}
+   */
+  _getOptions(options) {
+    if (!isObject(options.config)) {
+      options.config = {};
+    }
+
+    if (!isObject(options.headers)) {
+      options.headers = {};
+    }
+
+    // Merge headers and create config object.
+    const headers = merge(this.options.headers, options.headers);
+    options.config = { ...options.config, headers: { ...headers } };
+
+    // Merge options.
+    options = merge(this.options, options);
+
+    // Delete headers since it's in the config object.
+    delete options.headers;
+
+    return options;
   }
 
   /**

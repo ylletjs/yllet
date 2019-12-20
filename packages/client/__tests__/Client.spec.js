@@ -45,6 +45,9 @@ describe('Client', () => {
   it('merges options', () => {
     const ylletClient = new Client({
       transport,
+      headers: {
+        'X-Test': 'Test'
+      },
       endpoint: 'https://wordpress.test/wp-json',
       config: {
         foo: 'bar'
@@ -57,7 +60,8 @@ describe('Client', () => {
       config: {
         foo: 'bar',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Test': 'Test'
         }
       }
     });
