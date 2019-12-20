@@ -44,13 +44,10 @@ client
 
 ```js
 {
-  // Request/Transport config
-  config: {
-    // HTTP Headers
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
+  // HTTP Headers
+  headers: {
+    'Content-Type': 'application/json'
+  },
 
   // WordPress API endpoint.
   endpoint: '',
@@ -59,7 +56,10 @@ client
   namespace: 'wp/v2'
 
   // WP Nonce, adds X-WP-Nonce header.
-  nonce: ''
+  nonce: '',
+
+  // Restore default options when using endpoint, namespace and resource methods.
+  restore: true,
 }
 ```
 
@@ -116,6 +116,42 @@ client
   .catch(err => {
     console.log('Error: ' + err.message);
   });
+```
+
+## HTTP Methods
+
+Client instances also provide access to HTTP methods to access API resources.
+
+```js
+// HTTP GET
+client.get();
+
+// HTTP POST
+client.create();
+
+// HTTP PATCH
+client.update();
+
+// HTTP DELETE
+client.delete();
+```
+
+Examples
+
+```js
+// Create post.
+const post = client.posts().create({
+  title: 'Post title',
+  content: '<p>Post content</p>'
+});
+
+// Update post.
+client.posts().update(post.id, {
+  title: 'Post title 2'
+});
+
+// Delete post.
+client.posts().delete(post.id);
 ```
 
 ## Params
