@@ -35,7 +35,8 @@ describe('Client', () => {
           'Content-Type': 'application/json'
         }
       },
-      resource: ''
+      resource: '',
+      restore: true
     });
   });
 
@@ -61,7 +62,8 @@ describe('Client', () => {
           'X-Test': 'Test'
         }
       },
-      resource: ''
+      resource: '',
+      restore: true
     });
   });
 

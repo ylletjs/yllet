@@ -34,5 +34,11 @@ describe('Client.resource', () => {
     expect(client.options.endpoint).toEqual(endpoint);
     expect(client.options.namespace).toEqual('wp/v2');
     expect(client.options.resource).toEqual('');
+
+    const products = client.resource('products', false);
+    products.get();
+    expect(products.options.resource).toEqual('products');
+    products.get();
+    expect(products.options.resource).toEqual('products');
   });
 });

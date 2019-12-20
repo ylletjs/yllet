@@ -62,7 +62,8 @@ export default class Client {
     },
     namespace: 'wp/v2',
     nonce: '',
-    resource: ''
+    resource: '',
+    restore: true
   };
 
   /**
@@ -217,8 +218,13 @@ export default class Client {
    *
    * @return {Client}
    */
-  endpoint(endpoint) {
+  endpoint(endpoint, restore = null) {
+    if (typeof restore === 'boolean') {
+      this.options.restore = restore;
+    }
+
     this.options.endpoint = endpoint;
+
     return this;
   }
 
@@ -276,8 +282,13 @@ export default class Client {
    *
    * @return {Client}
    */
-  namespace(namespace) {
+  namespace(namespace, restore = null) {
+    if (typeof restore === 'boolean') {
+      this.options.restore = restore;
+    }
+
     this.options.namespace = namespace;
+
     return this;
   }
 
@@ -288,8 +299,13 @@ export default class Client {
    *
    * @return {Client}
    */
-  resource(resource) {
+  resource(resource, restore = null) {
+    if (typeof restore === 'boolean') {
+      this.options.restore = restore;
+    }
+
     this.options.resource = resource;
+
     return this;
   }
 
@@ -335,11 +351,13 @@ export default class Client {
       this._getConfig()
     );
 
-    this.options = merge(this.options, {
-      endpoint: this.initialEndpoint,
-      namespace: 'wp/v2',
-      resource: ''
-    });
+    if (this.options.restore) {
+      this.options = merge(this.options, {
+        endpoint: this.initialEndpoint,
+        namespace: 'wp/v2',
+        resource: ''
+      });
+    }
 
     return response;
   }
