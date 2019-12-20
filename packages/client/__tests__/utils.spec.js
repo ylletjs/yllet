@@ -1,8 +1,6 @@
 import expect from 'expect';
 import { isObject, objectKeysToSnakeCase } from '../src/util';
 
-// describe
-
 describe('utils.isObject', () => {
   it('can test for objects', () => {
     [

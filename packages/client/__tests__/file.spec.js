@@ -4,8 +4,6 @@ import Client from '../src';
 import FormData from 'isomorphic-form-data';
 import MockTransport from '../__mocks__/MockTransport';
 
-// setup
-
 const transport = new MockTransport();
 const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
@@ -13,8 +11,6 @@ const client = new Client({ transport, endpoint });
 const isFsAvailable = typeof fs.createReadStream === 'function';
 
 const isRunningInBrowser = Boolean(process.env.BROWSER_ENV);
-
-// test suite
 
 function runTests(file) {
   describe('Client.file', () => {

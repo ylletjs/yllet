@@ -3,8 +3,6 @@ import Client from '../src';
 import FormData from 'isomorphic-form-data';
 import MockTransport from '../__mocks__/MockTransport';
 
-// setup
-
 const transport = new MockTransport();
 const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
@@ -13,8 +11,6 @@ const params = {
   title: 'Hello World',
   content: 'Welcome to the Wordpress API'
 };
-
-// describe
 
 describe('Client.request', () => {
   beforeEach(() => {
@@ -42,7 +38,9 @@ describe('Client.request', () => {
     client.request('post', {});
     expect(transport.post.mock.calls[3][0]).toBe(`${endpoint}/wp/v2`);
     client.request('post', 'products/variations/123');
-    expect(transport.post.mock.calls[4][0]).toBe(`${endpoint}/wp/v2/products/variations/123`);
+    expect(transport.post.mock.calls[4][0]).toBe(
+      `${endpoint}/wp/v2/products/variations/123`
+    );
   });
 
   it('merges global params', () => {

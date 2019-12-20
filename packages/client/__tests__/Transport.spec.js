@@ -4,8 +4,6 @@ import fetchMock from 'fetch-mock';
 import Transport from '../src/Transport';
 import HTTPError from '../src/HTTPError';
 
-// setup
-
 const transport = new Transport();
 const endpoint = 'https://wp.com/wp-json';
 const verbs = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
@@ -13,8 +11,6 @@ const verbs = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 beforeEach(() => {
   fetchMock.reset();
 });
-
-// describe
 
 describe('request calls', () => {
   verbs.forEach(verb => {

@@ -2,8 +2,6 @@ import expect from 'expect';
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 
-// setup
-
 const data = {
   title: 'Hello world',
   content: 'Welcome to Wordpress'
@@ -15,8 +13,6 @@ const METHODS = {
   update: 'patch',
   delete: 'delete'
 };
-
-// describe
 
 describe('Client.METHODS', () => {
   Object.keys(METHODS).forEach(method => {
