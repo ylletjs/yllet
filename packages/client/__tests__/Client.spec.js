@@ -31,12 +31,9 @@ describe('Client', () => {
   it('has default options', () => {
     const ylletClient = new Client({ transport });
     expect(ylletClient.options).toEqual({
-      auth: {
-        username: '',
-        password: ''
-      },
       endpoint: '',
       namespace: 'wp/v2',
+      nonce: '',
       config: {
         referrer: 'yllet',
         headers: {
@@ -56,12 +53,9 @@ describe('Client', () => {
       }
     });
     expect(ylletClient.options).toEqual({
-      auth: {
-        username: '',
-        password: ''
-      },
       endpoint: 'https://wordpress.test/wp-json',
       namespace: 'wp/v2',
+      nonce: '',
       config: {
         referrer: 'WordMess',
         foo: 'bar',
