@@ -42,10 +42,6 @@ export default class Client {
    * @var {object}
    */
   options = {
-    auth: {
-      username: '',
-      password: ''
-    },
     endpoint: '',
     namespace: 'wp/v2',
     config: {
@@ -94,6 +90,10 @@ export default class Client {
     delete options.transport;
 
     this.options = merge(this.options, options);
+
+    if (this.options.nonce) {
+      this.header('X-WP-Nonce', this.options.nonce);
+    }
 
     // Init HTTP methods
     Object.keys(METHODS).forEach(method => {
