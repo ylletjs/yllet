@@ -1,6 +1,6 @@
 # Yllet docs v2
 
-> Work in progress. Docs for 2.0.0-alpha.6.
+> Work in progress. Docs for 2.0.0-alpha.7
 
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it. The client supports different [transport layers](#transport-layers).
 
@@ -99,12 +99,13 @@ client
   });
 
 // To store the client with new namespace, resource and endpoint.
-// Simply add `false` as a second argument to endpoint, namespace or resource.
+// Simply call copy at the end.
 client.products = () =>
   client
-    .endpoint('https://wp.com/wp-json', false)
+    .endpoint('https://wp.com/wp-json')
     .namespace('wc/v2')
-    .resource('products');
+    .resource('products')
+    .copy();
 
 // Then you can just call `client.products()` like you do with `client.posts()`
 client

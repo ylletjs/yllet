@@ -187,6 +187,18 @@ export default class Client {
   }
 
   /**
+   * Create a copy of the client without
+   * restoring the configuration of endpoint,
+   * namespace or resource.
+   *
+   * @return {Client}
+   */
+  copy() {
+    this.options.restore = false;
+    return this;
+  }
+
+  /**
    * Discover the REST API from a URL.
    *
    * @param  {string} url
@@ -218,13 +230,8 @@ export default class Client {
    *
    * @return {Client}
    */
-  endpoint(endpoint, restore = null) {
-    if (typeof restore === 'boolean') {
-      this.options.restore = restore;
-    }
-
+  endpoint(endpoint) {
     this.options.endpoint = endpoint;
-
     return this;
   }
 
@@ -282,13 +289,8 @@ export default class Client {
    *
    * @return {Client}
    */
-  namespace(namespace, restore = null) {
-    if (typeof restore === 'boolean') {
-      this.options.restore = restore;
-    }
-
+  namespace(namespace) {
     this.options.namespace = namespace;
-
     return this;
   }
 
@@ -299,13 +301,8 @@ export default class Client {
    *
    * @return {Client}
    */
-  resource(resource, restore = null) {
-    if (typeof restore === 'boolean') {
-      this.options.restore = restore;
-    }
-
+  resource(resource) {
     this.options.resource = resource;
-
     return this;
   }
 

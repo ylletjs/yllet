@@ -35,7 +35,7 @@ describe('Client.resource', () => {
     expect(client.options.namespace).toEqual('wp/v2');
     expect(client.options.resource).toEqual('');
 
-    const products = client.resource('products', false);
+    const products = client.resource('products').copy();
     products.get();
     expect(products.options.resource).toEqual('products');
     products.get();
