@@ -35,7 +35,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "fetch-mock": "^8.0.1"
+    "fetch-mock": "^8.1.0"
   },
   "gitHead": "2691c36e2a123448296048f8996cf5358c62bcac"
 }
