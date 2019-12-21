@@ -1,7 +1,6 @@
 import queryString from 'query-string';
 import FormData from 'isomorphic-form-data';
 import HTTPError from './HTTPError';
-import 'isomorphic-fetch';
 
 export default class Transport {
   constructor() {
