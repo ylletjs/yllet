@@ -49,7 +49,7 @@
     "test:browsers": "NODE_ENV=test karma start testing/karma.conf.js",
     "postinstall": "lerna bootstrap",
     "lint": "semistandard",
-    "format": "prettier-semi --single-quote --write 'packages/*/**.js' --ignore 'packages/*/__tests__/**.js' 'packages/*/lib/**.js'"
+    "format": "prettier-semi --single-quote --write 'packages/*/**.js' --ignore 'packages/*/__tests__/**.js'"
   },
   "husky": {
     "hooks": {
