@@ -2,9 +2,7 @@
 
 > Work in progress. Docs for 2.0.0-alpha.6.
 
-Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it. 
-
-You need to install your own fetch package for better browser support. The recommended solution is [isomorphic-unfetch](https://github.com/developit/unfetch/tree/master/packages/isomorphic-unfetch), a minimal polyfill for fetch which allows for usage in both client and server settings.
+Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it. The client supports different [transport layers](#transport-layers).
 
 ## Installation
 
@@ -25,7 +23,6 @@ npm install --save @yllet/react
 Fetch all posts:
 
 ```js
-import 'isomorphic-unfetch';
 import Client from '@yllet/client';
 
 const client = new Client({
@@ -371,7 +368,32 @@ function App() {
 export default App;
 ```
 
-## Custom transport
+## Transport layers
+
+Yllet supports different transport layers so you can use your own favorite HTTP client, e.g axios.
+
+### Fetch
+
+To support older browsers we recommend to use [isomorphic-unfetch](https://github.com/developit/unfetch/tree/master/packages/isomorphic-unfetch), a minimal polyfill for fetch which allows for usage in both client and server settings.
+
+Installation
+
+```
+npm install --save @yllet/client isomorphic-unfetch
+```
+
+Usage
+
+```js
+import 'isomorphic-unfetch';
+import Client from '@yllet/client';
+
+const client = new Client({
+  endpoint: 'https://demo.wp-api.org/wp-json'
+});
+```
+
+### Others
 
 To add a custom transport to the client you just pass a transport class. Yllet don't offer any other transports than fetch right now, but it's kind of easy to build one.
 
