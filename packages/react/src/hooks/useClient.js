@@ -1,5 +1,5 @@
-import Client from '@yllet/client';
-import { createContext, useMemo, useContext } from 'react';
+import Client from "@yllet/client";
+import { createContext, useMemo, useContext } from "react";
 
 const Context = createContext({ client: null });
 
