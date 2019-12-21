@@ -6,13 +6,13 @@ Yllet is a set of packages for the WordPress API for both React and non-React pr
 
 ## Installation
 
-To install the WordPress API client:
+To install the WordPress API client
 
 ```
 npm install --save @yllet/client
 ```
 
-To install the package with React bindings:
+To install the package with React bindings
 
 ```
 npm install --save @yllet/react
@@ -20,7 +20,7 @@ npm install --save @yllet/react
 
 ## Usage
 
-Fetch all posts:
+Fetch all posts
 
 ```js
 import Client from '@yllet/client';
@@ -65,7 +65,7 @@ client
 
 ## Resources
 
-Yllet client instance provides the following basic request methods:
+Yllet client instance provides the following basic request methods
 
 - `client.categories()`
 - `client.comments()`
@@ -82,7 +82,7 @@ Yllet client instance provides the following basic request methods:
 
 Using any request methods sets the path so you don't have to write `client.get('posts/1')` each time instead you can just write `client.posts().get(1)`
 
-Adding custom request methods is easy (example [WooCommerce REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/)):
+Adding custom request methods is easy (example [WooCommerce REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/))
 
 ```js
 // Modify endpoint, namespace and resource without changing the default client options.
@@ -173,7 +173,7 @@ client
   });
 ```
 
-You can also set global params using key/value or object:
+You can also set global params using key/value or object
 
 ```js
 client.param('source', 'yllet');
@@ -280,94 +280,6 @@ Client.discover('http://demo.wp-api.org/')
   });
 ```
 
-## React bindings
-
-Yllets React package contains a provider component that you can use like this:
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-
-import Client from '@yllet/client';
-import { Provider } from '@yllet/react';
-
-const client = new Client({
-  endpoint: 'https://demo.wp-api.org/wp-json/'
-});
-
-ReactDOM.render(
-  <Provider client={client}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
-```
-
-In your application component you can use the `withClient` component enhancer to pass along the `client` to your component.
-
-```js
-import React from 'react';
-import { withClient } from '@yllet/react';
-
-class App extends React.Component {}
-
-export default withClient(App);
-```
-
-Then you can use `this.props.client` the same way as if it was a standalone client.
-
-You can also use `withClientData` to pass the response data or the error from WordPress REST API.
-
-```js
-import React from 'react';
-import { withClientData } from '@yllet/react';
-
-class Post extends React.Component {}
-
-export default withClientData((client, props) => {
-  return client.posts().get(1);
-})(Post);
-```
-
-Then you can use `this.props.data` or `this.props.error` and `this.props.loading`
-
-## React hooks
-
-In version 2 we also add a hook to create a client
-
-```js
-import React, { useEffect, useState } from 'react';
-import { useClient } from '@yllet/react';
-
-function App() {
-  const endpoint = 'https://demo.wp-api.org/wp-json/';
-  const client = useClient({ endpoint });
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await client.posts().get();
-      setPosts(response);
-    };
-    fetchPosts();
-  }, [client]);
-
-  return (
-    <div>
-      <h1>Posts</h1>
-      <ul>
-        {posts.map((p, pi) => (
-          <li key={pi}>{p.title.rendered}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default App;
-```
-
 ## Transport layers
 
 Yllet supports different transport layers so you can use your own favorite HTTP client, e.g axios.
@@ -441,4 +353,100 @@ const client = new Client({
   endpoint: 'https://demo.wp-api.org/wp-json/',
   transport: new AxiosTransport()
 });
+```
+
+## React bindings
+
+To install the package with React bindings
+
+```
+npm install --save @yllet/react
+```
+
+### Provider component
+
+Yllets React package contains a provider component that you can use like this
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+import Client from '@yllet/client';
+import { Provider } from '@yllet/react';
+
+const client = new Client({
+  endpoint: 'https://demo.wp-api.org/wp-json/'
+});
+
+ReactDOM.render(
+  <Provider client={client}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+```
+
+In your application component you can use the `withClient` component enhancer to pass along the `client` to your component.
+
+```js
+import React from 'react';
+import { withClient } from '@yllet/react';
+
+class App extends React.Component {}
+
+export default withClient(App);
+```
+
+Then you can use `this.props.client` the same way as if it was a standalone client.
+
+You can also use `withClientData` to pass the response data or the error from WordPress REST API.
+
+```js
+import React from 'react';
+import { withClientData } from '@yllet/react';
+
+class Post extends React.Component {}
+
+export default withClientData((client, props) => {
+  return client.posts().get(1);
+})(Post);
+```
+
+Then you can use `this.props.data` or `this.props.error` and `this.props.loading`
+
+### Hooks
+
+In version 2 we also add a hook to create a client
+
+```js
+import React, { useEffect, useState } from 'react';
+import { useClient } from '@yllet/react';
+
+function App() {
+  const endpoint = 'https://demo.wp-api.org/wp-json/';
+  const client = useClient({ endpoint });
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await client.posts().get();
+      setPosts(response);
+    };
+    fetchPosts();
+  }, [client]);
+
+  return (
+    <div>
+      <h1>Posts</h1>
+      <ul>
+        {posts.map((p, pi) => (
+          <li key={pi}>{p.title.rendered}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
 ```
