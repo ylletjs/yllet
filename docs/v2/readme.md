@@ -2,7 +2,9 @@
 
 > Work in progress. Docs for 2.0.0-alpha.6.
 
-Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it.
+Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it. 
+
+You need to install your own fetch package for better browser support. The recommended solution is [isomorphic-unfetch](https://github.com/developit/unfetch/tree/master/packages/isomorphic-unfetch), a minimal polyfill for fetch which allows for usage in both client and server settings.
 
 ## Installation
 
@@ -23,6 +25,7 @@ npm install --save @yllet/react
 Fetch all posts:
 
 ```js
+import 'isomorphic-unfetch';
 import Client from '@yllet/client';
 
 const client = new Client({
