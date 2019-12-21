@@ -51,13 +51,17 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged && semistandard --fix"
     }
   },
   "semistandard": {
     "parser": "babel-eslint",
     "ignore": [
       "packages/*/__tests__/**.js"
+    ],
+    "globals": [
+      "Headers",
+      "fetch"
     ]
   }
 }
