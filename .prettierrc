@@ -3,5 +3,6 @@
   "singleQuote": true,
   "jsxBracketSameLine": false,
   "trailingComma": "none",
-  "printWidth": 80
+  "printWidth": 80,
+  "spaceBeforeFunctionParen": true
 }

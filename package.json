@@ -33,7 +33,6 @@
     "lerna": "^3.19.0",
     "mocha": "^6.2.2",
     "prettier": "^1.19.1",
-    "prettier-semi-cli": "^1.0.0",
     "pretty-quick": "^2.0.1",
     "rimraf": "^3.0.0",
     "semistandard": "^14.2.0",
