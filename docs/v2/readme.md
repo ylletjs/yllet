@@ -229,6 +229,8 @@ client
 Node example:
 
 ```js
+import fs from 'fs';
+
 client
   .media()
   .file(fs.createReadStream('me.jpg'))
