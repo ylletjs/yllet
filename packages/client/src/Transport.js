@@ -3,12 +3,25 @@ import HTTPError from './HTTPError';
 import FormData from 'isomorphic-form-data';
 
 export default class Transport {
+  /**
+   * Transport constructor.
+   */
   constructor() {
     ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
       this[verb] = (url, data, config) => this.request(verb, url, data, config);
     });
   }
 
+  /**
+   * Create request against url with data and send it.
+   *
+   * @param {string} verb
+   * @param {string} url
+   * @param {object} data
+   * @param {object} config
+   *
+   * @return {object}
+   */
   request(verb, url, data, config = {}) {
     const request = {
       ...config,
