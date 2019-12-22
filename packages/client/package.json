@@ -8,7 +8,9 @@
   "keywords": [
     "wordpress",
     "api",
-    "client"
+    "client",
+    "isomorphic",
+    "headless"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",

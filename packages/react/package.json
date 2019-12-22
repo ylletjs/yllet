@@ -9,7 +9,9 @@
     "wordpress",
     "api",
     "client",
-    "react"
+    "react",
+    "isomorphic",
+    "headless"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
