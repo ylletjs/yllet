@@ -149,10 +149,22 @@ export default class Client {
    * @return {string}
    */
   _getUrl(path) {
-    const safePath = path || '';
     const { endpoint, namespace, resource } = this.options;
-    const safeEndpoint = endpoint.replace(namespace, '');
-    return urljoin(safeEndpoint, namespace, resource, String(safePath));
+
+    const safePath = String(path || '');
+    const safeEndpoint =
+      endpoint.replace(namespace, '').replace(/\/$/, '') + '/';
+    const safeResource = resource.replace(/^\/|\/$/g, '');
+    const safeNamespace =
+      namespace.replace(/^\/|\/$/g, '') + (safeResource || safePath ? '/' : '');
+
+    return (
+      safeEndpoint +
+      safeNamespace +
+      safeResource +
+      (safeResource && safePath ? '/' : '') +
+      safePath
+    );
   }
 
   /**
