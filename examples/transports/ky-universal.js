@@ -1,6 +1,6 @@
 import queryString from 'query-string'; // version 5.1.1 for ie.
 import KyClient from 'ky-universal';
-
+import FormData from 'isomorphic-form-data';
 class KyTransport {
   constructor(ky) {
     this.ky = typeof ky === 'undefined' ? KyClient : ky;
