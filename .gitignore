@@ -1,5 +1,6 @@
 *.log
 node_modules
+packages/*/package-lock.json
 packages/*/lib/
 packages/*/node_modules/
 .jest-*
