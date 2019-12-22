@@ -216,12 +216,17 @@ export default class Client {
    * @return {Promise}
    */
   discover(url) {
-    return this.transport.get(url, { rest_route: '/' }).then(response => {
-      if (isObject(response.routes)) {
-        return response.routes['/']._links.self;
-      }
-      throw new Error('Unable to find the REST API');
-    });
+    return this.transport
+      .get(url, {
+        rest_route: '/'
+      })
+      .then(response => {
+        if (isObject(response.routes)) {
+          return response.routes['/']._links.self;
+        }
+
+        throw new Error('Unable to find the REST API');
+      });
   }
 
   /**
