@@ -1,3 +1,5 @@
+import 'isomorphic-fetch';
+
 /**
  * Setup testing context for browser tests
  */
