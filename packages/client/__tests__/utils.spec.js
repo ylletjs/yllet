@@ -85,6 +85,25 @@ describe('utils.queryString', () => {
           posts: [21, 33, 150]
         },
         'foo=bar&posts[]=21&posts[]=33&posts[]=150'
+      ],
+      [
+        {
+          foo: [1, [2], 3],
+          bar: ['one', ['two'], 'three']
+        },
+        'foo[]=1&foo[]=2&foo[]=3&bar[]=one&bar[]=two&bar[]=three'
+      ],
+      [
+        {
+          hello: 'world',
+          foo: 'bar',
+          colors: ['red', 'green', 'blue', 'yellow'],
+          numbers: [100, 200, [300]],
+          on: true,
+          off: false,
+          purple: 'haze'
+        },
+        'hello=world&foo=bar&colors[]=red&colors[]=green&colors[]=blue&colors[]=yellow&numbers[]=100&numbers[]=200&numbers[]=300&on=true&off=false&purple=haze'
       ]
     ].forEach(d => {
       const str = queryString(d[0]);

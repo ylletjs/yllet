@@ -34,6 +34,16 @@ export const objectKeysToSnakeCase = obj => {
 };
 
 /**
+ * Flatten array.
+ *
+ * @param {array} list
+ *
+ * @return {array}
+ */
+const flattenArray = list =>
+  list.reduce((a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), []);
+
+/**
  * Covert object to query strings.
  *
  * @param {object} params
@@ -43,19 +53,20 @@ export const objectKeysToSnakeCase = obj => {
  */
 export const queryString = (params, prefix) => {
   const query = Object.keys(params).map(key => {
-    const value = params[key];
+    const isArray = params.constructor === Array;
+    const value = isArray ? flattenArray(params)[key] : params[key];
 
-    if (params.constructor === Array) {
+    if (isArray) {
       key = `${prefix}[]`;
     } else if (params.constructor === Object) {
       key = prefix ? `${prefix}[${key}]` : key;
     }
 
-    if (isObject(value)) {
+    if (typeof value === 'object') {
       return queryString(value, key);
-    } else {
-      return `${key}=${encodeURIComponent(value)}`;
     }
+
+    return `${key}=${encodeURIComponent(value)}`;
   });
 
   return [].concat.apply([], query).join('&');
