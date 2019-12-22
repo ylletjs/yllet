@@ -84,3 +84,42 @@ export const queryString = (params, prefix) => {
 
   return [].concat.apply([], query).join('&');
 };
+
+/**
+ * Merge objects deep.
+ *
+ * @param {object} target
+ * @param {object} source
+ *
+ * @return {object}
+ */
+export const mergeObjects = (target, source) => {
+  if (!isObject(target) && !isObject(source)) {
+    return target;
+  }
+
+  for (const key in source) {
+    if (
+      source[key] === null &&
+      (target[key] === undefined || target[key] === null)
+    ) {
+      target[key] = null;
+    } else if (source[key] instanceof Array) {
+      if (!target[key]) {
+        target[key] = [];
+      }
+
+      target[key] = target[key].concat(source[key]);
+    } else if (isObject(source[key])) {
+      if (!target[key]) {
+        target[key] = {};
+      }
+
+      mergeObjects(target[key], source[key]);
+    } else {
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+};

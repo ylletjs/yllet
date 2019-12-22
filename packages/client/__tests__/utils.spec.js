@@ -1,5 +1,10 @@
 import expect from 'expect';
-import { isObject, objectKeysToSnakeCase, queryString } from '../src/utils';
+import {
+  isObject,
+  mergeObjects,
+  objectKeysToSnakeCase,
+  queryString
+} from '../src/utils';
 
 describe('utils.isObject', () => {
   it('can test for objects', () => {
@@ -108,6 +113,60 @@ describe('utils.queryString', () => {
     ].forEach(d => {
       const str = queryString(d[0]);
       expect(str).toEqual(d[1]);
+    });
+  });
+});
+
+describe('utils.queryString', () => {
+  it('convert object to query string', () => {
+    [
+      [
+        {
+          foo: { bar: 3 },
+          array: [
+            {
+              does: 'work',
+              too: [1, 2, 3]
+            }
+          ]
+        },
+        {
+          foo: { baz: 4 },
+          quux: 5,
+          array: [
+            {
+              does: 'work',
+              too: [4, 5, 6]
+            },
+            {
+              really: 'yes'
+            }
+          ]
+        },
+        {
+          foo: {
+            bar: 3,
+            baz: 4
+          },
+          array: [
+            {
+              does: 'work',
+              too: [1, 2, 3]
+            },
+            {
+              does: 'work',
+              too: [4, 5, 6]
+            },
+            {
+              really: 'yes'
+            }
+          ],
+          quux: 5
+        }
+      ]
+    ].forEach(d => {
+      const obj = mergeObjects(d[0], d[1]);
+      expect(obj).toEqual(d[2]);
     });
   });
 });

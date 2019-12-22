@@ -1,6 +1,5 @@
 import FormData from 'isomorphic-form-data';
-import merge from 'deepmerge';
-import { isObject, objectKeysToSnakeCase } from './utils';
+import { mergeObjects, isObject, objectKeysToSnakeCase } from './utils';
 import Transport from './Transport';
 
 // HTTP methods map.
@@ -128,11 +127,11 @@ export default class Client {
     }
 
     // Merge headers and create config object.
-    const headers = merge(this.options.headers, options.headers);
+    const headers = mergeObjects(this.options.headers, options.headers);
     options.config = { ...options.config, headers: { ...headers } };
 
     // Merge options.
-    options = merge(this.options, options);
+    options = mergeObjects(this.options, options);
 
     // Delete headers since it's in the config object.
     delete options.headers;
@@ -194,7 +193,7 @@ export default class Client {
    * @return {object}
    */
   _getConfig() {
-    return merge(this.options.config, this.config);
+    return mergeObjects(this.options.config, this.config);
   }
 
   /**
@@ -360,7 +359,7 @@ export default class Client {
     );
 
     if (this.options.restore) {
-      this.options = merge(this.options, {
+      this.options = mergeObjects(this.options, {
         endpoint: this.initialEndpoint,
         namespace: 'wp/v2',
         resource: ''

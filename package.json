@@ -50,7 +50,9 @@
   "semistandard": {
     "parser": "babel-eslint",
     "ignore": [
-      "packages/*/__tests__/**.js"
+      "examples/*/**.js",
+      "packages/*/__tests__/**.js",
+      "packages/*/__tests__/Transport/**.js"
     ],
     "globals": [
       "Headers",
