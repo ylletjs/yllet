@@ -5,7 +5,8 @@
 // Client
 const context = require.context(
   '../packages/client/__tests__',
-  true,
+  false,
   /\.spec\.js$/
 );
+
 context.keys().forEach(context);
