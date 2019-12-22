@@ -1,5 +1,3 @@
-import toSnakeCase from 'to-snake-case';
-
 /**
  * Test if given value is a object or not.
  *
@@ -9,6 +7,21 @@ import toSnakeCase from 'to-snake-case';
  */
 export const isObject = obj => {
   return Object.prototype.toString.call(obj) === '[object Object]';
+};
+
+/**
+ * Convert camel case to snake case.
+ *
+ * @param {string} str
+ *
+ * @return {string}
+ */
+const toSnakeCase = str => {
+  return str
+    .replace(/[\w]([A-Z])/g, function(m) {
+      return m[0] + '_' + m[1];
+    })
+    .toLowerCase();
 };
 
 /**
