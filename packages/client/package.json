@@ -27,7 +27,6 @@
     "preversion": "yarn run build"
   },
   "dependencies": {
-    "deepmerge": "^4.2.2",
     "isomorphic-form-data": "^2.0.0"
   },
   "license": "MIT",
