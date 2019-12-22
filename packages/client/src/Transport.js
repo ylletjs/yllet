@@ -1,6 +1,6 @@
-import queryString from 'query-string';
-import FormData from 'isomorphic-form-data';
+import { queryString } from './utils';
 import HTTPError from './HTTPError';
+import FormData from 'isomorphic-form-data';
 
 export default class Transport {
   constructor() {
@@ -25,9 +25,7 @@ export default class Transport {
           );
         }
 
-        const qs = queryString.stringify(data, {
-          arrayFormat: 'bracket'
-        });
+        const qs = queryString(data);
 
         if (qs.length) {
           url = `${url}?${qs}`;

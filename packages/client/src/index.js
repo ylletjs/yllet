@@ -1,7 +1,7 @@
 import FormData from 'isomorphic-form-data';
 import urljoin from 'url-join';
 import merge from 'deepmerge';
-import { isObject, objectKeysToSnakeCase } from './util';
+import { isObject, objectKeysToSnakeCase } from './utils';
 import Transport from './Transport';
 
 // HTTP methods map.
