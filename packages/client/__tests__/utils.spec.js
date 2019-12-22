@@ -254,6 +254,22 @@ describe('utils.queryString', () => {
             c: 'foo'
           }
         }
+      ],
+      [
+        {
+          key1: {
+            subkey1: 'subvalue1',
+            subkey2: 'subvalue2'
+          },
+          key2: 'value2'
+        },
+        {
+          key1: 'value1'
+        },
+        {
+          key1: 'value1',
+          key2: 'value2'
+        }
       ]
     ].forEach(d => {
       const obj = mergeObjects(d[0], d[1]);
