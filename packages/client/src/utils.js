@@ -111,7 +111,7 @@ export const mergeObjects = (target, source) => {
 
       target[key] = target[key].concat(source[key]);
     } else if (isObject(source[key])) {
-      if (!target[key]) {
+      if (!isObject(target[key])) {
         target[key] = {};
       }
 

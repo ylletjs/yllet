@@ -163,6 +163,97 @@ describe('utils.queryString', () => {
           ],
           quux: 5
         }
+      ],
+      [
+        {
+          key1: 'value1',
+          key3: 'value3'
+        },
+        {
+          key1: 'changed',
+          key2: 'value2'
+        },
+        {
+          key1: 'changed',
+          key2: 'value2',
+          key3: 'value3'
+        }
+      ],
+      [
+        {
+          key1: {
+            subkey1: 'value1',
+            subkey2: 'value2'
+          }
+        },
+        {
+          key1: {
+            subkey1: 'changed',
+            subkey3: 'added'
+          }
+        },
+        {
+          key1: {
+            subkey1: 'changed',
+            subkey2: 'value2',
+            subkey3: 'added'
+          }
+        }
+      ],
+      [
+        {
+          key1: 'value1',
+          key2: 'value2'
+        },
+        {
+          key1: {
+            subkey1: 'subvalue1',
+            subkey2: 'subvalue2'
+          }
+        },
+        {
+          key1: {
+            subkey1: 'subvalue1',
+            subkey2: 'subvalue2'
+          },
+          key2: 'value2'
+        }
+      ],
+      [
+        {
+          b: {
+            c: {}
+          }
+        },
+        {
+          a: {}
+        },
+        {
+          a: {},
+          b: {
+            c: {}
+          }
+        }
+      ],
+      [
+        {
+          a: {
+            d: 'bar'
+          }
+        },
+        {
+          b: {
+            c: 'foo'
+          }
+        },
+        {
+          a: {
+            d: 'bar'
+          },
+          b: {
+            c: 'foo'
+          }
+        }
       ]
     ].forEach(d => {
       const obj = mergeObjects(d[0], d[1]);
