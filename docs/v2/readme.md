@@ -247,7 +247,7 @@ client
 
 ## Authentication
 
-Yllet version 2 offers a simple cookie based auth using the WordPress nonce.
+Yllet version 2 offers an header based auth using the WordPress nonce.
 
 Adding a JavaScript object with `endpoint` and `nonce`
 
@@ -258,7 +258,7 @@ wp_localize_script( 'wp-api', 'wpApiSettings', array(
 ) );
 ```
 
-With Yllet client
+The client will add `X-WP-Nonce` header when adding `nonce` option.
 
 ```js
 import Client from '@yllet/client';
