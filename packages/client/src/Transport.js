@@ -1,5 +1,4 @@
-import { qsEncode } from './utils';
-import HTTPError from './HTTPError';
+import { HTTPError, qsEncode } from '@yllet/support';
 import FormData from 'isomorphic-form-data';
 
 export default class Transport {

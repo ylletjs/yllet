@@ -4,9 +4,9 @@ import {
   mergeObjects,
   objectKeysToSnakeCase,
   qsEncode
-} from '../src/utils';
+} from '../src';
 
-describe('utils.isObject', () => {
+describe('isObject', () => {
   it('can test for objects', () => {
     [
       [true, {}],
@@ -22,7 +22,7 @@ describe('utils.isObject', () => {
   });
 });
 
-describe('utils.objectKeysToSnakeCase', () => {
+describe('objectKeysToSnakeCase', () => {
   it('can snake case object keys', () => {
     [
       [
@@ -72,7 +72,7 @@ describe('utils.objectKeysToSnakeCase', () => {
   });
 });
 
-describe('utils.qsEncode', () => {
+describe('qsEncode', () => {
   it('convert object to query string', () => {
     [
       [
@@ -117,8 +117,8 @@ describe('utils.qsEncode', () => {
   });
 });
 
-describe('utils.queryString', () => {
-  it('convert object to query string', () => {
+describe('mergeObjects', () => {
+  it('can merge objects', () => {
     [
       [
         {

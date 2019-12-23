@@ -1,5 +1,5 @@
 import FormData from 'isomorphic-form-data';
-import { mergeObjects, isObject, objectKeysToSnakeCase } from './utils';
+import { mergeObjects, isObject, objectKeysToSnakeCase } from '@yllet/support';
 import Transport from './Transport';
 
 // HTTP methods map.

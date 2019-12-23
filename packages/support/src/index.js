@@ -1,4 +1,9 @@
 /**
+ * Export HTTPError.
+ */
+export { default as HTTPError } from './HTTPError';
+
+/**
  * Test if given value is a object or not.
  *
  * @param  {object} obj

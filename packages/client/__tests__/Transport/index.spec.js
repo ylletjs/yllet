@@ -2,7 +2,7 @@ import expect from 'expect';
 import FormData from 'isomorphic-form-data';
 import fetchMock from 'fetch-mock';
 import Transport from '../../src/Transport';
-import HTTPError from '../../src/HTTPError';
+import { HTTPError } from '@yllet/support';
 
 const transport = new Transport();
 const endpoint = 'https://wp.com/wp-json';

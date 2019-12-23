@@ -33,6 +33,10 @@ module.exports = build => ({
       '@yllet/react': path.resolve(
         __dirname,
         `node_modules/@yllet/react/lib/${build}`
+      ),
+      '@yllet/support': path.resolve(
+        __dirname,
+        `node_modules/@yllet/support/lib/${build}`
       )
     }
   }

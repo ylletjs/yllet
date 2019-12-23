@@ -1,6 +1,7 @@
-import queryString from 'query-string'; // version 5.1.1 for ie.
+import { qsEncode } from '@yllet/support';
 import KyClient from 'ky-universal';
 import FormData from 'isomorphic-form-data';
+
 class KyTransport {
   constructor(ky) {
     this.ky = typeof ky === 'undefined' ? KyClient : ky;
@@ -24,9 +25,9 @@ class KyTransport {
             'Unable to encode FormData for GET, DELETE requests'
           );
         }
-        const qs = queryString.stringify(data, {
-          arrayFormat: 'bracket'
-        });
+
+        const qs = qsEncode(data);
+
         if (qs.length) {
           url = `${url}?${qs}`;
         }
