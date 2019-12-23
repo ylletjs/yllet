@@ -41,5 +41,8 @@
     "react-dom": "^16.12.0"
   },
   "license": "MIT",
-  "gitHead": "2691c36e2a123448296048f8996cf5358c62bcac"
+  "gitHead": "a2a2a3d8db1a79d619928f935f18c1bd05c8622d",
+  "publishConfig": {
+    "access": "public"
+  }
 }
