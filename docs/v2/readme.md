@@ -2,6 +2,8 @@
 
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it, you can read more [here](#transport-layers).
 
+Yllet comes with [tree-shakable](https://webpack.js.org/guides/tree-shaking/) ESM or CJS build available. All code are tiny and well tested with both unit and browser tests.
+
 ## Installation
 
 To install the WordPress API client
