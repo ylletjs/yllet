@@ -120,6 +120,7 @@ describe('qsEncode', () => {
 describe('mergeObjects', () => {
   it('can merge objects', () => {
     [
+      [undefined, undefined, undefined],
       [
         {
           foo: { bar: 3 },
@@ -141,7 +142,8 @@ describe('mergeObjects', () => {
             {
               really: 'yes'
             }
-          ]
+          ],
+          array2: ['bar']
         },
         {
           foo: {
@@ -161,6 +163,7 @@ describe('mergeObjects', () => {
               really: 'yes'
             }
           ],
+          array2: ['bar'],
           quux: 5
         }
       ],
