@@ -123,6 +123,17 @@ describe('mergeObjects', () => {
       [undefined, undefined, undefined],
       [
         {
+          foo: null
+        },
+        {
+          foo: null
+        },
+        {
+          foo: null
+        }
+      ],
+      [
+        {
           foo: { bar: 3 },
           array: [
             {
