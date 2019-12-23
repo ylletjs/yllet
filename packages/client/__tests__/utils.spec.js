@@ -3,7 +3,7 @@ import {
   isObject,
   mergeObjects,
   objectKeysToSnakeCase,
-  queryString
+  qsEncode
 } from '../src/utils';
 
 describe('utils.isObject', () => {
@@ -72,7 +72,7 @@ describe('utils.objectKeysToSnakeCase', () => {
   });
 });
 
-describe('utils.queryString', () => {
+describe('utils.qsEncode', () => {
   it('convert object to query string', () => {
     [
       [
@@ -111,7 +111,7 @@ describe('utils.queryString', () => {
         'hello=world&foo=bar&colors[]=red&colors[]=green&colors[]=blue&colors[]=yellow&numbers[]=100&numbers[]=200&numbers[]=300&on=true&off=false&purple=haze'
       ]
     ].forEach(d => {
-      const str = queryString(d[0]);
+      const str = qsEncode(d[0]);
       expect(str).toEqual(d[1]);
     });
   });

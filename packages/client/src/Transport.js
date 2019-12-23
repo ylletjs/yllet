@@ -1,4 +1,4 @@
-import { queryString } from './utils';
+import { qsEncode } from './utils';
 import HTTPError from './HTTPError';
 import FormData from 'isomorphic-form-data';
 
@@ -38,7 +38,7 @@ export default class Transport {
           );
         }
 
-        const qs = queryString(data);
+        const qs = qsEncode(data);
 
         if (qs.length) {
           url = `${url}?${qs}`;

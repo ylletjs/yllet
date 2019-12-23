@@ -1,6 +1,12 @@
 import FormData from 'isomorphic-form-data';
-import { mergeObjects, isObject, objectKeysToSnakeCase } from './utils';
+import {
+  mergeObjects,
+  isObject,
+  objectKeysToSnakeCase,
+  qsEncode
+} from './utils';
 import Transport from './Transport';
+import HTTPError from './HTTPError';
 
 // HTTP methods map.
 const METHODS = {
@@ -374,3 +380,5 @@ export default class Client {
     return response;
   }
 }
+
+export { HTTPError, qsEncode };

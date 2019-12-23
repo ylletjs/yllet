@@ -57,14 +57,14 @@ const flattenArray = list =>
   list.reduce((a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), []);
 
 /**
- * Covert object to query strings.
+ * Encode objects as query strings.
  *
  * @param {object} params
  * @param {string} prefix
  *
  * @return {string}
  */
-export const queryString = (params, prefix) => {
+export const qsEncode = (params, prefix) => {
   const query = Object.keys(params).map(key => {
     const isArray = params.constructor === Array;
     const value = isArray ? flattenArray(params)[key] : params[key];
@@ -76,7 +76,7 @@ export const queryString = (params, prefix) => {
     }
 
     if (typeof value === 'object') {
-      return queryString(value, key);
+      return qsEncode(value, key);
     }
 
     return `${key}=${encodeURIComponent(value)}`;
