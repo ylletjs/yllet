@@ -1,22 +1,18 @@
 {
   "name": "@yllet/support",
+  "private": false,
   "version": "2.0.0-alpha.16",
+  "repository": "ylletjs/yllet",
   "description": "Support package for Yllet",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "homepage": "https://github.com/ylletjs/yllet#readme",
   "license": "MIT",
   "main": "lib/cjs/index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
+  "module": "lib/esm/index.js",
   "files": [
-    "lib"
+    "README.md",
+    "lib/"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ylletjs/yllet.git"
-  },
   "scripts": {
     "prebuild": "rimraf lib",
     "build": "yarn build:cjs && yarn build:esm",
