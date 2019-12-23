@@ -9,6 +9,8 @@ let context;
 // Client
 context = require.context('../packages/client/__tests__', false, /\.spec\.js$/);
 
+context.keys().forEach(context);
+
 // Support
 context = require.context(
   '../packages/support/__tests__',
