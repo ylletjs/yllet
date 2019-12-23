@@ -1,7 +1,5 @@
 # Yllet docs v2
 
-> Work in progress. Docs for 2.0.0-alpha.17
-
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it, you can read more [here](#transport-layers).
 
 ## Installation
