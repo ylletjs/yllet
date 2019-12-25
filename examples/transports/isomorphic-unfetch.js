@@ -44,7 +44,7 @@ export default class FetchTransport {
       }
     }
 
-    request.headers = { ...config.headers };
+    request.headers = config.headers;
 
     return fetch(url, request).then((response) => {
       return response.json().then((data) => {
