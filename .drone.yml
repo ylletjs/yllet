@@ -1,6 +1,12 @@
 kind: pipeline
 name: default
 
+trigger:
+  event:
+    - push
+    - pull_request
+    - tag
+
 steps:
   - name: install
     image: node:alpine
