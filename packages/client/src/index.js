@@ -49,6 +49,13 @@ export default class Client {
   initialEndpoint = '';
 
   /**
+   * Request middlewares.
+   *
+   * @var {array}
+   */
+  middlewares = [];
+
+  /**
    * Client options.
    *
    * @var {object}
@@ -58,7 +65,6 @@ export default class Client {
     headers: {
       'Content-Type': 'application/json'
     },
-    middlewares: [],
     namespace: 'wp/v2',
     nonce: '',
     resource: '',
@@ -94,6 +100,11 @@ export default class Client {
     if (!isObject(options)) {
       options = {};
     }
+
+    this.middlewares = Array.isArray(options.middlewares)
+      ? options.middlewares
+      : [];
+    delete options.middlewares;
 
     this.transport = options.transport ? options.transport : new Transport();
     delete options.transport;
@@ -205,6 +216,26 @@ export default class Client {
    */
   _getConfig() {
     return mergeObjects(this.options.config, this.config);
+  }
+
+  /**
+   * Run middlewares.
+   *
+   * @return {function}
+   */
+  _runMiddlewares() {
+    const self = this;
+    const next = () => {
+      var middleware = self.middlewares.shift();
+
+      if (middleware && typeof middleware === 'function') {
+        middleware.call(this, self, next);
+      }
+
+      return self;
+    };
+
+    return next();
   }
 
   /**
@@ -368,6 +399,8 @@ export default class Client {
       path = '';
     }
 
+    this._runMiddlewares();
+
     const response = this.transport[verb](
       this._getUrl(path),
       this._getParams(params),
@@ -383,5 +416,20 @@ export default class Client {
     }
 
     return response;
+  }
+
+  /**
+   * Add middlewares that should be runned before request.
+   *
+   * @param {array|function} fn
+   */
+  use(fn) {
+    if (!Array.isArray(fn)) {
+      fn = [fn];
+    }
+
+    this.middlewares = this.middlewares.concat(fn);
+
+    return this;
   }
 }

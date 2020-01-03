@@ -7,7 +7,6 @@ const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
 const defaultOptions = {
   endpoint: '',
-  middlewares: [],
   namespace: 'wp/v2',
   nonce: '',
   config: {
@@ -68,7 +67,6 @@ describe('Client', () => {
     });
     expect(ylletClient.options).toEqual({
       endpoint: 'https://wordpress.test/wp-json',
-      middlewares: [],
       namespace: 'wp/v2',
       nonce: '',
       config: {
