@@ -24,14 +24,13 @@ const middlewareOne = (client, next) => {
   return next();
 };
 
-const middlewareTwo = (client, next) => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      client.header('X-Foo', 'Bar');
-      resolve();
-      return next();
-    }, 1000);
-  });
+const middlewareTwo = async (client, next) => {
+  jest.useFakeTimers();
+  setTimeout(() => {
+    client.header('X-Foo', 'Bar');
+    return next();
+  }, 1000);
+  jest.runAllTimers();
 };
 
 describe('Middlewares', () => {
@@ -63,7 +62,7 @@ describe('Middlewares', () => {
     const ylletClient = new Client({ middlewares: [middlewareOne], transport });
     expect(transport.get.mock.calls).toEqual([]);
 
-    ylletClient.request('get', 'products');
+    ylletClient.posts().get();
     expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
 
     ylletClient.request('get', 'products');
@@ -74,7 +73,11 @@ describe('Middlewares', () => {
     const ylletClient = new Client({ middlewares: [middlewareTwo], transport });
     expect(transport.get.mock.calls).toEqual([]);
 
-    await ylletClient.request('get', 'products');
+    await ylletClient.posts().get();
     expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
+
+    ylletClient.request('get', 'products').then(() => {
+      expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
+    });
   });
 });

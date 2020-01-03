@@ -221,20 +221,20 @@ export default class Client {
   /**
    * Run middlewares.
    *
-   * @param {function} request
+   * @param {function} last
    *
    * @return {function}
    */
-  async _runMiddlewares(request) {
+  async _runMiddlewares(last) {
     const self = this;
     const next = async () => {
       let middleware = self.middlewares.shift();
 
       if (!middleware) {
-        middleware = request;
+        middleware = last;
       }
 
-      if (middleware && typeof middleware === 'function') {
+      if (typeof middleware === 'function') {
         await middleware.call(this, self, next);
       }
 
