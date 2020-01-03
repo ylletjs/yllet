@@ -58,6 +58,7 @@ export default class Client {
     headers: {
       'Content-Type': 'application/json'
     },
+    middlewares: [],
     namespace: 'wp/v2',
     nonce: '',
     resource: '',
@@ -84,6 +85,16 @@ export default class Client {
    * @param {object} options
    */
   constructor(options = {}) {
+    if (typeof options === 'string') {
+      options = {
+        endpoint: options
+      };
+    }
+
+    if (!isObject(options)) {
+      options = {};
+    }
+
     this.transport = options.transport ? options.transport : new Transport();
     delete options.transport;
 

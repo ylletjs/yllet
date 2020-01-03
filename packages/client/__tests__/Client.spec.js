@@ -5,6 +5,19 @@ import expect from 'expect';
 const transport = new MockTransport();
 const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
+const defaultOptions = {
+  endpoint: '',
+  middlewares: [],
+  namespace: 'wp/v2',
+  nonce: '',
+  config: {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  },
+  resource: '',
+  restore: true
+};
 
 describe('Client', () => {
   beforeEach(() => {
@@ -26,18 +39,20 @@ describe('Client', () => {
 
   it('has default options', () => {
     const ylletClient = new Client({ transport });
+    expect(ylletClient.options).toEqual(defaultOptions);
+  });
+
+  it('just endpoint option', () => {
+    const ylletClient = new Client(endpoint);
     expect(ylletClient.options).toEqual({
-      endpoint: '',
-      namespace: 'wp/v2',
-      nonce: '',
-      config: {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      },
-      resource: '',
-      restore: true
+      ...defaultOptions,
+      endpoint: endpoint
     });
+  });
+
+  it('bad options input', () => {
+    const ylletClient = new Client(undefined);
+    expect(ylletClient.options).toEqual(defaultOptions);
   });
 
   it('merges options', () => {
@@ -53,6 +68,7 @@ describe('Client', () => {
     });
     expect(ylletClient.options).toEqual({
       endpoint: 'https://wordpress.test/wp-json',
+      middlewares: [],
       namespace: 'wp/v2',
       nonce: '',
       config: {
