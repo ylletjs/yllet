@@ -70,9 +70,6 @@ describe('Client.request', () => {
 
     const result = transport.post.mock.calls[0][1];
     expect(result instanceof FormData).toEqual(true);
-    /**
-     * @todo Needs extending to check contents of FormData instance for expected values
-     **/
   });
 
   it('merges global request config', () => {

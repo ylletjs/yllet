@@ -5,3 +5,4 @@ packages/*/node_modules/
 .jest-*
 browserstack.err
 .DS_Store
+/index.js

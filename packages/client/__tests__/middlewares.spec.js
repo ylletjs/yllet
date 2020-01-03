@@ -24,6 +24,16 @@ const middlewareOne = (client, next) => {
   return next();
 };
 
+const middlewareTwo = (client, next) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      client.header('X-Foo', 'Bar');
+      resolve();
+      return next();
+    }, 1000);
+  });
+};
+
 describe('Middlewares', () => {
   beforeEach(() => {
     transport.resetMocks();
@@ -58,5 +68,13 @@ describe('Middlewares', () => {
 
     ylletClient.request('get', 'products');
     expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
+  });
+
+  it('run middleware two', async () => {
+    const ylletClient = new Client({ middlewares: [middlewareTwo], transport });
+    expect(transport.get.mock.calls).toEqual([]);
+
+    await ylletClient.request('get', 'products');
+    expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
   });
 });

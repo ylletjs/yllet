@@ -221,21 +221,27 @@ export default class Client {
   /**
    * Run middlewares.
    *
+   * @param {function} request
+   *
    * @return {function}
    */
-  _runMiddlewares() {
+  async _runMiddlewares(request) {
     const self = this;
-    const next = () => {
-      var middleware = self.middlewares.shift();
+    const next = async () => {
+      let middleware = self.middlewares.shift();
+
+      if (!middleware) {
+        middleware = request;
+      }
 
       if (middleware && typeof middleware === 'function') {
-        middleware.call(this, self, next);
+        await middleware.call(this, self, next);
       }
 
       return self;
     };
 
-    return next();
+    return await next();
   }
 
   /**
@@ -399,23 +405,23 @@ export default class Client {
       path = '';
     }
 
-    this._runMiddlewares();
+    return this._runMiddlewares(() => {
+      const response = this.transport[verb](
+        this._getUrl(path),
+        this._getParams(params),
+        this._getConfig()
+      );
 
-    const response = this.transport[verb](
-      this._getUrl(path),
-      this._getParams(params),
-      this._getConfig()
-    );
+      if (this.options.restore) {
+        this.options = mergeObjects(this.options, {
+          endpoint: this.initialEndpoint,
+          namespace: 'wp/v2',
+          resource: ''
+        });
+      }
 
-    if (this.options.restore) {
-      this.options = mergeObjects(this.options, {
-        endpoint: this.initialEndpoint,
-        namespace: 'wp/v2',
-        resource: ''
-      });
-    }
-
-    return response;
+      return response;
+    });
   }
 
   /**
