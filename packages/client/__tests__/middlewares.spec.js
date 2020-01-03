@@ -79,8 +79,10 @@ describe('Middlewares', () => {
     const ylletClient = new Client({ middlewares: [middlewareTwo], transport });
     expect(transport.get.mock.calls).toEqual([]);
 
-    await ylletClient.posts().get();
-    expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
+    if (typeof jest !== 'undefined') {
+      await ylletClient.posts().get();
+      expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
+    }
 
     ylletClient.request('get', 'products').then(() => {
       expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
