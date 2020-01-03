@@ -25,12 +25,18 @@ const middlewareOne = (client, next) => {
 };
 
 const middlewareTwo = async (client, next) => {
-  if (typeof jest !== 'undefined') jest.useFakeTimers();
-  setTimeout(() => {
+  if (typeof jest !== 'undefined') {
+    jest.useFakeTimers();
+    setTimeout(() => {
+      client.header('X-Foo', 'Bar');
+      return next();
+    }, 1000);
+    jest.runAllTimers();
+  } else {
+    await new Promise(r => setTimeout(r, 1000));
     client.header('X-Foo', 'Bar');
     return next();
-  }, 1000);
-  if (typeof jest !== 'undefined') jest.runAllTimers();
+  }
 };
 
 describe('Middlewares', () => {
