@@ -84,7 +84,8 @@ describe('Middlewares', () => {
       expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
     }
 
-    ylletClient.request('get', 'products').then(() => {
+    ylletClient.request('get', 'products').then(res => {
+      expect(res).not.toEqual(ylletClient);
       expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
     });
   });

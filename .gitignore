@@ -6,3 +6,4 @@ packages/*/node_modules/
 browserstack.err
 .DS_Store
 /index.js
+/test

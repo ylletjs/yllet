@@ -228,10 +228,10 @@ export default class Client {
   async _runMiddlewares(last) {
     const self = this;
     const next = async () => {
-      let middleware = self.middlewares.shift();
+      const middleware = self.middlewares.shift();
 
       if (!middleware) {
-        middleware = last;
+        return await last.call(this, self);
       }
 
       if (typeof middleware === 'function') {
