@@ -69,7 +69,7 @@ describe('Middlewares', () => {
     expect(ylletClient.middlewares).toEqual([middlewareOne, middlewareOne]);
   });
 
-  it('run middleware one', () => {
+  it('run middleware one', async () => {
     const ylletClient = new Client({ middlewares: [middlewareOne], transport });
     expect(transport.get.mock.calls).toEqual([]);
 
