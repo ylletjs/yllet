@@ -405,22 +405,24 @@ export default class Client {
       path = '';
     }
 
-    return this._runMiddlewares(() => {
-      const response = this.transport[verb](
-        this._getUrl(path),
-        this._getParams(params),
-        this._getConfig()
-      );
+    return new Promise((resolve, reject) => {
+      this._runMiddlewares(self => {
+        const response = this.transport[verb](
+          this._getUrl(path),
+          this._getParams(params),
+          this._getConfig()
+        );
 
-      if (this.options.restore) {
-        this.options = mergeObjects(this.options, {
-          endpoint: this.initialEndpoint,
-          namespace: 'wp/v2',
-          resource: ''
-        });
-      }
+        if (this.options.restore) {
+          this.options = mergeObjects(this.options, {
+            endpoint: this.initialEndpoint,
+            namespace: 'wp/v2',
+            resource: ''
+          });
+        }
 
-      return response;
+        resolve(response);
+      });
     });
   }
 

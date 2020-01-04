@@ -2,7 +2,12 @@ import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 import expect from 'expect';
 
-const transport = new MockTransport();
+const responses = {
+  get: {
+    posts: {}
+  }
+};
+const transport = new MockTransport(responses);
 const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
 const defaultOptions = {
@@ -68,11 +73,20 @@ describe('Middlewares', () => {
     const ylletClient = new Client({ middlewares: [middlewareOne], transport });
     expect(transport.get.mock.calls).toEqual([]);
 
-    ylletClient.posts().get();
-    expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
+    ylletClient
+      .posts()
+      .get()
+      .then(res => {
+        expect(res).toBe(responses.get);
+        expect(transport.get.mock.calls[0][0]).toBe('/wp/v2/posts');
+        expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
+      });
 
-    ylletClient.request('get', 'products');
-    expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
+    ylletClient.request('get', 'products').then(res => {
+      expect(res).toBe(responses.get);
+      expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/products');
+      expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
+    });
   });
 
   it('run middleware two', async () => {
@@ -80,12 +94,15 @@ describe('Middlewares', () => {
     expect(transport.get.mock.calls).toEqual([]);
 
     if (typeof jest !== 'undefined') {
-      await ylletClient.posts().get();
+      const res = await ylletClient.posts().get();
+      expect(res).toBe(responses.get);
+      expect(transport.get.mock.calls[0][0]).toBe('/wp/v2/posts');
       expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
     }
 
     ylletClient.request('get', 'products').then(res => {
-      expect(res).not.toEqual(ylletClient);
+      expect(res).toBe(responses.get);
+      expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/products');
       expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
     });
   });
