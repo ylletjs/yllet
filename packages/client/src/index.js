@@ -88,34 +88,7 @@ export default class Client {
    * @param {object} options
    */
   constructor(options = {}) {
-    if (typeof options === 'string') {
-      options = {
-        endpoint: options
-      };
-    }
-
-    if (!isObject(options)) {
-      options = this.options;
-    }
-
-    if (!isObject(options.config)) {
-      options.config = defaultRequestConfig;
-    }
-
-    this.middlewares = Array.isArray(options.middlewares)
-      ? options.middlewares
-      : [];
-    delete options.middlewares;
-
-    this.transport = options.transport ? options.transport : new Transport();
-    delete options.transport;
-
-    this.options = this._mergeOptions(options);
-
-    // Add nonce if any.
-    if (this.options.nonce) {
-      this.header('X-WP-Nonce', this.options.nonce);
-    }
+    this._setupOptions(options);
 
     // Init HTTP methods
     Object.keys(METHODS).forEach(method => {
@@ -139,10 +112,30 @@ export default class Client {
    *
    * @return {object}
    */
-  _mergeOptions(options = {}) {
-    if (!isObject(options.config)) {
-      options.config = {};
+  _setupOptions(options = {}) {
+    if (typeof options === 'string') {
+      options = {
+        endpoint: options
+      };
     }
+
+    if (!isObject(options)) {
+      options = this.options;
+    }
+
+    if (!isObject(options.config)) {
+      options.config = defaultRequestConfig;
+    }
+
+    // Set middlewares.
+    this.middlewares = Array.isArray(options.middlewares)
+      ? options.middlewares
+      : [];
+    delete options.middlewares;
+
+    // Set transport.
+    this.transport = options.transport ? options.transport : new Transport();
+    delete options.transport;
 
     // Merge headers and create config object.
     const headers = mergeObjects(
@@ -151,13 +144,18 @@ export default class Client {
     );
     options.config = { ...options.config, headers: { ...headers } };
 
+    // Add nonce if any.
+    if (options.nonce) {
+      options.config.headers['X-WP-Nonce'] = options.nonce;
+    }
+
     // Merge options.
     options = mergeObjects(this.options, options);
 
     // Delete headers since it's in the config object.
     delete options.headers;
 
-    return options;
+    this.options = options;
   }
 
   /**
@@ -228,6 +226,12 @@ export default class Client {
         resource,
         endpoint
       };
+
+      // Reaplce transport layer if a new one exists.
+      if (typeof self.options.transport === 'object') {
+        self.transport = self.options.transport;
+        delete self.options.transport;
+      }
 
       if (!middleware) {
         return await last.call(this, self);

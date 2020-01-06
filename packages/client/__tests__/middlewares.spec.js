@@ -52,6 +52,13 @@ const middlewareThree = (client, next) => {
   next();
 };
 
+class CustomTransport extends MockTransport {}
+
+const middlewareFour = (client, next) => {
+  client.transport = new CustomTransport();
+  next();
+};
+
 describe('Middlewares', () => {
   beforeEach(() => {
     transport.resetMocks();
@@ -159,6 +166,27 @@ describe('Middlewares', () => {
         expect(ylletClient.options.endpoint).toBe('');
         expect(ylletClient.options.namespace).toBe('wp/v2');
         expect(ylletClient.options.resource).toBe('posts');
+      });
+  });
+
+  it('run middleware four', async () => {
+    const ylletClient = new Client({
+      headers: { 'X-Requested-With': 'Yllet' },
+      middlewares: [middlewareFour],
+      restore: false,
+      transport
+    });
+
+    expect(transport.get.mock.calls).toEqual([]);
+    expect(ylletClient.transport).toBeInstanceOf(MockTransport);
+
+    ylletClient
+      .posts()
+      .get()
+      .then(res => {
+        expect(res).toBe(responses.get);
+        console.log(ylletClient.transport);
+        expect(ylletClient.transport).toBeInstanceOf(CustomTransport);
       });
   });
 });
