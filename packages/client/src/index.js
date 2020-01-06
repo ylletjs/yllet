@@ -46,13 +46,6 @@ export default class Client {
   formData = undefined;
 
   /**
-   * Initial endpoint.
-   *
-   * @var {string}
-   */
-  initialEndpoint = '';
-
-  /**
    * Request middlewares.
    *
    * @var {array}
@@ -118,7 +111,6 @@ export default class Client {
     delete options.transport;
 
     this.options = this._mergeOptions(options);
-    this.initialEndpoint = this.options.endpoint;
 
     // Add nonce if any.
     if (this.options.nonce) {
@@ -225,28 +217,24 @@ export default class Client {
    */
   async _runMiddlewares(last) {
     const self = this;
-    const { initialEndpoint } = this;
-    const { namespace, resource } = this.options;
+    const { endpoint, namespace, resource } = this.options;
     let client = null;
     const next = async () => {
       const middleware = self.middlewares.shift();
 
-      if (client) {
-        self.options = {
-          ...mergeObjects(self.options, client.options),
-          namespace,
-          resource,
-          endpoint: initialEndpoint
-        };
-      }
+      self.options = {
+        ...self.options,
+        namespace,
+        resource,
+        endpoint
+      };
 
       if (!middleware) {
         return await last.call(this, self);
       }
 
       if (typeof middleware === 'function') {
-        client = new Client(self.options);
-        await middleware.call(this, client, next);
+        await middleware.call(this, self, next);
       }
 
       return self;
