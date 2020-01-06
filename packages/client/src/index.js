@@ -227,12 +227,6 @@ export default class Client {
         endpoint
       };
 
-      // Reaplce transport layer if a new one exists.
-      if (typeof self.options.transport === 'object') {
-        self.transport = self.options.transport;
-        delete self.options.transport;
-      }
-
       if (!middleware) {
         return await last.call(this, self);
       }
