@@ -122,6 +122,10 @@ export const mergeObjects = (target, source) => {
 
       mergeObjects(target[key], source[key]);
     } else {
+      if (target === undefined) {
+        target = {};
+      }
+
       target[key] = source[key];
     }
   }

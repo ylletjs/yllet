@@ -13,7 +13,7 @@ describe('Client.header', () => {
 
   it('set a single header', () => {
     client.header('X-Foo', 'bar');
-    expect(client.config.headers['X-Foo']).toBe('bar');
+    expect(client.options.config.headers['X-Foo']).toBe('bar');
   });
 
   it('can return headers', () => {
@@ -22,7 +22,8 @@ describe('Client.header', () => {
 
   it('set a headers object', () => {
     client.header({ 'X-Foo': '1', 'X-Bar': '2' });
-    expect(client.config.headers).toEqual({
+    expect(client.options.config.headers).toEqual({
+      'Content-Type': 'application/json',
       'X-Foo': '1',
       'X-Bar': '2'
     });

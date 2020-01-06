@@ -26,6 +26,10 @@ const RESOURCES = [
   'search'
 ];
 
+const defaultRequestConfig = {
+  headers: {}
+};
+
 export default class Client {
   /**
    * Request config.
@@ -90,7 +94,7 @@ export default class Client {
    *
    * @param {object} options
    */
-  constructor(options = {}) {
+  constructor(options = {}, m) {
     if (typeof options === 'string') {
       options = {
         endpoint: options
@@ -98,7 +102,11 @@ export default class Client {
     }
 
     if (!isObject(options)) {
-      options = {};
+      options = this.options;
+    }
+
+    if (!isObject(options.config)) {
+      options.config = defaultRequestConfig;
     }
 
     this.middlewares = Array.isArray(options.middlewares)
@@ -109,7 +117,7 @@ export default class Client {
     this.transport = options.transport ? options.transport : new Transport();
     delete options.transport;
 
-    this.options = this._getOptions(options);
+    this.options = this._mergeOptions(options, m);
     this.initialEndpoint = this.options.endpoint;
 
     // Add nonce if any.
@@ -139,7 +147,7 @@ export default class Client {
    *
    * @return {object}
    */
-  _getOptions(options) {
+  _mergeOptions(options = {}, m = false) {
     if (!isObject(options.config)) {
       options.config = {};
     }
@@ -149,7 +157,10 @@ export default class Client {
     }
 
     // Merge headers and create config object.
-    const headers = mergeObjects(this.options.headers, options.headers);
+    const headers = mergeObjects(
+      options.config.headers,
+      mergeObjects(this.options.headers, options.headers)
+    );
     options.config = { ...options.config, headers: { ...headers } };
 
     // Merge options.
@@ -210,15 +221,6 @@ export default class Client {
   }
 
   /**
-   * Returns request config.
-   *
-   * @return {object}
-   */
-  _getConfig() {
-    return mergeObjects(this.options.config, this.config);
-  }
-
-  /**
    * Run middlewares.
    *
    * @param {function} last
@@ -227,15 +229,21 @@ export default class Client {
    */
   async _runMiddlewares(last) {
     const self = this;
+    let client = null;
     const next = async () => {
       const middleware = self.middlewares.shift();
 
       if (!middleware) {
+        if (client) {
+          self.options = mergeObjects(self.options, client.options);
+        }
+
         return await last.call(this, self);
       }
 
       if (typeof middleware === 'function') {
-        await middleware.call(this, self, next);
+        client = new Client(self.options, true);
+        await middleware.call(this, client, next);
       }
 
       return self;
@@ -328,7 +336,7 @@ export default class Client {
    * @return {Client|string}
    */
   header(key, value = null) {
-    let { headers = {} } = this.config;
+    let { headers = {} } = this.options.config;
 
     if (typeof key === 'string' && !value) {
       return headers[key];
@@ -340,7 +348,7 @@ export default class Client {
       headers = { ...headers, ...key };
     }
 
-    this.config = { ...this.config, headers: { ...headers } }; // immutable
+    this.options.config = { ...this.options.config, headers: { ...headers } };
 
     return this;
   }
@@ -410,7 +418,7 @@ export default class Client {
         const response = this.transport[verb](
           this._getUrl(path),
           this._getParams(params),
-          this._getConfig()
+          this.options.config
         );
 
         if (this.options.restore) {

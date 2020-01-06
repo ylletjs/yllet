@@ -70,7 +70,11 @@ describe('Middlewares', () => {
   });
 
   it('run middleware one', async () => {
-    const ylletClient = new Client({ middlewares: [middlewareOne], transport });
+    const ylletClient = new Client({
+      headers: { 'X-Requested-With': 'Yllet' },
+      middlewares: [middlewareOne],
+      transport
+    });
     expect(transport.get.mock.calls).toEqual([]);
 
     ylletClient
@@ -79,30 +83,46 @@ describe('Middlewares', () => {
       .then(res => {
         expect(res).toBe(responses.get);
         expect(transport.get.mock.calls[0][0]).toBe('/wp/v2/posts');
+        expect(transport.get.mock.calls[0][2].headers['X-Requested-With']).toBe(
+          'Yllet'
+        );
         expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
       });
 
     ylletClient.request('get', 'products').then(res => {
       expect(res).toBe(responses.get);
       expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/products');
+      expect(transport.get.mock.calls[1][2].headers['X-Requested-With']).toBe(
+        'Yllet'
+      );
       expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
     });
   });
 
   it('run middleware two', async () => {
-    const ylletClient = new Client({ middlewares: [middlewareTwo], transport });
+    const ylletClient = new Client({
+      headers: { 'X-Requested-With': 'Yllet' },
+      middlewares: [middlewareTwo],
+      transport
+    });
     expect(transport.get.mock.calls).toEqual([]);
 
     if (typeof jest !== 'undefined') {
       const res = await ylletClient.posts().get();
       expect(res).toBe(responses.get);
       expect(transport.get.mock.calls[0][0]).toBe('/wp/v2/posts');
+      expect(transport.get.mock.calls[0][2].headers['X-Requested-With']).toBe(
+        'Yllet'
+      );
       expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
     }
 
     ylletClient.request('get', 'products').then(res => {
       expect(res).toBe(responses.get);
       expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/products');
+      expect(transport.get.mock.calls[1][2].headers['X-Requested-With']).toBe(
+        'Yllet'
+      );
       expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
     });
   });

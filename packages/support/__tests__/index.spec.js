@@ -284,6 +284,25 @@ describe('mergeObjects', () => {
           key1: 'value1',
           key2: 'value2'
         }
+      ],
+      [
+        {
+          config: {}
+        },
+        {
+          config: {
+            headers: {
+              key1: 'value1'
+            }
+          }
+        },
+        {
+          config: {
+            headers: {
+              key1: 'value1'
+            }
+          }
+        }
       ]
     ].forEach(d => {
       const obj = mergeObjects(d[0], d[1]);

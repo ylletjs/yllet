@@ -74,11 +74,9 @@ describe('Client.request', () => {
 
   it('merges global request config', () => {
     client.options.config = { a: '1', b: '2' };
-    client.config = { a: '2', foo: 'bar' };
     client.request('post');
     expect(transport.post.mock.calls[0][2]).toEqual({
-      ...client.options.config,
-      ...client.config
+      ...client.options.config
     });
   });
 });
