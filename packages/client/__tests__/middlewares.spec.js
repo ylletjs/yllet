@@ -55,7 +55,7 @@ const middlewareThree = (client, next) => {
 class CustomTransport extends MockTransport {}
 
 const middlewareFour = (client, next) => {
-  client.transport = new CustomTransport();
+  client.options.transport = new CustomTransport();
   next();
 };
 
