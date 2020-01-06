@@ -94,7 +94,7 @@ export default class Client {
    *
    * @param {object} options
    */
-  constructor(options = {}, m) {
+  constructor(options = {}) {
     if (typeof options === 'string') {
       options = {
         endpoint: options
@@ -117,7 +117,7 @@ export default class Client {
     this.transport = options.transport ? options.transport : new Transport();
     delete options.transport;
 
-    this.options = this._mergeOptions(options, m);
+    this.options = this._mergeOptions(options);
     this.initialEndpoint = this.options.endpoint;
 
     // Add nonce if any.
@@ -147,19 +147,15 @@ export default class Client {
    *
    * @return {object}
    */
-  _mergeOptions(options = {}, m = false) {
+  _mergeOptions(options = {}) {
     if (!isObject(options.config)) {
       options.config = {};
-    }
-
-    if (!isObject(options.headers)) {
-      options.headers = {};
     }
 
     // Merge headers and create config object.
     const headers = mergeObjects(
       options.config.headers,
-      mergeObjects(this.options.headers, options.headers)
+      mergeObjects(this.options.headers, options.headers || {})
     );
     options.config = { ...options.config, headers: { ...headers } };
 
@@ -249,7 +245,7 @@ export default class Client {
       }
 
       if (typeof middleware === 'function') {
-        client = new Client(self.options, true);
+        client = new Client(self.options);
         await middleware.call(this, client, next);
       }
 

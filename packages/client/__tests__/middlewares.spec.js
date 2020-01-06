@@ -44,6 +44,14 @@ const middlewareTwo = async (client, next) => {
   }
 };
 
+const middlewareThree = (client, next) => {
+  client
+    .endpoint('https://woocommerce.com/wp-json')
+    .namespace('wc/v3')
+    .resource('products');
+  next();
+};
+
 describe('Middlewares', () => {
   beforeEach(() => {
     transport.resetMocks();
@@ -125,5 +133,26 @@ describe('Middlewares', () => {
       );
       expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
     });
+  });
+
+  it('run middleware three', async () => {
+    const ylletClient = new Client({
+      headers: { 'X-Requested-With': 'Yllet' },
+      middlewares: [middlewareThree],
+      restore: false,
+      transport
+    });
+    expect(transport.get.mock.calls).toEqual([]);
+
+    ylletClient
+      .posts()
+      .get()
+      .then(res => {
+        expect(res).toBe(responses.get);
+        expect(transport.get.mock.calls[0][0]).toBe('/wp/v2/posts');
+        expect(ylletClient.options.endpoint).toBe('');
+        expect(ylletClient.options.namespace).toBe('wp/v2');
+        expect(ylletClient.options.resource).toBe('posts');
+      });
   });
 });
