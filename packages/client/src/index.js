@@ -379,6 +379,22 @@ export default class Client {
   }
 
   /**
+   * Fetch content by slug.
+   *
+   * @param {string} slug
+   * @param {object} params
+   *
+   * @return {object}
+   */
+  slug(slug, params) {
+    return this.get({
+      ...params,
+      per_page: 1,
+      slug
+    }).then(res => res[0]);
+  }
+
+  /**
    * Send API request
    *
    * @param  {string} path
