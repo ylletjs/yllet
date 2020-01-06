@@ -256,18 +256,6 @@ export default class Client {
   }
 
   /**
-   * Create a copy of the client without
-   * restoring the configuration of endpoint,
-   * namespace or resource.
-   *
-   * @return {Client}
-   */
-  copy() {
-    this.options.restore = false;
-    return this;
-  }
-
-  /**
    * Discover the REST API from a URL.
    *
    * @param  {string} url
@@ -423,14 +411,6 @@ export default class Client {
           this._getParams(params),
           this.options.config
         );
-
-        if (this.options.restore) {
-          this.options = mergeObjects(this.options, {
-            endpoint: this.initialEndpoint,
-            namespace: 'wp/v2',
-            resource: ''
-          });
-        }
 
         resolve(response);
       });

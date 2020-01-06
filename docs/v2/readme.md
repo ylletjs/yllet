@@ -85,7 +85,7 @@ Using any request methods sets the path so you don't have to write `client.get('
 Adding custom request methods is easy (example [WooCommerce REST API](https://woocommerce.github.io/woocommerce-rest-api-docs/))
 
 ```js
-// Modify endpoint, namespace and resource without changing the default client options.
+// To call another endpoint, namespace and resource.
 client
   .endpoint('https://wp.com/wp-json')
   .namespace('wc/v2')
@@ -99,13 +99,11 @@ client
   });
 
 // To store the client with new namespace, resource and endpoint.
-// Simply call copy at the end.
 client.products = () =>
   client
     .endpoint('https://wp.com/wp-json')
     .namespace('wc/v2')
-    .resource('products')
-    .copy();
+    .resource('products');
 
 // Then you can just call `client.products()` like you do with `client.posts()`
 client

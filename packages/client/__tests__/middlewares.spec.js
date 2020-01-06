@@ -97,14 +97,17 @@ describe('Middlewares', () => {
         expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
       });
 
-    ylletClient.request('get', 'products').then(res => {
-      expect(res).toBe(responses.get);
-      expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/products');
-      expect(transport.get.mock.calls[1][2].headers['X-Requested-With']).toBe(
-        'Yllet'
-      );
-      expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
-    });
+    ylletClient
+      .posts()
+      .get()
+      .then(res => {
+        expect(res).toBe(responses.get);
+        expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/posts');
+        expect(transport.get.mock.calls[1][2].headers['X-Requested-With']).toBe(
+          'Yllet'
+        );
+        expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
+      });
   });
 
   it('run middleware two', async () => {
@@ -125,14 +128,17 @@ describe('Middlewares', () => {
       expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
     }
 
-    ylletClient.request('get', 'products').then(res => {
-      expect(res).toBe(responses.get);
-      expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/products');
-      expect(transport.get.mock.calls[1][2].headers['X-Requested-With']).toBe(
-        'Yllet'
-      );
-      expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
-    });
+    ylletClient
+      .posts()
+      .get()
+      .then(res => {
+        expect(res).toBe(responses.get);
+        expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/posts');
+        expect(transport.get.mock.calls[1][2].headers['X-Requested-With']).toBe(
+          'Yllet'
+        );
+        expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
+      });
   });
 
   it('run middleware three', async () => {

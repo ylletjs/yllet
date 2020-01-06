@@ -20,25 +20,4 @@ describe('Client.resource', () => {
     const returnValue = client.resource('products');
     expect(returnValue).toBe(client);
   });
-
-  it('restores options after requesting', () => {
-    client
-      .endpoint('https://woocommerce.com/wp-json')
-      .namespace('wc/v3')
-      .resource('products');
-    expect(client.options.endpoint).toEqual('https://woocommerce.com/wp-json');
-    expect(client.options.namespace).toEqual('wc/v3');
-    expect(client.options.resource).toEqual('products');
-
-    client.request('post');
-    expect(client.options.endpoint).toEqual(endpoint);
-    expect(client.options.namespace).toEqual('wp/v2');
-    expect(client.options.resource).toEqual('');
-
-    const products = client.resource('products').copy();
-    products.get();
-    expect(products.options.resource).toEqual('products');
-    products.get();
-    expect(products.options.resource).toEqual('products');
-  });
 });
