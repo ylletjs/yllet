@@ -229,13 +229,18 @@ export default class Client {
    */
   async _runMiddlewares(last) {
     const self = this;
+    const restore = this.options.restore;
     let client = null;
     const next = async () => {
       const middleware = self.middlewares.shift();
 
+      if (client) {
+        self.options = mergeObjects(self.options, client.options);
+      }
+
       if (!middleware) {
-        if (client) {
-          self.options = mergeObjects(self.options, client.options);
+        if (restore) {
+          self.options.restore = restore;
         }
 
         return await last.call(this, self);
@@ -243,7 +248,7 @@ export default class Client {
 
       if (typeof middleware === 'function') {
         client = new Client(self.options, true);
-        await middleware.call(this, client, next);
+        await middleware.call(this, client.copy(), next);
       }
 
       return self;
