@@ -41,6 +41,18 @@ describe('Client', () => {
     expect(ylletClient.options).toEqual(defaultOptions);
   });
 
+  it('handle bad options input', () => {
+    const ylletClient = new Client(undefined);
+    expect(ylletClient.options).toEqual(defaultOptions);
+  });
+
+  it('has nonce header', () => {
+    const ylletClient = new Client({
+      nonce: 'XYZ'
+    });
+    expect(ylletClient.options.config.headers['X-WP-Nonce']).toEqual('XYZ');
+  });
+
   it('just endpoint option', () => {
     const ylletClient = new Client(endpoint);
     expect(ylletClient.options).toEqual({
