@@ -1,0 +1,17 @@
+{
+  "name": "next-example",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@yllet/react": "^2.0.0",
+    "next": "^9.1.7",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "scripts": {
+    "export": "next export",
+    "start": "next start",
+    "build": "next build",
+    "dev": "next"
+  }
+}

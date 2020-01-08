@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useClient } from '@yllet/react';
 
-function App() {
+export default () => {
   const endpoint =
     'https://cors-anywhere.herokuapp.com/https://demo.wp-api.org/wp-json/';
   const client = useClient({ endpoint });
@@ -27,6 +27,4 @@ function App() {
       </ul>
     </div>
   );
-}
-
-export default App;
+};
