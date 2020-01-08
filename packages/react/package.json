@@ -35,6 +35,9 @@
     "preversion": "yarn run build",
     "tsc": "tsc types/index.d.ts"
   },
+  "peerDependencies": {
+    "react": "^16.12.0"
+  },
   "dependencies": {
     "@yllet/client": "^2.1.0-alpha.3",
     "prop-types": "^15.7.2"
