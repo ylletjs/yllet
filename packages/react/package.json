@@ -36,8 +36,6 @@
     "tsc": "tsc types/index.d.ts"
   },
   "dependencies": {
-    "@types/prop-types": "^15.7.3",
-    "@types/react": "^16.9.17",
     "@yllet/client": "^2.1.0-alpha.3",
     "prop-types": "^15.7.2"
   },
