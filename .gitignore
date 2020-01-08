@@ -2,6 +2,7 @@
 node_modules
 packages/*/lib/
 packages/*/node_modules/
+packages/*/package-lock.json
 .jest-*
 browserstack.err
 .DS_Store
