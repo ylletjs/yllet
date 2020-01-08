@@ -1,0 +1,4 @@
+{
+  "extends": "../../declaration.tsconfig",
+  "exclude": ["__tests__/**/*.js"]
+}

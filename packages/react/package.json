@@ -16,21 +16,30 @@
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
+  "types": "types/index.d.ts",
   "files": [
     "README.md",
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "bugs": {
     "url": "https://github.com/ylletjs/yllet/issues"
   },
   "scripts": {
-    "prebuild": "rimraf lib",
-    "build": "yarn build:cjs && yarn build:esm",
+    "build": "yarn declaration:build && yarn build:cjs && yarn build:esm",
     "build:cjs": "NODE_ENV=production BABEL_ENV=cjs babel --config-file ../../babel.config.js ./src --out-dir ./lib/cjs",
     "build:esm": "NODE_ENV=production BABEL_ENV=esm babel --config-file ../../babel.config.js ./src --out-dir ./lib/esm",
-    "preversion": "yarn run build"
+    "declaration:build": "rimraf types && tsc --outDir types -p declaration.tsconfig.json",
+    "declaration:check": "git diff --exit-code -- index.d.ts",
+    "prebuild": "rimraf lib",
+    "preversion": "yarn run build",
+    "tsc": "tsc types/index.d.ts"
   },
   "dependencies": {
+    "@types/invariant": "^2.2.31",
+    "@types/prop-types": "^15.7.3",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
     "@yllet/client": "^2.1.0-alpha.3",
     "invariant": "^2.2.4",
     "prop-types": "^15.7.2"
