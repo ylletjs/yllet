@@ -1,0 +1,6 @@
+{
+  "name": "demo-parcel",
+  "dependencies": {
+    "@yllet/client": "^2.0.0"
+  }
+}
