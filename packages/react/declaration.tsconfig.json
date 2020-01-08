@@ -1,4 +1,9 @@
 {
-  "extends": "../../declaration.tsconfig",
-  "exclude": ["__tests__/**/*.js"]
+  "extends": "./tsconfig",
+  "exclude": ["__tests__/**/*.js"],
+  "compilerOptions": {
+    "declaration": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true
+  }
 }
