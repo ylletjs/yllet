@@ -1,11 +1,11 @@
-export default class Provider {
+export default class Provider extends React.Component<any, any, any> {
     /**
      * Provider child context types.
      *
      * @var {object}
      */
     static childContextTypes: {
-        client: any;
+        client: PropTypes.Validator<object>;
     };
     /**
      * Provider prop types.
@@ -13,7 +13,7 @@ export default class Provider {
      * @var {object}
      */
     static propTypes: {
-        client: any;
+        client: PropTypes.Validator<object>;
     };
     /**
      * Provider constructor.
@@ -35,3 +35,5 @@ export default class Provider {
      */
     render(): any;
 }
+import * as React from "react";
+import * as PropTypes from "prop-types";

@@ -1,6 +1,5 @@
-import React from 'react';
-import invariant from 'invariant';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 export default class Provider extends React.Component {
   /**
@@ -41,11 +40,11 @@ export default class Provider extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    invariant(
-      props.client,
-      'Yllet Client was not passed a client instance. Make ' +
-        'sure you pass in your client via the "client" prop.'
-    );
+    if (!props.client) {
+      throw new Error(
+        'Yllet client was not passed a client instance. Make sure you pass in your client via the "client" prop'
+      );
+    }
   }
 
   /**

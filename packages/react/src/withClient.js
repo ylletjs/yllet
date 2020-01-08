@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-const withClient = (Component) => {
+const withClient = Component => {
   return class withClient extends React.Component {
     /**
      * withClient context types.
@@ -17,7 +17,7 @@ const withClient = (Component) => {
      *
      * @return {object}
      */
-    render () {
+    render() {
       return <Component {...this.props} {...this.context} />;
     }
   };
