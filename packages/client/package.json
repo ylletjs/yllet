@@ -7,6 +7,7 @@
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "keywords": [
     "wordpress",
+    "rest",
     "api",
     "client",
     "isomorphic",
