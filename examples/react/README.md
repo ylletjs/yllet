@@ -1,5 +1,4 @@
-# React demo
+# React example
 
-1. Git clone.
-2. Run `npm install`
-3. Run `npm run start`
+1. Run `npm install`
+2. Run `npm run start`
