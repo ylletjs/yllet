@@ -408,7 +408,7 @@ export default class Client {
 
     return new Promise((resolve, reject) => {
       this._runMiddlewares(self => {
-        const response = this.transport[verb](
+        const response = this.transport[verb.toLowerCase()](
           this._getUrl(path),
           this._getParams(params),
           this.options.config
