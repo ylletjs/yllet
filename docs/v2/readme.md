@@ -285,7 +285,7 @@ Client.discover('http://demo.wp-api.org/')
 
 ## Middlewares
 
-Yllet has middlewares since 2.1.0 and can modify transport, add headers, change options or something else. All middlewares runs before the request.
+Yllet has middlewares since 2.1.0 and can modify transport, add headers, change options or something else. All middlewares runs before the request. It's important to run the `next` function to run the next middleware or the actual request.
 
 Examples
 
