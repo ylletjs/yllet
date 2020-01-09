@@ -43,6 +43,11 @@ describe('Client.request', () => {
     );
   });
 
+  it('makes verb lowercase', () => {
+    client.request('POST', undefined);
+    expect(transport.post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
+  });
+
   it('merges global params', () => {
     client.params = { a: '1', b: '2' };
     client.request('post', params);
