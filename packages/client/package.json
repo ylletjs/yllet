@@ -19,7 +19,7 @@
   "files": [
     "README.md",
     "lib/",
-    "types/"
+    "types/index.d.ts"
   ],
   "bugs": {
     "url": "https://github.com/ylletjs/yllet/issues"
@@ -31,8 +31,7 @@
     "declaration:build": "rimraf types && tsc --outDir types -p declaration.tsconfig.json",
     "declaration:check": "git diff --exit-code -- index.d.ts",
     "prebuild": "rimraf lib",
-    "preversion": "yarn run build",
-    "tsc": "tsc types/index.d.ts"
+    "preversion": "yarn run build"
   },
   "dependencies": {
     "@yllet/support": "^2.1.0-alpha.3",

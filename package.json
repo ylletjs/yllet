@@ -29,6 +29,7 @@
     "pretty-quick": "^2.0.1",
     "rimraf": "^3.0.0",
     "semistandard": "^14.2.0",
+    "tsd": "^0.11.0",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5"
   },
@@ -41,7 +42,8 @@
     "test:coverage": "yarn test:unit --coverage",
     "test:browsers": "NODE_ENV=test karma start testing/karma.conf.js",
     "postinstall": "lerna bootstrap",
-    "lint": "semistandard"
+    "lint": "semistandard",
+    "tsd": "tsd packages/client/"
   },
   "husky": {
     "hooks": {
