@@ -1,5 +1,7 @@
 # Yllet docs v2
 
+> version 2.1.0
+
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it, you can read more [here](#transport-layers).
 
 Yllet comes with [tree-shakable](https://webpack.js.org/guides/tree-shaking/) ESM or CJS builds, that fits into the modern ES6 JavaScript ecosystem. All code are tiny and well tested with both unit and browser tests.
@@ -279,6 +281,33 @@ Client.discover('http://demo.wp-api.org/')
   .catch(err => {
     console.log('Error: ', err);
   });
+```
+
+## Middlewares
+
+Yllet has middlewares since 2.1.0 and can modify transport, add headers, change options or something else.
+
+Examples
+
+```js
+client.use((client, next) => {
+  client.transport = new CustomTransport();
+  next();
+});
+
+client.use((client, next) => {
+  client.header('X-Foo', 'Bar');
+  next();
+});
+
+client.use((client, next) => {
+  setTimeout(next, 1000);
+});
+
+client.use(async (client, next) => {
+  await something();
+  return next();
+});
 ```
 
 ## Transport layers
