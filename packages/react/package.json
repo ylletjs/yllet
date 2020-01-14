@@ -31,7 +31,7 @@
     "preversion": "yarn run build"
   },
   "peerDependencies": {
-    "react": "^16.12.0"
+    "react": "*"
   },
   "dependencies": {
     "@yllet/client": "^2.1.0",
