@@ -6,7 +6,7 @@
   ],
   "devDependencies": {
     "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.7.7",
+    "@babel/core": "^7.8.0",
     "@yllet/babel-preset-main": "^1.0.2",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
