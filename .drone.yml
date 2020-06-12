@@ -13,6 +13,13 @@ steps:
     commands:
       - yarn install
 
+  - name: build
+    image: node:14-alpine
+    commands:
+      - yarn build
+    depends_on:
+      - install
+
   - name: node-10
     image: node:10-alpine
     commands:
