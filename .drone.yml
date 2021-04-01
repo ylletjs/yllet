@@ -20,20 +20,6 @@ steps:
     depends_on:
       - install
 
-  - name: node-10
-    image: node:10-alpine
-    commands:
-      - yarn test:unit
-    depends_on:
-      - build
-
-  - name: node-11
-    image: node:11-alpine
-    commands:
-      - yarn test:unit
-    depends_on:
-      - build
-
   - name: node-12
     image: node:12-alpine
     commands:
@@ -41,15 +27,15 @@ steps:
     depends_on:
       - build
 
-  - name: node-13
-    image: node:13-alpine
+  - name: node-14
+    image: node:14-alpine
     commands:
       - yarn test:unit
     depends_on:
       - build
 
   - name: browsers
-    image: node:13-buster
+    image: node:14-buster
     environment:
       BROWSERSTACK_ACCESS_KEY:
         from_secret: BROWSERSTACK_ACCESS_KEY
@@ -65,10 +51,8 @@ steps:
     commands:
       - yarn test:coverage
     depends_on:
-      - node-10
-      - node-11
       - node-12
-      - node-13
+      - node-14
       - browsers
 
   - name: coverage-report
