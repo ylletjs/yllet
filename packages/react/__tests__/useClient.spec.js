@@ -2,11 +2,11 @@ import React from 'react';
 import { useClient } from '../src';
 
 jest.mock('react', () => {
-  const ActualReact = require.requireActual('react');
+  const ActualReact = jest.requireActual('react');
   return {
     ...ActualReact,
     useContext: () => ({}),
-    useMemo: fn => fn()
+    useMemo: (fn) => fn()
   };
 });
 
