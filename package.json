@@ -7,12 +7,9 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
+    "@babel/eslint-parser": "^7.16.3",
     "@yllet/babel-preset-main": "^1.0.5",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^27.4.2",
-    "babel-loader": "^8.2.3",
     "eslint": "^8.4.0",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.4.3",
@@ -34,7 +31,7 @@
     "lint": "semistandard"
   },
   "semistandard": {
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "ignore": [
       "examples/*/**.js",
       "packages/*/__tests__/**.js",
