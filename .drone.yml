@@ -34,6 +34,13 @@ steps:
     depends_on:
       - build
 
+  - name: node-16
+    image: node:16-alpine
+    commands:
+      - yarn test:unit
+    depends_on:
+      - build
+
   - name: coverage-build
     image: node:alpine
     commands:
@@ -41,7 +48,7 @@ steps:
     depends_on:
       - node-12
       - node-14
-      - browsers
+      - node-16
 
   - name: coverage-report
     image: plugins/codecov
