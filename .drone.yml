@@ -34,18 +34,6 @@ steps:
     depends_on:
       - build
 
-  - name: browsers
-    image: node:14-buster
-    environment:
-      BROWSERSTACK_ACCESS_KEY:
-        from_secret: BROWSERSTACK_ACCESS_KEY
-      BROWSERSTACK_USERNAME:
-        from_secret: BROWSERSTACK_USERNAME
-    commands:
-      - yarn test:browsers
-    depends_on:
-      - build
-
   - name: coverage-build
     image: node:alpine
     commands:
