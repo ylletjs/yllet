@@ -3,10 +3,7 @@ import Client from '@yllet/client';
 const list = document.getElementById('posts');
 
 const client = new Client({
-  endpoint: 'https://cors-anywhere.herokuapp.com/https://wptavern.com/wp-json/',
-  headers: {
-    'X-Requested-With': 'Yllet'
-  }
+  endpoint: 'http://wordpress.test/wp-json/'
 });
 
 client

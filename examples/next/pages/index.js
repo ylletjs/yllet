@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { useClient } from '@yllet/react';
 
 export default () => {
-  const endpoint =
-    'https://cors-anywhere.herokuapp.com/https://wptavern.com/wp-json/';
+  const endpoint = 'http://wordpress.test/wp-json/';
   const client = useClient({ endpoint });
   const [posts, setPosts] = useState([]);
 
