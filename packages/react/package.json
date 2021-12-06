@@ -39,10 +39,10 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@testing-library/jest-dom": "5.16.1",
+    "@testing-library/react": "12.1.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "license": "MIT",
   "gitHead": "a2a2a3d8db1a79d619928f935f18c1bd05c8622d",
