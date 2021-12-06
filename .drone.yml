@@ -21,14 +21,14 @@ steps:
       - install
 
   - name: node-12
-    image: node:12-alpine
+    image: node:17-alpine
     commands:
       - yarn test:unit
     depends_on:
       - build
 
   - name: node-14
-    image: node:14-alpine
+    image: node:17-alpine
     commands:
       - yarn test:unit
     depends_on:
