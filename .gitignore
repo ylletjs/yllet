@@ -7,3 +7,4 @@ browserstack.err
 .DS_Store
 /index.js
 /test
+/coverage
