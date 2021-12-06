@@ -24,9 +24,7 @@
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "lerna run build",
     "start": "lerna run start",
-    "test": "yarn build && yarn test:coverage",
-    "test:unit": "jest packages/**",
-    "test:coverage": "yarn test:unit --coverage",
+    "test": "jest packages/**",
     "postinstall": "lerna bootstrap",
     "lint": "semistandard"
   },

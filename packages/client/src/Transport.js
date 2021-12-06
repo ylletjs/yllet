@@ -6,7 +6,7 @@ export default class Transport {
    * Transport constructor.
    */
   constructor() {
-    ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
+    ['post', 'get', 'put', 'patch', 'delete'].forEach((verb) => {
       this[verb] = (url, data, config) => this.request(verb, url, data, config);
     });
   }
@@ -47,8 +47,8 @@ export default class Transport {
 
     request.headers = new Headers(config.headers);
 
-    return fetch(url, request).then(response => {
-      return response.json().then(data => {
+    return fetch(url, request).then((response) => {
+      return response.json().then((data) => {
         if (!response.ok) {
           throw new HTTPError(data);
         }

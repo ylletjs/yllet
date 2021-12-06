@@ -10,7 +10,7 @@ export { default as HTTPError } from './HTTPError';
  *
  * @return {bool}
  */
-export const isObject = obj => {
+export const isObject = (obj) => {
   return Object.prototype.toString.call(obj) === '[object Object]';
 };
 
@@ -21,9 +21,9 @@ export const isObject = obj => {
  *
  * @return {string}
  */
-const toSnakeCase = str => {
+const toSnakeCase = (str) => {
   return str
-    .replace(/[\w]([A-Z])/g, function(m) {
+    .replace(/[\w]([A-Z])/g, function (m) {
       return m[0] + '_' + m[1];
     })
     .toLowerCase();
@@ -36,7 +36,7 @@ const toSnakeCase = str => {
  *
  * @return {object}
  */
-export const objectKeysToSnakeCase = obj => {
+export const objectKeysToSnakeCase = (obj) => {
   return Object.keys(obj).reduce((previous, current) => {
     if (isObject(obj[current])) {
       obj[current] = objectKeysToSnakeCase(obj[current]);
@@ -58,7 +58,7 @@ export const objectKeysToSnakeCase = obj => {
  *
  * @return {array}
  */
-const flattenArray = list =>
+const flattenArray = (list) =>
   list.reduce((a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), []);
 
 /**
@@ -70,7 +70,7 @@ const flattenArray = list =>
  * @return {string}
  */
 export const qsEncode = (params, prefix) => {
-  const query = Object.keys(params).map(key => {
+  const query = Object.keys(params).map((key) => {
     const isArray = params.constructor === Array;
     const value = isArray ? flattenArray(params)[key] : params[key];
 

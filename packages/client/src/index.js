@@ -91,14 +91,14 @@ export default class Client {
     this._setupOptions(options);
 
     // Init HTTP methods
-    Object.keys(METHODS).forEach(method => {
+    Object.keys(METHODS).forEach((method) => {
       this[method] = (path, params) => {
         return this.request(METHODS[method], path, params);
       };
     });
 
     // Init predefined resources methods.
-    RESOURCES.forEach(name => {
+    RESOURCES.forEach((name) => {
       this[name] = () => {
         return this.resource(name);
       };
@@ -197,7 +197,7 @@ export default class Client {
     merged = { ...this.params, ...params };
 
     if (this.formData instanceof FormData) {
-      Object.keys(merged).forEach(key => {
+      Object.keys(merged).forEach((key) => {
         this.formData.append(key, merged[key]);
       });
       merged = this.formData;
@@ -253,7 +253,7 @@ export default class Client {
       .get(url, {
         rest_route: '/'
       })
-      .then(response => {
+      .then((response) => {
         if (isObject(response.routes)) {
           return response.routes['/']._links.self;
         }
@@ -389,7 +389,7 @@ export default class Client {
       ...params,
       per_page: 1,
       slug
-    }).then(res => res[0]);
+    }).then((res) => res[0]);
   }
 
   /**
@@ -407,7 +407,7 @@ export default class Client {
     }
 
     return new Promise((resolve, reject) => {
-      this._runMiddlewares(self => {
+      this._runMiddlewares((self) => {
         const response = this.transport[verb.toLowerCase()](
           this._getUrl(path),
           this._getParams(params),
