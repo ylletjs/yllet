@@ -3,7 +3,7 @@ import { useClient } from '@yllet/react';
 
 function App() {
   const endpoint =
-    'https://cors-anywhere.herokuapp.com/https://demo.wp-api.org/wp-json/';
+    'https://cors-anywhere.herokuapp.com/https://wptavern.com/wp-json/';
   const client = useClient({ endpoint });
   const [posts, setPosts] = useState([]);
 
