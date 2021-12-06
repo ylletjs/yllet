@@ -5,8 +5,8 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.13.14",
-    "@babel/core": "^7.13.14",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@yllet/babel-preset-main": "^1.0.5",
