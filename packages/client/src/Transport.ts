@@ -1,5 +1,5 @@
 // @ts-ignore
-import { HTTPError, qsEncode } from '@yllet/support'; // prettier-ignore
+import { HTTPError, qsEncode } from '@yllet/support';
 import FormData from 'isomorphic-form-data';
 
 export default class Transport {

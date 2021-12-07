@@ -1,5 +1,4 @@
 import Client from '../src';
-// prettier-ignore
 import type { Next } from '../src/index.types';
 import MockTransport from '../__mocks__/MockTransport';
 import expect from 'expect';
