@@ -2,11 +2,7 @@ import FormData from 'isomorphic-form-data';
 // @ts-ignore
 import { mergeObjects, isObject, objectKeysToSnakeCase } from '@yllet/support';
 import Transport from './Transport';
-import { OptionsType, MiddlewareType, ParamsType } from './index.types';
-
-const defaultRequestConfig = {
-  headers: {}
-};
+import type { Options, Middleware, Params } from './index.types';
 
 class Client {
   /**
@@ -28,14 +24,14 @@ class Client {
    *
    * @var {array}
    */
-  middlewares: MiddlewareType[] = [];
+  middlewares: Middleware[] = [];
 
   /**
    * Client options.
    *
    * @var {object}
    */
-  options: OptionsType = {
+  options: Options = {
     config: {},
     endpoint: '',
     headers: {
@@ -66,7 +62,7 @@ class Client {
    *
    * @param {string|object} options
    */
-  constructor(options: string|OptionsType = {}) {
+  constructor(options: string|Options = {}) {
     if (typeof options === 'string') {
       options = {
         endpoint: options
@@ -83,13 +79,15 @@ class Client {
    *
    * @return {object}
    */
-  _setupOptions(options: OptionsType = {}) {
+  _setupOptions(options: Options = {}) {
     if (!isObject(options)) {
       options = this.options;
     }
 
     if (!isObject(options.config)) {
-      options.config = defaultRequestConfig;
+      options.config = {
+        headers: {}
+      };
     }
 
     // Set middlewares.
@@ -156,8 +154,8 @@ class Client {
    *
    * @return {object}
    */
-  _getParams(params: ParamsType): ParamsType {
-    let merged: ParamsType;
+  _getParams(params: Params): Params {
+    let merged: Params;
     params = isObject(params) ? objectKeysToSnakeCase(params) : {};
     merged = { ...this.params, ...params };
 
@@ -178,7 +176,7 @@ class Client {
    *
    * @return {function}
    */
-  async _runMiddlewares(last: MiddlewareType) {
+  async _runMiddlewares(last: Middleware) {
     const self = this;
     const { endpoint, namespace, resource } = this.options;
     const next = async () => {
@@ -256,7 +254,7 @@ class Client {
    *
    * @return {Client}
    */
-  file(file: string, name:string = '') {
+  file(file: any, name:string = '') {
     const formData = new FormData();
     formData.append('file', file);
 
@@ -276,7 +274,7 @@ class Client {
    *
    * @return {Client|string}
    */
-  header(key: string|ParamsType, value:any = null) {
+  header(key: string|Params, value:any = null) {
     let { headers = {} } = this.options.config;
 
     if (typeof key === 'string' && !value) {
@@ -434,7 +432,7 @@ class Client {
    *
    * @return {Client|object}
    */
-  param(key: string|ParamsType, value:any = null) {
+  param(key: string|Params, value:any = null) {
     if (typeof key === 'string' && !value) {
       return this.params[key];
     }
@@ -456,7 +454,7 @@ class Client {
    *
    * @return {object}
    */
-  slug(slug: string, params: ParamsType) {
+  slug(slug: string, params: Params) {
     return this.request('get', {
       ...params,
       per_page: 1,
@@ -472,7 +470,7 @@ class Client {
    *
    * @return {Promise}
    */
-  get(path: string, params: ParamsType): Promise<any> {
+  get(path: string, params: Params): Promise<any> {
     return this.request('get', path, params);
   }
 
@@ -484,7 +482,7 @@ class Client {
    *
    * @return {Promise}
    */
-  create(path: string, params: ParamsType): Promise<any> {
+  create(path: string, params: Params): Promise<any> {
     return this.request('post', path, params);
   }
 
@@ -496,7 +494,7 @@ class Client {
    *
    * @return {Promise}
    */
-  update(path: string, params: ParamsType): Promise<any> {
+  update(path: string, params: Params): Promise<any> {
     return this.request('put', path, params);
   }
 
@@ -508,7 +506,7 @@ class Client {
    *
    * @return {Promise}
    */
-  delete(path: string, params: ParamsType): Promise<any> {
+  delete(path: string, params: Params): Promise<any> {
     return this.request('delete', path, params);
   }
 
@@ -521,7 +519,7 @@ class Client {
    *
    * @return {Promise}
    */
-  request(verb: string, path: string|ParamsType, params: ParamsType = {}): Promise<any> {
+  request(verb: string, path: string|Params, params: Params = {}): Promise<any> {
     if (isObject(path)) {
       params = path as any;
       path = '';
@@ -545,7 +543,7 @@ class Client {
    *
    * @param {array|function} fn
    */
-  use(fn: MiddlewareType[]|MiddlewareType) {
+  use(fn: Middleware[]|Middleware) {
     if (!Array.isArray(fn)) {
       fn = [fn];
     }

@@ -1,10 +1,10 @@
 import Client from '.';
 
-export type OptionsType = Record<string, any>;
+export type Options = Record<string, any>;
 
-export type ParamsType = Record<string, any>;
+export type Params = Record<string, any>;
 
-export type NextType = () => void;
-export type MiddlewareType = (client: ClientType, next: NextType) => void;
+export type Next = () => void;
+export type Middleware = (client: Client, next: Next) => void;
 
 export type ClientType = {};

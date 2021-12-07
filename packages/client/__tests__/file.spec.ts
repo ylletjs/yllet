@@ -12,7 +12,7 @@ const isFsAvailable = typeof fs.createReadStream === 'function';
 
 const isRunningInBrowser = Boolean(process.env.BROWSER_ENV);
 
-function runTests(file) {
+function runTests(file: any) {
   describe('Client.file', () => {
     beforeEach(() => {
       transport.resetMocks();
