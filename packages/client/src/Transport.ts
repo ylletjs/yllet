@@ -1,5 +1,5 @@
 // @ts-ignore
-import { HTTPError, qsEncode } from '@yllet/support';
+import { HTTPError, qsEncode } from '@yllet/support'; // prettier-ignore
 import FormData from 'isomorphic-form-data';
 
 export default class Transport {
@@ -14,7 +14,7 @@ export default class Transport {
    */
   delete(
     url: string,
-    data: Record<string, any>,
+    data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
   ) {
     return this.request('delete', url, data, config);
@@ -31,7 +31,7 @@ export default class Transport {
    */
   get(
     url: string,
-    data: Record<string, any>,
+    data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
   ) {
     return this.request('get', url, data, config);
@@ -48,7 +48,7 @@ export default class Transport {
    */
   post(
     url: string,
-    data: Record<string, any>,
+    data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
   ) {
     return this.request('post', url, data, config);
@@ -65,7 +65,7 @@ export default class Transport {
    */
   put(
     url: string,
-    data: Record<string, any>,
+    data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
   ) {
     return this.request('put', url, data, config);
@@ -84,7 +84,7 @@ export default class Transport {
   request(
     verb: string,
     url: string,
-    data: Record<string, any>,
+    data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
   ) {
     const request: RequestInit = {
@@ -93,7 +93,7 @@ export default class Transport {
     };
 
     if (data) {
-      if (['PUT', 'PATCH', 'POST'].includes(verb.toUpperCase())) {
+      if (['PUT', 'POST'].includes(verb.toUpperCase())) {
         request.body =
           data instanceof FormData ? (data as any) : JSON.stringify(data);
       } else {

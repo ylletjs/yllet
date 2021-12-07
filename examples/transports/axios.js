@@ -7,7 +7,7 @@ class AxiosTransport {
   constructor(axios) {
     this.axios = typeof axios === 'undefined' ? AxiosClient : axios;
 
-    ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
+    ['post', 'get', 'put', 'delete'].forEach((verb) => {
       this[verb] = (url, data, config) => this.request(verb, url, data, config);
     });
   }
@@ -19,7 +19,7 @@ class AxiosTransport {
       method: verb.toUpperCase()
     };
 
-    if ('PUT PATCH POST'.indexOf(verb.toUpperCase()) > -1) {
+    if (['PUT', 'POST'].includes(verb.toUpperCase())) {
       request.data = data;
     } else {
       if (data instanceof FormData) {
@@ -30,6 +30,6 @@ class AxiosTransport {
       request.params = data;
     }
 
-    return this.axios(request).then(response => response.data);
+    return this.axios(request).then((response) => response.data);
   }
 }

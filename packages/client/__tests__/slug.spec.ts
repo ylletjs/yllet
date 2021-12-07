@@ -18,15 +18,17 @@ const client = new Client({ transport, endpoint });
 
 describe('Client.slug', () => {
   it('return first post', async () => {
-    const res = await client.posts().slug('about');
-    expect(transport.get.mock.calls[0][0]).toBe(`${endpoint}/wp/v2/posts`);
+    await client.posts().slug('about');
+    expect((transport as any).get.mock.calls[0][0]).toBe(
+      `${endpoint}/wp/v2/posts`
+    );
   });
 
   it('has the right params', async () => {
-    const res = await client.posts().slug('about', {
+    await client.posts().slug('about', {
       search: 'search'
     });
-    expect(transport.get.mock.calls[1][1]).toEqual({
+    expect((transport as any).get.mock.calls[1][1]).toEqual({
       search: 'search',
       per_page: 1,
       slug: 'about'

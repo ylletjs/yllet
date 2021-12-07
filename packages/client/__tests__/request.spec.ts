@@ -19,39 +19,43 @@ describe('Client.request', () => {
 
   it('accepts path as 2nd param', () => {
     client.request('post', 'products');
-    expect(transport.post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2/products`);
+    expect((transport as any).post.mock.calls[0][0]).toBe(
+      `${endpoint}/wp/v2/products`
+    );
   });
 
   it('accepts params as 2nd param', () => {
     client.request('post', params);
-    expect(transport.post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
-    expect(transport.post.mock.calls[0][1]).toEqual(params);
+    expect((transport as any).post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
+    expect((transport as any).post.mock.calls[0][1]).toEqual(params);
   });
 
   it('handles invalid paths', () => {
-    client.request('post', undefined);
-    expect(transport.post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
-    client.request('post', 123);
-    expect(transport.post.mock.calls[1][0]).toBe(`${endpoint}/wp/v2/123`);
-    client.request('post', null);
-    expect(transport.post.mock.calls[2][0]).toBe(`${endpoint}/wp/v2`);
+    client.request('post', undefined as any);
+    expect((transport as any).post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
+    client.request('post', 123 as any);
+    expect((transport as any).post.mock.calls[1][0]).toBe(
+      `${endpoint}/wp/v2/123`
+    );
+    client.request('post', null as any);
+    expect((transport as any).post.mock.calls[2][0]).toBe(`${endpoint}/wp/v2`);
     client.request('post', {});
-    expect(transport.post.mock.calls[3][0]).toBe(`${endpoint}/wp/v2`);
+    expect((transport as any).post.mock.calls[3][0]).toBe(`${endpoint}/wp/v2`);
     client.request('post', 'products/variations/123');
-    expect(transport.post.mock.calls[4][0]).toBe(
+    expect((transport as any).post.mock.calls[4][0]).toBe(
       `${endpoint}/wp/v2/products/variations/123`
     );
   });
 
   it('makes verb lowercase', () => {
-    client.request('POST', undefined);
-    expect(transport.post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
+    client.request('POST', undefined as any);
+    expect((transport as any).post.mock.calls[0][0]).toBe(`${endpoint}/wp/v2`);
   });
 
   it('merges global params', () => {
     client.params = { a: '1', b: '2' };
     client.request('post', params);
-    expect(transport.post.mock.calls[0][1]).toEqual({
+    expect((transport as any).post.mock.calls[0][1]).toEqual({
       ...client.params,
       ...params
     });
@@ -60,7 +64,7 @@ describe('Client.request', () => {
   it('converts request params to snake case', () => {
     client.params = { weLikeCamels: '1', andClimbingHills: '2' };
     client.request('post', { andGentleWavesLikeThis: '3' });
-    expect(transport.post.mock.calls[0][1]).toEqual({
+    expect((transport as any).post.mock.calls[0][1]).toEqual({
       weLikeCamels: '1',
       andClimbingHills: '2',
       and_gentle_waves_like_this: '3'
@@ -73,14 +77,14 @@ describe('Client.request', () => {
     client.params = { a: '1', b: '2' };
     client.request('post', params);
 
-    const result = transport.post.mock.calls[0][1];
+    const result = (transport as any).post.mock.calls[0][1];
     expect(result instanceof FormData).toEqual(true);
   });
 
   it('merges global request config', () => {
     client.options.config = { a: '1', b: '2' };
     client.request('post');
-    expect(transport.post.mock.calls[0][2]).toEqual({
+    expect((transport as any).post.mock.calls[0][2]).toEqual({
       ...client.options.config
     });
   });

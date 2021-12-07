@@ -5,7 +5,7 @@ import FormData from 'isomorphic-form-data';
 class KyTransport {
   constructor(ky) {
     this.ky = typeof ky === 'undefined' ? KyClient : ky;
-    ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
+    ['post', 'get', 'put', 'delete'].forEach((verb) => {
       this[verb] = (url, data, config) => this.request(verb, url, data, config);
     });
   }
@@ -17,7 +17,7 @@ class KyTransport {
     };
 
     if (data) {
-      if ('PUT PATCH POST'.indexOf(verb.toUpperCase()) > -1) {
+      if (['PUT', 'POST'].includes(verb.toUpperCase())) {
         request.body = data instanceof FormData ? data : JSON.stringify(data);
       } else {
         if (data instanceof FormData) {

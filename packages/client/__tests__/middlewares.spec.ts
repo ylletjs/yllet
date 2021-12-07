@@ -1,4 +1,6 @@
 import Client from '../src';
+// prettier-ignore
+import type { Next } from '../src/index.types';
 import MockTransport from '../__mocks__/MockTransport';
 import expect from 'expect';
 
@@ -10,26 +12,13 @@ const responses = {
 const transport = new MockTransport(responses);
 const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
-const defaultOptions = {
-  endpoint: '',
-  middlewares: [],
-  namespace: 'wp/v2',
-  nonce: '',
-  config: {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  },
-  resource: '',
-  restore: true
-};
 
-const middlewareOne = (client, next) => {
+const middlewareOne = (client: Client, next: Next) => {
   client.header('X-Foo', 'Bar');
   return next();
 };
 
-const middlewareTwo = async (client, next) => {
+const middlewareTwo = async (client: Client, next: Next) => {
   if (typeof jest !== 'undefined') {
     jest.useFakeTimers();
     setTimeout(() => {
@@ -38,13 +27,13 @@ const middlewareTwo = async (client, next) => {
     }, 1000);
     jest.runAllTimers();
   } else {
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 1000));
     client.header('X-Foo', 'Bar');
     return next();
   }
 };
 
-const middlewareThree = (client, next) => {
+const middlewareThree = (client: Client, next: Next) => {
   client
     .endpoint('https://woocommerce.com/wp-json')
     .namespace('wc/v3')
@@ -52,10 +41,8 @@ const middlewareThree = (client, next) => {
   next();
 };
 
-class CustomTransport extends MockTransport {}
-
-const middlewareFour = (client, next) => {
-  client.transport = new CustomTransport();
+const middlewareFour = (client: Client, next: Next) => {
+  client.transport = new MockTransport() as any;
   next();
 };
 
@@ -90,30 +77,34 @@ describe('Middlewares', () => {
       middlewares: [middlewareOne],
       transport
     });
-    expect(transport.get.mock.calls).toEqual([]);
+    expect((transport as any).get.mock.calls).toEqual([]);
 
     ylletClient
       .posts()
       .get()
-      .then(res => {
+      .then((res) => {
         expect(res).toBe(responses.get);
-        expect(transport.get.mock.calls[0][0]).toBe('/wp/v2/posts');
-        expect(transport.get.mock.calls[0][2].headers['X-Requested-With']).toBe(
-          'Yllet'
+        expect((transport as any).get.mock.calls[0][0]).toBe('/wp/v2/posts');
+        expect(
+          (transport as any).get.mock.calls[0][2].headers['X-Requested-With']
+        ).toBe('Yllet');
+        expect((transport as any).get.mock.calls[0][2].headers['X-Foo']).toBe(
+          'Bar'
         );
-        expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
       });
 
     ylletClient
       .posts()
       .get()
-      .then(res => {
+      .then((res) => {
         expect(res).toBe(responses.get);
-        expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/posts');
-        expect(transport.get.mock.calls[1][2].headers['X-Requested-With']).toBe(
-          'Yllet'
+        expect((transport as any).get.mock.calls[1][0]).toBe('/wp/v2/posts');
+        expect(
+          (transport as any).get.mock.calls[1][2].headers['X-Requested-With']
+        ).toBe('Yllet');
+        expect((transport as any).get.mock.calls[1][2].headers['X-Foo']).toBe(
+          'Bar'
         );
-        expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
       });
   });
 
@@ -123,28 +114,32 @@ describe('Middlewares', () => {
       middlewares: [middlewareTwo],
       transport
     });
-    expect(transport.get.mock.calls).toEqual([]);
+    expect((transport as any).get.mock.calls).toEqual([]);
 
     if (typeof jest !== 'undefined') {
       const res = await ylletClient.posts().get();
       expect(res).toBe(responses.get);
-      expect(transport.get.mock.calls[0][0]).toBe('/wp/v2/posts');
-      expect(transport.get.mock.calls[0][2].headers['X-Requested-With']).toBe(
-        'Yllet'
+      expect((transport as any).get.mock.calls[0][0]).toBe('/wp/v2/posts');
+      expect(
+        (transport as any).get.mock.calls[0][2].headers['X-Requested-With']
+      ).toBe('Yllet');
+      expect((transport as any).get.mock.calls[0][2].headers['X-Foo']).toBe(
+        'Bar'
       );
-      expect(transport.get.mock.calls[0][2].headers['X-Foo']).toBe('Bar');
     }
 
     ylletClient
       .posts()
       .get()
-      .then(res => {
+      .then((res) => {
         expect(res).toBe(responses.get);
-        expect(transport.get.mock.calls[1][0]).toBe('/wp/v2/posts');
-        expect(transport.get.mock.calls[1][2].headers['X-Requested-With']).toBe(
-          'Yllet'
+        expect((transport as any).get.mock.calls[1][0]).toBe('/wp/v2/posts');
+        expect(
+          (transport as any).get.mock.calls[1][2].headers['X-Requested-With']
+        ).toBe('Yllet');
+        expect((transport as any).get.mock.calls[1][2].headers['X-Foo']).toBe(
+          'Bar'
         );
-        expect(transport.get.mock.calls[1][2].headers['X-Foo']).toBe('Bar');
       });
   });
 
@@ -155,14 +150,14 @@ describe('Middlewares', () => {
       restore: false,
       transport
     });
-    expect(transport.get.mock.calls).toEqual([]);
+    expect((transport as any).get.mock.calls).toEqual([]);
 
     ylletClient
       .posts()
       .get()
-      .then(res => {
+      .then((res) => {
         expect(res).toBe(responses.get);
-        expect(transport.get.mock.calls[0][0]).toBe('/wp/v2/posts');
+        expect((transport as any).get.mock.calls[0][0]).toBe('/wp/v2/posts');
         expect(ylletClient.options.endpoint).toBe('');
         expect(ylletClient.options.namespace).toBe('wp/v2');
         expect(ylletClient.options.resource).toBe('posts');
@@ -177,16 +172,16 @@ describe('Middlewares', () => {
       transport
     });
 
-    expect(transport.get.mock.calls).toEqual([]);
+    expect((transport as any).get.mock.calls).toEqual([]);
     expect(ylletClient.transport).toBeInstanceOf(MockTransport);
 
     ylletClient
       .posts()
       .get()
-      .then(res => {
+      .then((res) => {
         expect(res).toBe(responses.get);
         console.log(ylletClient.transport);
-        expect(ylletClient.transport).toBeInstanceOf(CustomTransport);
+        expect(ylletClient.transport).toBeInstanceOf(MockTransport);
       });
   });
 });

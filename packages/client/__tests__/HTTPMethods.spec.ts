@@ -2,32 +2,28 @@ import expect from 'expect';
 import Client from '../src';
 import MockTransport from '../__mocks__/MockTransport';
 
-const data = {
-  title: 'Hello world',
-  content: 'Welcome to Wordpress'
-};
-
 const METHODS = {
   get: 'get',
   create: 'post',
-  update: 'patch',
+  update: 'put',
   delete: 'delete'
 };
 
 describe('Client.METHODS', () => {
-  Object.keys(METHODS).forEach(method => {
+  Object.keys(METHODS).forEach((method) => {
     const verb = METHODS[method];
     it(`"${method}" calls correct HTTP verb on transport`, () => {
+      const transport = new MockTransport();
       const client = new Client({
         endpoint: 'http://wordpress.test/wp-json/',
-        transport: new MockTransport()
+        transport
       });
       client[method]('products', { foo: 'bar' });
-      expect(client.transport[verb].mock.calls.length).toBe(1);
-      expect(client.transport[verb].mock.calls[0][0]).toBe(
+      expect((transport[verb] as any).mock.calls.length).toBe(1);
+      expect((transport[verb] as any).mock.calls[0][0]).toBe(
         'http://wordpress.test/wp-json/wp/v2/products'
       );
-      expect(client.transport[verb].mock.calls[0][1]).toEqual({ foo: 'bar' });
+      expect((transport[verb] as any).mock.calls[0][1]).toEqual({ foo: 'bar' });
     });
   });
 });

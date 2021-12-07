@@ -48,7 +48,7 @@ class Client {
    *
    * @var {object}
    */
-  params = {};
+  params: Params = {};
 
   /**
    * Transport layer.
@@ -454,7 +454,7 @@ class Client {
    *
    * @return {object}
    */
-  slug(slug: string, params: Params) {
+  slug(slug: string, params: Params = {}) {
     return this.request('get', {
       ...params,
       per_page: 1,
@@ -470,7 +470,7 @@ class Client {
    *
    * @return {Promise}
    */
-  get(path: string, params: Params): Promise<any> {
+  get(path: string = '', params: Params = {}): Promise<any> {
     return this.request('get', path, params);
   }
 
@@ -482,7 +482,7 @@ class Client {
    *
    * @return {Promise}
    */
-  create(path: string, params: Params): Promise<any> {
+  create(path: string = '', params: Params = {}): Promise<any> {
     return this.request('post', path, params);
   }
 
@@ -494,7 +494,7 @@ class Client {
    *
    * @return {Promise}
    */
-  update(path: string, params: Params): Promise<any> {
+  update(path: string = '', params: Params = {}): Promise<any> {
     return this.request('put', path, params);
   }
 
@@ -506,7 +506,7 @@ class Client {
    *
    * @return {Promise}
    */
-  delete(path: string, params: Params): Promise<any> {
+  delete(path: string = '', params: Params = {}): Promise<any> {
     return this.request('delete', path, params);
   }
 
@@ -519,7 +519,7 @@ class Client {
    *
    * @return {Promise}
    */
-  request(verb: string, path: string|Params, params: Params = {}): Promise<any> {
+  request(verb: string, path: string|Params = '', params: Params = {}): Promise<any> {
     if (isObject(path)) {
       params = path as any;
       path = '';
