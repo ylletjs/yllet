@@ -16,7 +16,7 @@ describe('isObject', () => {
       [false, ''],
       [false, 1.2],
       [false, new Error()]
-    ].forEach(d => {
+    ].forEach((d) => {
       expect(d[0]).toBe(isObject(d[1]));
     });
   });
@@ -65,7 +65,7 @@ describe('objectKeysToSnakeCase', () => {
           ]
         }
       ]
-    ].forEach(d => {
+    ].forEach((d) => {
       const obj = objectKeysToSnakeCase(d[1]);
       expect(d[0]).toEqual(obj);
     });
@@ -110,8 +110,10 @@ describe('qsEncode', () => {
         },
         'hello=world&foo=bar&colors[]=red&colors[]=green&colors[]=blue&colors[]=yellow&numbers[]=100&numbers[]=200&numbers[]=300&on=true&off=false&purple=haze'
       ]
-    ].forEach(d => {
+    ].forEach((d) => {
+      // @ts-ignore
       const str = qsEncode(d[0]);
+      // @ts-ignore
       expect(str).toEqual(d[1]);
     });
   });
@@ -304,8 +306,10 @@ describe('mergeObjects', () => {
           }
         }
       ]
-    ].forEach(d => {
+    ].forEach((d) => {
+      // @ts-ignore
       const obj = mergeObjects(d[0], d[1]);
+      // @ts-ignore
       expect(obj).toEqual(d[2]);
     });
   });

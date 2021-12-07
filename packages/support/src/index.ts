@@ -10,9 +10,8 @@ export { default as HTTPError } from './HTTPError';
  *
  * @return {bool}
  */
-export const isObject = (obj) => {
-  return Object.prototype.toString.call(obj) === '[object Object]';
-};
+export const isObject = (obj: any): boolean =>
+  Object.prototype.toString.call(obj) === '[object Object]';
 
 /**
  * Convert camel case to snake case.
@@ -21,13 +20,12 @@ export const isObject = (obj) => {
  *
  * @return {string}
  */
-const toSnakeCase = (str) => {
-  return str
+const toSnakeCase = (str: string): string =>
+  str
     .replace(/[\w]([A-Z])/g, function (m) {
       return m[0] + '_' + m[1];
     })
     .toLowerCase();
-};
 
 /**
  * Convert object keys to snake case.
@@ -36,8 +34,10 @@ const toSnakeCase = (str) => {
  *
  * @return {object}
  */
-export const objectKeysToSnakeCase = (obj) => {
-  return Object.keys(obj).reduce((previous, current) => {
+export const objectKeysToSnakeCase = (
+  obj: Record<string, any>
+): Record<string, any> =>
+  Object.keys(obj).reduce((previous, current) => {
     if (isObject(obj[current])) {
       obj[current] = objectKeysToSnakeCase(obj[current]);
     }
@@ -49,7 +49,6 @@ export const objectKeysToSnakeCase = (obj) => {
 
     return previous;
   }, {});
-};
 
 /**
  * Flatten array.
@@ -58,7 +57,7 @@ export const objectKeysToSnakeCase = (obj) => {
  *
  * @return {array}
  */
-const flattenArray = (list) =>
+const flattenArray = (list: any[]): any[] =>
   list.reduce((a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), []);
 
 /**
@@ -69,7 +68,10 @@ const flattenArray = (list) =>
  *
  * @return {string}
  */
-export const qsEncode = (params, prefix) => {
+export const qsEncode = (
+  params: Record<string, any>,
+  prefix: string = ''
+): string => {
   const query = Object.keys(params).map((key) => {
     const isArray = params.constructor === Array;
     const value = isArray ? flattenArray(params)[key] : params[key];
@@ -87,7 +89,7 @@ export const qsEncode = (params, prefix) => {
     return `${key}=${encodeURIComponent(value)}`;
   });
 
-  return [].concat.apply([], query).join('&');
+  return [].concat.apply([], query as any).join('&');
 };
 
 /**
@@ -98,7 +100,10 @@ export const qsEncode = (params, prefix) => {
  *
  * @return {object}
  */
-export const mergeObjects = (target, source) => {
+export const mergeObjects = (
+  target: Record<string, any>,
+  source: Record<string, any>
+) => {
   if (!isObject(target) && !isObject(source)) {
     return target;
   }
