@@ -30,7 +30,7 @@ describe('Client', () => {
   it('throws error when missing transport', () => {
     try {
       new Client({ transport: undefined });
-    } catch (error) {
+    } catch (error: any) {
       expect(error instanceof TypeError).toBe(true);
       expect(error.message).toBe('Transport is required option, none was set.');
     }
@@ -114,7 +114,7 @@ describe('Client', () => {
       'types',
       'users',
       'search'
-    ].forEach(method => {
+    ].forEach((method) => {
       client[method]();
       expect(client.options.resource).toBe(method);
     });

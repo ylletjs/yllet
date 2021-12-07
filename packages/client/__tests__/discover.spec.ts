@@ -7,8 +7,12 @@ describe('Client.discover', () => {
     const transport = new MockTransport();
     const client = new Client({ transport });
     client.discover('http://demo.wp-api.org');
-    expect(client.transport.get.mock.calls[0][0]).toBe('http://demo.wp-api.org');
-    expect(client.transport.get.mock.calls[0][1]).toEqual({ rest_route: '/' });
+    expect((transport as any).get.mock.calls[0][0]).toBe(
+      'http://demo.wp-api.org'
+    );
+    expect((transport as any).get.mock.calls[0][1]).toEqual({
+      rest_route: '/'
+    });
   });
 
   it('returns api route', () => {
@@ -26,7 +30,9 @@ describe('Client.discover', () => {
     const client = new Client({ transport });
     client
       .discover('http://demo.wp-api.org')
-      .then(response => expect(response).toBe('http://demo.wp-api.org/wp-json/'));
+      .then((response) =>
+        expect(response).toBe('http://demo.wp-api.org/wp-json/')
+      );
   });
 
   it('throws Error', () => {
@@ -34,7 +40,7 @@ describe('Client.discover', () => {
       get: {}
     });
     const client = new Client({ transport });
-    client.discover('http://demo.wp-api.org').catch(error => {
+    client.discover('http://demo.wp-api.org').catch((error) => {
       expect(error instanceof Error).toBe(true);
       expect(error.message).toBe('Unable to find the REST API');
     });
