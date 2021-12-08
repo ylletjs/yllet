@@ -1,5 +1,5 @@
 import Client from '../src';
-import type { Next } from '../src/index.types';
+import type { Next } from '../src';
 import MockTransport from './mocks/MockTransport';
 import expect from 'expect';
 

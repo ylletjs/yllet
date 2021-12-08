@@ -1,8 +1,8 @@
 // @ts-ignore
 import { HTTPError, qsEncode } from '@yllet/support';
 import FormData from 'isomorphic-form-data';
-
-export default class Transport {
+import type { Transport as ITransport } from './Transport.types';
+class Transport implements ITransport {
   /**
    * Send delete request.
    *
@@ -81,7 +81,7 @@ export default class Transport {
    *
    * @return {object}
    */
-  request(
+  private request(
     verb: string,
     url: string,
     data: Record<string, any> | undefined = undefined,
@@ -124,3 +124,5 @@ export default class Transport {
     });
   }
 }
+
+export default Transport;

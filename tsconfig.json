@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "lib": ["esnext", "dom"],
+    "target": "ES2021",
+    "lib": ["ES2021", "dom"],
     "allowJs": false,
     "declaration": true,
     "emitDeclarationOnly": false,
