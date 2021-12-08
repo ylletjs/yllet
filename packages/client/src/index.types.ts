@@ -7,4 +7,4 @@ export type Params = Record<string, any>;
 export type Next = () => void;
 export type Middleware = (client: Client, next: Next) => void;
 
-export type ClientType = {};
+export type ClientType = any;

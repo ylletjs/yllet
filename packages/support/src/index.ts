@@ -68,29 +68,25 @@ const flattenArray = (list: any[]): any[] =>
  *
  * @return {string}
  */
-export const qsEncode = (
-  params: Record<string, any>,
-  prefix: string = ''
-): string => {
-  const query = Object.keys(params).map((key) => {
-    const isArray = params.constructor === Array;
-    const value = isArray ? flattenArray(params)[key] : params[key];
+export const qsEncode = (params: Record<string, any>, prefix = ''): string =>
+  Object.keys(params)
+    .map((key) => {
+      const isArray = params.constructor === Array;
+      const value = isArray ? flattenArray(params)[key] : params[key];
 
-    if (isArray) {
-      key = `${prefix}[]`;
-    } else if (params.constructor === Object) {
-      key = prefix ? `${prefix}[${key}]` : key;
-    }
+      if (isArray) {
+        key = `${prefix}[]`;
+      } else if (params.constructor === Object) {
+        key = prefix ? `${prefix}[${key}]` : key;
+      }
 
-    if (typeof value === 'object') {
-      return qsEncode(value, key);
-    }
+      if (typeof value === 'object') {
+        return qsEncode(value, key);
+      }
 
-    return `${key}=${encodeURIComponent(value)}`;
-  });
-
-  return [].concat.apply([], query as any).join('&');
-};
+      return `${key}=${encodeURIComponent(value)}`;
+    })
+    .join('&');
 
 /**
  * Merge objects deep.

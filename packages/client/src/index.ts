@@ -1,8 +1,7 @@
 import FormData from 'isomorphic-form-data';
-// @ts-ignore
 import { mergeObjects, isObject, objectKeysToSnakeCase } from '@yllet/support';
 import Transport from './Transport';
-import type { Options, Middleware, Params } from './index.types';
+import type { Options, Middleware, Params } from './index.types';
 
 class Client {
   /**
@@ -62,7 +61,7 @@ class Client {
    *
    * @param {string|object} options
    */
-  constructor(options: string|Options = {}) {
+  constructor(options: string | Options = {}) {
     if (typeof options === 'string') {
       options = {
         endpoint: options
@@ -128,7 +127,7 @@ class Client {
    *
    * @return {string}
    */
-  _getUrl(path:string): string {
+  _getUrl(path: string): string {
     const { endpoint, namespace, resource } = this.options;
 
     const safePath = String(path || '');
@@ -177,6 +176,7 @@ class Client {
    * @return {function}
    */
   async _runMiddlewares(last: Middleware) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     const { endpoint, namespace, resource } = this.options;
     const next = async () => {
@@ -210,7 +210,7 @@ class Client {
    *
    * @return {Promise}
    */
-  discover(url:string): Promise<string> {
+  discover(url: string): Promise<string> {
     return this.transport
       .get(url, {
         rest_route: '/'
@@ -240,7 +240,7 @@ class Client {
    *
    * @return {Client}
    */
-  endpoint(endpoint:string) {
+  endpoint(endpoint: string) {
     this.options.endpoint = endpoint;
     return this;
   }
@@ -254,12 +254,12 @@ class Client {
    *
    * @return {Client}
    */
-  file(file: any, name:string = '') {
+  file(file: any, name = '') {
     const formData = new FormData();
     formData.append('file', file);
 
     this.header('Content-Type', 'multipart/form-data');
-    this.header('Content-Disposition', 'attachment; filename=' + name);
+    this.header('Content-Disposition', `attachment; filename=${name}`);
 
     this.formData = formData;
 
@@ -274,7 +274,7 @@ class Client {
    *
    * @return {Client|string}
    */
-  header(key: string|Params, value:any = null) {
+  header(key: string | Params, value: any = null) {
     let { headers = {} } = this.options.config;
 
     if (typeof key === 'string' && !value) {
@@ -299,7 +299,7 @@ class Client {
    *
    * @return {Client}
    */
-  namespace(namespace:string) {
+  namespace(namespace: string) {
     this.options.namespace = namespace;
     return this;
   }
@@ -309,7 +309,7 @@ class Client {
    *
    * @return {Client}
    */
-  categories () {
+  categories() {
     return this.resource('categories');
   }
 
@@ -318,7 +318,7 @@ class Client {
    *
    * @return {Client}
    */
-  comments () {
+  comments() {
     return this.resource('comments');
   }
 
@@ -327,7 +327,7 @@ class Client {
    *
    * @return {Client}
    */
-  media () {
+  media() {
     return this.resource('media');
   }
 
@@ -336,7 +336,7 @@ class Client {
    *
    * @return {Client}
    */
-  statuses () {
+  statuses() {
     return this.resource('statuses');
   }
 
@@ -345,7 +345,7 @@ class Client {
    *
    * @return {Client}
    */
-  pages () {
+  pages() {
     return this.resource('pages');
   }
 
@@ -354,7 +354,7 @@ class Client {
    *
    * @return {Client}
    */
-  posts () {
+  posts() {
     return this.resource('posts');
   }
 
@@ -363,7 +363,7 @@ class Client {
    *
    * @return {Client}
    */
-  settings () {
+  settings() {
     return this.resource('settings');
   }
 
@@ -372,7 +372,7 @@ class Client {
    *
    * @return {Client}
    */
-  tags () {
+  tags() {
     return this.resource('tags');
   }
 
@@ -381,7 +381,7 @@ class Client {
    *
    * @return {Client}
    */
-  taxonomies () {
+  taxonomies() {
     return this.resource('taxonomies');
   }
 
@@ -390,7 +390,7 @@ class Client {
    *
    * @return {Client}
    */
-  types () {
+  types() {
     return this.resource('types');
   }
 
@@ -399,7 +399,7 @@ class Client {
    *
    * @return {Client}
    */
-  users () {
+  users() {
     return this.resource('users');
   }
 
@@ -408,7 +408,7 @@ class Client {
    *
    * @return {Client}
    */
-  search () {
+  search() {
     return this.resource('search');
   }
 
@@ -419,7 +419,7 @@ class Client {
    *
    * @return {Client}
    */
-  resource(resource:string) {
+  resource(resource: string) {
     this.options.resource = resource;
     return this;
   }
@@ -432,7 +432,7 @@ class Client {
    *
    * @return {Client|object}
    */
-  param(key: string|Params, value:any = null) {
+  param(key: string | Params, value: any = null) {
     if (typeof key === 'string' && !value) {
       return this.params[key];
     }
@@ -470,7 +470,7 @@ class Client {
    *
    * @return {Promise}
    */
-  get(path: string = '', params: Params = {}): Promise<any> {
+  get(path = '', params: Params = {}): Promise<any> {
     return this.request('get', path, params);
   }
 
@@ -482,7 +482,7 @@ class Client {
    *
    * @return {Promise}
    */
-  create(path: string = '', params: Params = {}): Promise<any> {
+  create(path = '', params: Params = {}): Promise<any> {
     return this.request('post', path, params);
   }
 
@@ -494,7 +494,7 @@ class Client {
    *
    * @return {Promise}
    */
-  update(path: string = '', params: Params = {}): Promise<any> {
+  update(path = '', params: Params = {}): Promise<any> {
     return this.request('put', path, params);
   }
 
@@ -506,7 +506,7 @@ class Client {
    *
    * @return {Promise}
    */
-  delete(path: string = '', params: Params = {}): Promise<any> {
+  delete(path = '', params: Params = {}): Promise<any> {
     return this.request('delete', path, params);
   }
 
@@ -519,14 +519,18 @@ class Client {
    *
    * @return {Promise}
    */
-  request(verb: string, path: string|Params = '', params: Params = {}): Promise<any> {
+  request(
+    verb: string,
+    path: string | Params = '',
+    params: Params = {}
+  ): Promise<any> {
     if (isObject(path)) {
       params = path as any;
       path = '';
     }
 
-    return new Promise((resolve, reject) => {
-      this._runMiddlewares((self) => {
+    return new Promise((resolve) => {
+      this._runMiddlewares(() => {
         const response = this.transport[verb.toLowerCase()](
           this._getUrl(path as string),
           this._getParams(params),
@@ -543,7 +547,7 @@ class Client {
    *
    * @param {array|function} fn
    */
-  use(fn: Middleware[]|Middleware) {
+  use(fn: Middleware[] | Middleware) {
     if (!Array.isArray(fn)) {
       fn = [fn];
     }

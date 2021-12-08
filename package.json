@@ -25,6 +25,6 @@
     "test": "jest packages/**",
     "test:coverage": "yarn test --coverage",
     "postinstall": "lerna bootstrap",
-    "lint": "semistandard"
+    "lint": "eslint packages/**/src --ext .ts"
   }
 }
