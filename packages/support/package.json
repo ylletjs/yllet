@@ -16,8 +16,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "yarn build:cjs && yarn build:esm",
-    "build:cjs": "tsc --target es5 --outDir dist/cjs",
-    "build:esm": "tsc --target es2018 --outDir dist/esm",
+    "build:cjs": "tsc --target es5 --module commonjs --outDir dist/cjs",
+    "build:esm": "tsc --target esnext --module esnext --outDir dist/esm",
     "preversion": "yarn run build"
   },
   "bugs": {
