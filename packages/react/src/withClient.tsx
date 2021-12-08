@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const withClient = (Component) =>
+const withClient = (Component: React.ComponentType) =>
   class withClient extends React.Component {
     /**
      * withClient context types.

@@ -2,8 +2,8 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Provider, withClient, withClientData } from '../src';
 
-const Foo = ({ client }) => <span>{client.test}</span>;
-const FooData = ({ data }) => <span>{data.test}</span>;
+const Foo = ({ client }:any) => <span>{client.test}</span>;
+const FooData = ({ data }:any) => <span>{data.test}</span>;
 
 test('withClient', async () => {
   const client = { test: 'client' };
@@ -19,9 +19,7 @@ test('withClient', async () => {
 test('withClientData', async () => {
   const client = new Promise((resolve) => resolve({ test: 'client' }));
 
-  const Connected = withClientData((client) => {
-    return client;
-  })(FooData);
+  const Connected = withClientData((client:any) => client)(FooData);
 
   const wrapper = render(
     <Provider client={client}>

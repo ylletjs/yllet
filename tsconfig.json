@@ -19,7 +19,8 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "jsx": "react"
   },
   "exclude": [
     "packages/**/__tests__/**",

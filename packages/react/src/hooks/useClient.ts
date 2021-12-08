@@ -1,3 +1,4 @@
+// @ts-ignore
 import Client from '@yllet/client';
 import { createContext, useMemo, useContext } from 'react';
 
@@ -8,7 +9,7 @@ const Context = createContext({ client: null });
  *
  * @param {object} options
  */
-export default function useClient(options) {
+export default function useClient(options: Record<string, any>) {
   const context = useContext(Context);
 
   if (context.client) {

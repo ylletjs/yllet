@@ -1,8 +1,14 @@
 import React from 'react';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
+// @ts-ignore
+import Client from '@yllet/client'
 
-export default class Provider extends React.Component {
+type Props = {
+  client: Client,
+}
+
+class Provider extends React.Component {
   /**
    * Provider child context types.
    *
@@ -28,7 +34,7 @@ export default class Provider extends React.Component {
    */
   getChildContext() {
     return {
-      client: this.props.client
+      client: (this.props as Props).client
     };
   }
 
@@ -38,7 +44,7 @@ export default class Provider extends React.Component {
    * @param {object} props
    * @param {object} context
    */
-  constructor(props, context) {
+  constructor(props: any, context: any) {
     super(props, context);
 
     invariant(
@@ -57,3 +63,5 @@ export default class Provider extends React.Component {
     return React.Children.only(this.props.children);
   }
 }
+
+export default Provider;
