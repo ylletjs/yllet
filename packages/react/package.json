@@ -14,20 +14,20 @@
     "isomorphic",
     "headless"
   ],
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "files": [
     "README.md",
-    "lib/"
+    "dist/"
   ],
   "bugs": {
     "url": "https://github.com/ylletjs/yllet/issues"
   },
   "scripts": {
-    "prebuild": "rimraf lib",
+    "prebuild": "rimraf dist",
     "build": "yarn build:cjs && yarn build:esm",
-    "build:cjs": "NODE_ENV=production BABEL_ENV=cjs babel --config-file ../../babel.config.js ./src --out-dir ./lib/cjs",
-    "build:esm": "NODE_ENV=production BABEL_ENV=esm babel --config-file ../../babel.config.js ./src --out-dir ./lib/esm",
+    "build:cjs": "tsc --target es5 --outDir dist/cjs",
+    "build:esm": "tsc --target es2018 --outDir dist/esm",
     "preversion": "yarn run build"
   },
   "peerDependencies": {

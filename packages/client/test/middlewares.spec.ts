@@ -1,6 +1,6 @@
 import Client from '../src';
 import type { Next } from '../src/index.types';
-import MockTransport from '../__mocks__/MockTransport';
+import MockTransport from './mocks/MockTransport';
 import expect from 'expect';
 
 const responses = {

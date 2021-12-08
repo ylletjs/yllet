@@ -180,7 +180,7 @@ describe('http exceptions', () => {
     it(`${verb} throws http exceptions`, () => {
       fetchMock.once('*', response);
       return transport.request(verb, endpoint).catch((error) => {
-        expect(error instanceof HTTPError).toBe(true);
+        expect(error.toString()).toContain('HTTPError');
         expect(error.response).toEqual({ foo: 'bar' });
       });
     });

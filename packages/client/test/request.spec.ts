@@ -1,7 +1,7 @@
 import expect from 'expect';
 import Client from '../src';
 import FormData from 'isomorphic-form-data';
-import MockTransport from '../__mocks__/MockTransport';
+import MockTransport from './mocks/MockTransport';
 
 const transport = new MockTransport();
 const endpoint = 'http://wordpress.test/wp-json';

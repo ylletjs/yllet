@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es5",
     "lib": ["es2018", "dom"],
     "allowJs": false,
-    "declaration": false,
+    "declaration": true,
     "emitDeclarationOnly": false,
     "outDir": "dist/types",
     "rootDirs": ["src"],
@@ -20,13 +20,9 @@
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "jsx": "react"
+    "composite": true
   },
-  "exclude": [
-    "packages/**/__tests__/**",
-    "packages/**/__mocks__/**",
-    "packages/**/lib/**"
-  ],
+  "exclude": ["packages/**/test/**", "packages/**/dist/**"],
   "references": [
     { "path": "./packages/client" },
     { "path": "./packages/react" },

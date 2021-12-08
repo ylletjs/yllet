@@ -5,21 +5,16 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.3",
     "@types/jest": "^27.0.3",
-    "@yllet/babel-preset-main": "^1.1.1",
-    "babel-jest": "^27.4.2",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
     "eslint": "^8.4.0",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.4.3",
     "jest-mock": "27.4.2",
     "lerna": "^4.0.0",
-    "mocha": "^9.1.3",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
-    "semistandard": "^16.0.1",
     "ts-jest": "^27.1.0",
     "typescript": "^4.5.2"
   },
@@ -31,17 +26,5 @@
     "test:coverage": "yarn test --coverage",
     "postinstall": "lerna bootstrap",
     "lint": "semistandard"
-  },
-  "semistandard": {
-    "parser": "@babel/eslint-parser",
-    "ignore": [
-      "examples/*/**.js",
-      "packages/*/__tests__/**.js",
-      "packages/*/__tests__/Transport/**.js"
-    ],
-    "globals": [
-      "Headers",
-      "fetch"
-    ]
   }
 }

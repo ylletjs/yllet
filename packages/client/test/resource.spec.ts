@@ -1,23 +1,23 @@
 import expect from 'expect';
 import Client from '../src';
-import MockTransport from '../__mocks__/MockTransport';
+import MockTransport from './mocks/MockTransport';
 
 const transport = new MockTransport();
 const endpoint = 'http://wordpress.test/wp-json';
 const client = new Client({ transport, endpoint });
 
-describe('Client.namespace', () => {
+describe('Client.resource', () => {
   beforeEach(() => {
     transport.resetMocks();
   });
 
-  it('sets the current namespace', () => {
-    client.namespace('wc/v1');
-    expect(client.options.namespace).toBe('wc/v1');
+  it('sets the current path', () => {
+    client.resource('products');
+    expect(client.options.resource).toBe('products');
   });
 
   it('has fluent interface', () => {
-    const returnValue = client.namespace('wc/v1');
+    const returnValue = client.resource('products');
     expect(returnValue).toBe(client);
   });
 });

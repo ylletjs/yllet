@@ -1,5 +1,5 @@
 import Client from '../src';
-import MockTransport from '../__mocks__/MockTransport';
+import MockTransport from './mocks/MockTransport';
 import expect from 'expect';
 
 const transport = new MockTransport();
