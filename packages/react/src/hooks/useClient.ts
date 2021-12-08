@@ -1,22 +1,21 @@
-// @ts-ignore
 import Client from '@yllet/client';
-import { createContext, useMemo, useContext } from 'react';
-
-const Context = createContext({ client: null });
+import type { Options } from '@yllet/client';
+import { useMemo, useContext } from 'react';
+import { Context } from '../provider';
 
 /**
  * Use client creates a new client.
  *
  * @param {object} options
  */
-export default function useClient(options: Record<string, any>) {
+const useClient = (options: Options = {}) => {
   const context = useContext(Context);
 
   if (context.client) {
     return context.client;
   }
 
-  return useMemo(() => {
-    return new Client(options);
-  }, []);
-}
+  return useMemo(() => new Client(options), []);
+};
+
+export default useClient;

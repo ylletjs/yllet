@@ -16,7 +16,7 @@ class Transport implements ITransport {
     url: string,
     data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
-  ) {
+  ): any {
     return this.request('delete', url, data, config);
   }
 
@@ -33,7 +33,7 @@ class Transport implements ITransport {
     url: string,
     data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
-  ) {
+  ): any {
     return this.request('get', url, data, config);
   }
 
@@ -50,7 +50,7 @@ class Transport implements ITransport {
     url: string,
     data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
-  ) {
+  ): any {
     return this.request('post', url, data, config);
   }
 
@@ -67,7 +67,7 @@ class Transport implements ITransport {
     url: string,
     data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
-  ) {
+  ): any {
     return this.request('put', url, data, config);
   }
 
@@ -86,7 +86,7 @@ class Transport implements ITransport {
     url: string,
     data: Record<string, any> | undefined = undefined,
     config: Record<string, any> = {}
-  ) {
+  ): any {
     const request: RequestInit = {
       ...config,
       method: verb.toUpperCase()

@@ -2,7 +2,7 @@ import 'core-js/features/promise';
 import { fn } from 'jest-mock';
 
 export default class MockTransport {
-  responses: Record<string,any> = {};
+  responses: Record<string, any> = {};
 
   constructor(responses = {}) {
     this.responses = responses;
@@ -15,7 +15,7 @@ export default class MockTransport {
     });
   }
 
-  request(verb:string) {
+  request(verb: string) {
     return new Promise((resolve, reject) => {
       if (this.responses[verb]) {
         resolve(this.responses[verb]);

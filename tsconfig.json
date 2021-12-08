@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "lib": ["ES2021", "dom"],
+    "target": "es2020",
+    "lib": ["es2020", "dom"],
     "allowJs": false,
     "declaration": true,
     "emitDeclarationOnly": false,

@@ -215,7 +215,7 @@ class Client {
       .get(url, {
         rest_route: '/'
       })
-      .then((response) => {
+      .then((response: Record<string, any>) => {
         if (isObject(response.routes)) {
           return response.routes['/']._links.self;
         }

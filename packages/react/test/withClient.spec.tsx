@@ -1,31 +1,18 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
-import { Provider, withClient, withClientData } from '../src';
+import Client from '@yllet/client'
+import { render } from '@testing-library/react';
+import { Provider, withClient } from '../src';
 
-const Foo = ({ client }:any) => <span>{client.test}</span>;
-const FooData = ({ data }:any) => <span>{data.test}</span>;
+const Foo = ({ client }:any) => <span>{client.options.endpoint}</span>;
 
 test('withClient', async () => {
-  const client = { test: 'client' };
+  const endpoint = 'http://wordpress.test/wp-json';
+  const client = new Client({ endpoint });
   const Connected = withClient(Foo);
   const wrapper = render(
     <Provider client={client}>
       <Connected />
     </Provider>
   );
-  expect(wrapper.getByText('client')).not.toBeUndefined();
-});
-
-test('withClientData', async () => {
-  const client = new Promise((resolve) => resolve({ test: 'client' }));
-
-  const Connected = withClientData((client:any) => client)(FooData);
-
-  const wrapper = render(
-    <Provider client={client}>
-      <Connected />
-    </Provider>
-  );
-
-  await waitFor(() => expect(wrapper.getByText('client')).not.toBeUndefined());
+  expect(wrapper.getByText(endpoint)).not.toBeUndefined();
 });

@@ -8,3 +8,4 @@ browserstack.err
 /index.js
 /test*
 /coverage
+tsconfig.tsbuildinfo

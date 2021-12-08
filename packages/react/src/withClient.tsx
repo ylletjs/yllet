@@ -1,25 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { Context } from './provider';
 
-const withClient = (Component: React.ComponentType) =>
-  class withClient extends React.Component {
-    /**
-     * withClient context types.
-     *
-     * @var {object}
-     */
-    static contextTypes = {
-      client: PropTypes.object.isRequired
-    };
-
-    /**
-     * Render component with client.
-     *
-     * @return {object}
-     */
-    render() {
-      return <Component {...this.props} {...this.context} />;
-    }
+const withClient =
+  (Component: React.ComponentType) =>
+  ({ ...props }) => {
+    const context = useContext(Context);
+    props.client = context.client;
+    return <Component {...props} />;
   };
 
 export default withClient;
