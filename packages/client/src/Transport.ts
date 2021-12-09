@@ -108,8 +108,6 @@ class Transport implements ITransport {
       }
     }
 
-    request.headers = new Headers(config.headers);
-
     return fetch(url, request).then((response) => {
       return response.json().then((data) => {
         if (!response.ok) {
