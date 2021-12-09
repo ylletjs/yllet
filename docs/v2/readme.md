@@ -1,7 +1,5 @@
 # Yllet docs v2
 
-> version 2.1.1
-
 Yllet is a set of packages for the WordPress API for both React and non-React projects. The client is built on top of fetch, you can add your own transport by creating it, you can read more [here](#transport-layers).
 
 Yllet comes with [tree-shakable](https://webpack.js.org/guides/tree-shaking/) ESM or CJS builds, that fits into the modern ES6 JavaScript ecosystem. All code are tiny and well tested with both unit and browser tests.
@@ -34,10 +32,10 @@ const client = new Client({
 client
   .posts()
   .get()
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 ```
@@ -93,10 +91,10 @@ client
   .namespace('wc/v2')
   .resource('products')
   .get()
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 
@@ -111,10 +109,10 @@ client.products = () =>
 client
   .products()
   .get()
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 ```
@@ -166,10 +164,10 @@ client
     slug: 'hello-world',
     perPage: 1 // or per_page
   })
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 ```
@@ -195,10 +193,10 @@ client
   .get({
     slug: 'hello-world'
   })
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 ```
@@ -218,10 +216,10 @@ client
   .create({
     title: 'Test image'
   })
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ', err);
   });
 ```
@@ -237,10 +235,10 @@ client
   .create({
     title: 'Test image'
   })
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ', err);
   });
 ```
@@ -275,10 +273,10 @@ const client = new Client({
 import Client from '@yllet/client';
 
 Client.discover('http://demo.wp-api.org/')
-  .then(url => {
+  .then((url) => {
     console.log(url);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ', err);
   });
 ```
