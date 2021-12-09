@@ -9,15 +9,18 @@
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "types": "dist/types",
   "files": [
     "README.md",
     "dist/"
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn build:cjs && yarn build:esm",
+    "build": "yarn build:cjs && yarn build:esm && yarn build:types",
     "build:cjs": "tsc --target es5 --module commonjs --outDir dist/cjs",
     "build:esm": "tsc --target es2020 --module es2020 --outDir dist/esm",
+    "build:types": "tsc --target es2020 --module es2020 --outDir dist/types --emitDeclarationOnly",
+    "postbuild": "rimraf dist/cjs/*.d.ts dist/esm/*.d.ts",
     "preversion": "yarn run build"
   },
   "bugs": {
