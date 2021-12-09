@@ -41,6 +41,7 @@ export const objectKeysToSnakeCase = (
     if (isObject(obj[current])) {
       obj[current] = objectKeysToSnakeCase(obj[current]);
     }
+
     if (obj[current] instanceof Array) {
       previous[toSnakeCase(current)] = obj[current].map(objectKeysToSnakeCase);
     } else {
