@@ -1,7 +1,6 @@
 {
   "name": "parcel-example",
   "dependencies": {
-    "@yllet/client": "^2.2.0",
-    "@yllet/react": "^2.2.0"
+    "@yllet/client": "^3.0.0"
   }
 }
