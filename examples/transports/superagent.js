@@ -5,7 +5,7 @@ class SuperagentTransport {
     this.superagent =
       typeof superagent === 'undefined' ? SuperagentClient : superagent;
 
-    ['post', 'get', 'put', 'patch', 'delete'].forEach(verb => {
+    ['post', 'get', 'put', 'delete'].forEach((verb) => {
       this[verb] = (url, data, config) => this.request(verb, url, data, config);
     });
   }
@@ -14,7 +14,7 @@ class SuperagentTransport {
     let request = this.superagent[verb](url);
 
     if (data) {
-      if ('PUT PATCH POST'.indexOf(verb.toUpperCase()) > -1) {
+      if (['PUT', 'POST'].includes(verb.toUpperCase())) {
         request = request.send(
           data instanceof FormData ? data : JSON.stringify(data)
         );
@@ -29,11 +29,11 @@ class SuperagentTransport {
       }
     }
 
-    Object.keys(config.headers).forEach(key => {
+    Object.keys(config.headers).forEach((key) => {
       request = request.set(key, config.headers[key]);
     });
 
-    return request.then(res => {
+    return request.then((res) => {
       return JSON.parse(res.text);
     });
   }

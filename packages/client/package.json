@@ -1,7 +1,7 @@
 {
   "name": "@yllet/client",
   "private": false,
-  "version": "2.2.0",
+  "version": "3.0.0-alpha.0",
   "repository": "ylletjs/yllet",
   "description": "JavaScript client for the WordPress REST API",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
@@ -13,28 +13,29 @@
     "isomorphic",
     "headless"
   ],
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "files": [
     "README.md",
-    "lib/"
+    "dist/"
   ],
   "bugs": {
     "url": "https://github.com/ylletjs/yllet/issues"
   },
   "scripts": {
-    "prebuild": "rimraf lib",
+    "prebuild": "rimraf dist",
     "build": "yarn build:cjs && yarn build:esm",
-    "build:cjs": "NODE_ENV=production BABEL_ENV=cjs babel --config-file ../../babel.config.js ./src --out-dir ./lib/cjs",
-    "build:esm": "NODE_ENV=production BABEL_ENV=esm babel --config-file ../../babel.config.js ./src --out-dir ./lib/esm",
+    "build:cjs": "tsc --target es5 --module commonjs --outDir dist/cjs && echo \"module.exports = exports.default;\" >> dist/cjs/index.js",
+    "build:esm": "tsc --target es2020 --module es2020 --outDir dist/esm",
     "preversion": "yarn run build"
   },
   "dependencies": {
-    "@yllet/support": "^2.2.0",
+    "@yllet/support": "^3.0.0-alpha.0",
     "isomorphic-form-data": "^2.0.0"
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/isomorphic-form-data": "2.0.0",
     "fetch-mock": "^9.11.0"
   },
   "gitHead": "a2a2a3d8db1a79d619928f935f18c1bd05c8622d",

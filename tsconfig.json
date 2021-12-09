@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "lib": ["es2020", "dom"],
+    "allowJs": false,
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "outDir": "dist/types",
+    "rootDirs": ["src"],
+    "noEmit": false,
+    "strict": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "baseUrl": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "composite": true
+  },
+  "exclude": ["packages/**/test/**", "packages/**/dist/**"],
+  "references": [
+    { "path": "./packages/client" },
+    { "path": "./packages/react" },
+    { "path": "./packages/support" }
+  ]
+}

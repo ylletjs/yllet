@@ -30,10 +30,10 @@ const client = new Client({
 client
   .posts()
   .get()
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 ```
@@ -99,10 +99,10 @@ Then you can just call `client.products()` like you do with `client.posts()`
 client
   .products()
   .get()
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 ```
@@ -118,10 +118,10 @@ client
     slug: 'hello-world',
     perPage: 1 // or per_page
   })
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 ```
@@ -147,10 +147,10 @@ client
   .get({
     slug: 'hello-world'
   })
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ' + err.message);
   });
 ```
@@ -170,10 +170,10 @@ client
   .create({
     title: 'Test image'
   })
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ', err);
   });
 ```
@@ -187,10 +187,10 @@ client
   .create({
     title: 'Test image'
   })
-  .then(res => {
+  .then((res) => {
     console.log(res.data);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ', err);
   });
 ```
@@ -201,10 +201,10 @@ client
 import Client from 'yllet';
 
 Client.discover('http://demo.wp-api.org/')
-  .then(url => {
+  .then((url) => {
     console.log(url);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('Error: ', err);
   });
 ```
