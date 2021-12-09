@@ -10,6 +10,7 @@
 
 - [Version 1](docs/v1)
 - [Version 2](docs/v2)
+- [Version 3](docs/v3)
 
 ## Contributing
 
