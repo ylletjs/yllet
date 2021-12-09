@@ -34,9 +34,7 @@ const toSnakeCase = (str: string): string =>
  *
  * @return {object}
  */
-export const objectKeysToSnakeCase = (
-  obj: Record<string, any>
-): Record<string, any> =>
+export const objectKeysToSnakeCase = (obj: Record<string, any>): Record<string, any> =>
   Object.keys(obj).reduce((previous, current) => {
     if (isObject(obj[current])) {
       obj[current] = objectKeysToSnakeCase(obj[current]);
@@ -97,19 +95,13 @@ export const qsEncode = (params: Record<string, any>, prefix = ''): string =>
  *
  * @return {object}
  */
-export const mergeObjects = (
-  target: Record<string, any>,
-  source: Record<string, any>
-) => {
+export const mergeObjects = (target: Record<string, any>, source: Record<string, any>) => {
   if (!isObject(target) && !isObject(source)) {
     return target;
   }
 
   for (const key in source) {
-    if (
-      source[key] === null &&
-      (target[key] === undefined || target[key] === null)
-    ) {
+    if (source[key] === null && (target[key] === undefined || target[key] === null)) {
       target[key] = null;
     } else if (source[key] instanceof Array) {
       if (!target[key]) {

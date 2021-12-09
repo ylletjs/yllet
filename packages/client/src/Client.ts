@@ -34,12 +34,12 @@ class Client {
     config: {},
     endpoint: '',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     namespace: 'wp/v2',
     nonce: '',
     resource: '',
-    restore: true
+    restore: true,
   };
 
   /**
@@ -64,7 +64,7 @@ class Client {
   constructor(options: string | Options = {}) {
     if (typeof options === 'string') {
       options = {
-        endpoint: options
+        endpoint: options,
       };
     }
 
@@ -85,14 +85,12 @@ class Client {
 
     if (!isObject(options.config)) {
       options.config = {
-        headers: {}
+        headers: {},
       };
     }
 
     // Set middlewares.
-    this.middlewares = Array.isArray(options.middlewares)
-      ? options.middlewares
-      : [];
+    this.middlewares = Array.isArray(options.middlewares) ? options.middlewares : [];
     delete options.middlewares;
 
     // Set transport.
@@ -102,7 +100,7 @@ class Client {
     // Merge headers and create config object.
     const headers = mergeObjects(
       options.config.headers,
-      mergeObjects(this.options.headers, options.headers || {})
+      mergeObjects(this.options.headers, options.headers || {}),
     );
     options.config = { ...options.config, headers: { ...headers } };
 
@@ -131,18 +129,12 @@ class Client {
     const { endpoint, namespace, resource } = this.options;
 
     const safePath = String(path || '');
-    const safeEndpoint =
-      endpoint.replace(namespace, '').replace(/\/$/, '') + '/';
+    const safeEndpoint = endpoint.replace(namespace, '').replace(/\/$/, '') + '/';
     const safeResource = resource.replace(/^\/|\/$/g, '');
-    const safeNamespace =
-      namespace.replace(/^\/|\/$/g, '') + (safeResource || safePath ? '/' : '');
+    const safeNamespace = namespace.replace(/^\/|\/$/g, '') + (safeResource || safePath ? '/' : '');
 
     return (
-      safeEndpoint +
-      safeNamespace +
-      safeResource +
-      (safeResource && safePath ? '/' : '') +
-      safePath
+      safeEndpoint + safeNamespace + safeResource + (safeResource && safePath ? '/' : '') + safePath
     );
   }
 
@@ -186,7 +178,7 @@ class Client {
         ...self.options,
         namespace,
         resource,
-        endpoint
+        endpoint,
       };
 
       if (!middleware) {
@@ -213,7 +205,7 @@ class Client {
   discover(url: string): Promise<string> {
     return this.transport
       .get(url, {
-        rest_route: '/'
+        rest_route: '/',
       })
       .then((response: Record<string, any>) => {
         if (isObject(response.routes)) {
@@ -458,7 +450,7 @@ class Client {
     return this.request('get', {
       ...params,
       per_page: 1,
-      slug
+      slug,
     }).then((res) => res[0]);
   }
 
@@ -519,11 +511,7 @@ class Client {
    *
    * @return {Promise}
    */
-  request(
-    verb: string,
-    path: string | Params = '',
-    params: Params = {}
-  ): Promise<any> {
+  request(verb: string, path: string | Params = '', params: Params = {}): Promise<any> {
     if (isObject(path)) {
       params = path as any;
       path = '';
@@ -534,7 +522,7 @@ class Client {
         const response = this.transport[verb.toLowerCase()](
           this._getUrl(path as string),
           this._getParams(params),
-          this.options.config
+          this.options.config,
         );
 
         resolve(response);

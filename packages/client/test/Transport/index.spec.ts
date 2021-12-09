@@ -29,8 +29,8 @@ describe('verbs', () => {
         endpoint,
         {},
         {
-          method: verb
-        }
+          method: verb,
+        },
       );
       transport[verb.toLocaleLowerCase()](endpoint);
       expect((fetchMock.calls() as any)[0][1].method).toEqual(verb);
@@ -51,17 +51,15 @@ describe('url', () => {
 describe('headers', () => {
   const config = {
     headers: {
-      'X-Foo': 'bar'
-    }
+      'X-Foo': 'bar',
+    },
   };
 
   verbs.forEach((verb) => {
     it(`${verb} sends correct headers`, () => {
       fetchMock.once(endpoint, {});
       transport[verb.toLocaleLowerCase()](endpoint, {}, config);
-      expect((fetchMock.calls() as any)[0][1].headers).toEqual(
-        new Headers(config.headers)
-      );
+      expect((fetchMock.calls() as any)[0][1].headers).toEqual(new Headers(config.headers));
     });
   });
 });
@@ -69,20 +67,20 @@ describe('headers', () => {
 describe('merge config', () => {
   const config = {
     foo: 'bar',
-    bar: 'foo'
+    bar: 'foo',
   };
 
   verbs.forEach((verb) => {
     let expected = {
       ...config,
       method: verb,
-      headers: new Headers()
+      headers: new Headers(),
     };
 
     if (['POST', 'PUT'].includes(verb)) {
       expected = {
         ...expected,
-        body: '{}'
+        body: '{}',
       } as any;
     }
 
@@ -103,15 +101,13 @@ describe('with data', () => {
         fetchMock.once('*', {});
         transport[verb.toLocaleLowerCase()](endpoint, data);
         expect((fetchMock.calls() as any)[0][0]).toBe(
-          endpoint + '?foo=bar&posts[]=21&posts[]=33&posts[]=150'
+          endpoint + '?foo=bar&posts[]=21&posts[]=33&posts[]=150',
         );
         expect((fetchMock.calls() as any)[0][1].body).toBe(undefined);
       } else {
         fetchMock.once('*', {});
         transport[verb.toLocaleLowerCase()](endpoint, data);
-        expect((fetchMock.calls() as any)[0][1].body).toEqual(
-          JSON.stringify(data)
-        );
+        expect((fetchMock.calls() as any)[0][1].body).toEqual(JSON.stringify(data));
       }
     });
   });
@@ -129,16 +125,12 @@ describe('with form data', () => {
           transport[verb.toLocaleLowerCase()](endpoint, formData);
         } catch (error: any) {
           expect(error instanceof TypeError).toBe(true);
-          expect(error.message).toBe(
-            'Unable to encode FormData for GET, DELETE requests'
-          );
+          expect(error.message).toBe('Unable to encode FormData for GET, DELETE requests');
         }
       } else {
         fetchMock.once(endpoint, {});
         transport[verb.toLocaleLowerCase()](endpoint, formData);
-        expect((fetchMock.calls() as any)[0][1].body instanceof FormData).toBe(
-          true
-        );
+        expect((fetchMock.calls() as any)[0][1].body instanceof FormData).toBe(true);
       }
     });
   });
@@ -173,18 +165,16 @@ describe('returns json', () => {
 describe('http exceptions', () => {
   const response = {
     status: 503,
-    body: { foo: 'bar' }
+    body: { foo: 'bar' },
   };
 
   verbs.forEach((verb) => {
     it(`${verb} throws http exceptions`, () => {
       fetchMock.once('*', response);
-      return transport[verb.toLocaleLowerCase()](endpoint).catch(
-        (error: any) => {
-          expect(error.toString()).toContain('HTTPError');
-          expect(error.response).toEqual({ foo: 'bar' });
-        }
-      );
+      return transport[verb.toLocaleLowerCase()](endpoint).catch((error: any) => {
+        expect(error.toString()).toContain('HTTPError');
+        expect(error.response).toEqual({ foo: 'bar' });
+      });
     });
   });
 });

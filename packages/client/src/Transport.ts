@@ -15,7 +15,7 @@ class Transport implements ITransport {
   delete(
     url: string,
     data: Record<string, any> | undefined = undefined,
-    config: Record<string, any> = {}
+    config: Record<string, any> = {},
   ): any {
     return this.request('delete', url, data, config);
   }
@@ -32,7 +32,7 @@ class Transport implements ITransport {
   get(
     url: string,
     data: Record<string, any> | undefined = undefined,
-    config: Record<string, any> = {}
+    config: Record<string, any> = {},
   ): any {
     return this.request('get', url, data, config);
   }
@@ -49,7 +49,7 @@ class Transport implements ITransport {
   post(
     url: string,
     data: Record<string, any> | undefined = undefined,
-    config: Record<string, any> = {}
+    config: Record<string, any> = {},
   ): any {
     return this.request('post', url, data, config);
   }
@@ -66,7 +66,7 @@ class Transport implements ITransport {
   put(
     url: string,
     data: Record<string, any> | undefined = undefined,
-    config: Record<string, any> = {}
+    config: Record<string, any> = {},
   ): any {
     return this.request('put', url, data, config);
   }
@@ -85,22 +85,19 @@ class Transport implements ITransport {
     verb: string,
     url: string,
     data: Record<string, any> | undefined = undefined,
-    config: Record<string, any> = {}
+    config: Record<string, any> = {},
   ): any {
     const request: RequestInit = {
       ...config,
-      method: verb.toUpperCase()
+      method: verb.toUpperCase(),
     };
 
     if (data) {
       if (['PUT', 'POST'].includes(verb.toUpperCase())) {
-        request.body =
-          data instanceof FormData ? (data as any) : JSON.stringify(data);
+        request.body = data instanceof FormData ? (data as any) : JSON.stringify(data);
       } else {
         if (data instanceof FormData) {
-          throw new TypeError(
-            'Unable to encode FormData for GET, DELETE requests'
-          );
+          throw new TypeError('Unable to encode FormData for GET, DELETE requests');
         }
 
         const qs = qsEncode(data);
