@@ -59,7 +59,7 @@ describe('headers', () => {
     it(`${verb} sends correct headers`, () => {
       fetchMock.once(endpoint, {});
       transport[verb.toLocaleLowerCase()](endpoint, {}, config);
-      expect((fetchMock.calls() as any)[0][1].headers).toEqual(new Headers(config.headers));
+      expect((fetchMock.calls() as any)[0][1].headers).toEqual(config.headers);
     });
   });
 });
@@ -74,7 +74,6 @@ describe('merge config', () => {
     let expected = {
       ...config,
       method: verb,
-      headers: new Headers(),
     };
 
     if (['POST', 'PUT'].includes(verb)) {
