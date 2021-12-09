@@ -11,7 +11,7 @@ export default class HTTPError extends Error {
    *
    * @var {object}
    */
-  response: any;
+  response: Record<string, any>;
 
   /**
    * HTTPError constructor.
