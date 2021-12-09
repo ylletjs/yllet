@@ -1,7 +1,7 @@
 {
   "name": "@yllet/react",
   "private": false,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "repository": "ylletjs/yllet",
   "description": "React bindings for Yllet",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
@@ -37,7 +37,7 @@
     "react": "*"
   },
   "dependencies": {
-    "@yllet/client": "^3.0.0",
+    "@yllet/client": "^3.0.1",
     "invariant": "^2.2.4",
     "prop-types": "^15.7.2"
   },
