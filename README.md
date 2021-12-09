@@ -1,6 +1,6 @@
 # Yllet
 
-[![Build Status](https://cloud.drone.io/api/badges/ylletjs/yllet/status.svg)](https://cloud.drone.io/ylletjs/yllet)
+[![Build Status](https://github.com/ylletjs/yllet/workflows/build/badge.svg)](https://github.com/ylletjs/yllet/actions)
 ![npm (scoped)](https://img.shields.io/npm/v/@yllet/client)
 ![npm bundle size (scoped version)](https://img.shields.io/bundlephobia/minzip/@yllet/client)
 <!--[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)-->
