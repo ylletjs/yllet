@@ -23,7 +23,6 @@
     "build": "lerna run build",
     "start": "lerna run start",
     "test": "jest packages/**",
-    "test:coverage": "yarn test --coverage",
     "postinstall": "lerna bootstrap",
     "lint": "eslint packages/**/src --ext .ts",
     "format": "prettier --write 'packages/**/src/**/*.ts*' packages/**/test/**/*.ts*"
