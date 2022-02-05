@@ -11,7 +11,7 @@
     "eslint": "^8.7.0",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.4.7",
-    "jest-mock": "27.4.6",
+    "jest-mock": "27.5.0",
     "lerna": "^4.0.0",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
