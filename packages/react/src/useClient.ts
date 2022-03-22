@@ -8,7 +8,7 @@ import { Context } from './provider';
  *
  * @param {object} options
  */
-const useClient = (options: Options = {}) => {
+const useClient = (options: string | Options = {}) => {
   const context = useContext(Context);
 
   if (context.client) {

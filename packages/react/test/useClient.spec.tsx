@@ -7,4 +7,10 @@ describe('useClient', () => {
     const { result } = renderHook(() => useClient({ endpoint }));
     expect(result.current.options.endpoint).toBe(endpoint);
   });
+
+  it('test useClient with string', () => {
+    const endpoint = 'https://demo.wp-api.org/wp-json';
+    const { result } = renderHook(() => useClient(endpoint));
+    expect(result.current.options.endpoint).toBe(endpoint);
+  });
 });
