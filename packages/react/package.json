@@ -46,7 +46,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/invariant": "2.2.35",
-    "@types/react": "^17.0.37",
+    "@types/react": "^17.0.43",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
