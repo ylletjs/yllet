@@ -47,6 +47,7 @@
     "@testing-library/react-hooks": "^8.0.0",
     "@types/invariant": "2.2.35",
     "@types/react": "^18.0.6",
+    "jest-environment-jsdom": "^28.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
