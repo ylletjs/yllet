@@ -5,18 +5,18 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@types/jest": "^27.4.1",
-    "@typescript-eslint/eslint-plugin": "^5.20.0",
-    "@typescript-eslint/parser": "^5.20.0",
+    "@types/jest": "^27.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
     "eslint": "^8.14.0",
     "isomorphic-fetch": "^3.0.0",
-    "jest": "^28.0.0",
-    "jest-mock": "28.0.0",
+    "jest": "^28.0.3",
+    "jest-mock": "28.0.2",
     "lerna": "^4.0.0",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.1.4",
-    "typescript": "^4.6.3"
+    "ts-jest": "^28.0.0",
+    "typescript": "^4.6.4"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
