@@ -48,8 +48,8 @@
     "@types/invariant": "2.2.35",
     "jest-environment-jsdom": "^28.1.1",
     "@types/react": "^18.0.12",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "license": "MIT",
   "gitHead": "a2a2a3d8db1a79d619928f935f18c1bd05c8622d",
