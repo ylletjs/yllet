@@ -10,7 +10,7 @@
     "@typescript-eslint/parser": "^5.30.0",
     "eslint": "^8.18.0",
     "isomorphic-fetch": "^3.0.0",
-    "jest": "^28.1.1",
+    "jest": "^28.1.2",
     "jest-mock": "28.1.1",
     "lerna": "^4.0.0",
     "prettier": "^2.7.1",
