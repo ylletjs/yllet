@@ -38,7 +38,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/isomorphic-form-data": "2.0.0",
+    "@types/isomorphic-form-data": "2.0.1",
     "fetch-mock": "^9.11.0"
   },
   "gitHead": "a2a2a3d8db1a79d619928f935f18c1bd05c8622d",
