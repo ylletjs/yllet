@@ -1636,11 +1636,12 @@
   resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.35.tgz#cd3ebf581a6557452735688d8daba6cf0bd5a3be"
   integrity sha512-DxX1V9P8zdJPYQat1gHyY0xj3efl8gnMVjiM9iCY6y27lj+PoQWkgjt8jDqmovPqULkKVpKRg8J36iQiA+EtEg==
 
-"@types/isomorphic-form-data@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/isomorphic-form-data/-/isomorphic-form-data-2.0.1.tgz#95f2d15bc30d27637540c3ae0bb9a7d165c49fcf"
-  integrity sha512-NzITl9Q3wZhJ6hq3JLQ51cGFyaYZgPdTaSk5mH42nNkCBJxT+DPWyzZ4ihCGO9WcaslQ/0VxpnR5LZnpPxZhfg==
+"@types/isomorphic-form-data@2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@types/isomorphic-form-data/-/isomorphic-form-data-2.0.4.tgz#4e7b08fd0032bc17bc3b1a5bc99d34528fc0798b"
+  integrity sha512-7BQtdud1j5b3V6hodyNxFBwCltJdfDI7QnmR5jrWv14ZC90o/wNAL9HaG0TBxtvQk9Kfhk94eej4n1qKsnsrEA==
   dependencies:
+    "@types/node" "*"
     form-data "^2.5.1"
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
